@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:sendatrack/src/screens/Cards/cards_screen.dart';
+import 'package:sendatrack/screens/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       "Login",
                       style: TextStyle(
-                          color: Color(0xFF4D70A6),
+                          color: Color(0xff369FFF),
                           fontSize: 26,
                           fontWeight: FontWeight.bold),
                     ),
@@ -62,15 +62,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     Stack(
                       children: <Widget>[
                         TextField(
-                          style: TextStyle(color: Color(0xFF4D70A6)),
+                          style: TextStyle(color: Color(0xff369FFF)),
                           decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Color(0xFF4D70A6), width: 2),
+                                    color: Color(0xff369FFF), width: 2),
                               ),
                               labelText: "Username",
                               labelStyle: TextStyle(
-                                  color: Color(0xFF4D70A6), fontSize: 14)),
+                                  color: Color(0xff369FFF), fontSize: 14)),
                         ),
                         Positioned(
                           right: 1,
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 boxShadow: [
                                   BoxShadow(
                                       offset: Offset(5, 5),
-                                      color: Color(0xFF4D70A6).withOpacity(0.2),
+                                      color: Color(0xff369FFF).withOpacity(0.2),
                                       blurRadius: 16),
                                   BoxShadow(
                                       offset: Offset(-10, -10),
@@ -94,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ]),
                             child: Icon(
                               Icons.check,
-                              color: Color(0xFF4D70A6),
+                              color: Color(0xff369FFF),
                             ),
                           ),
                         ),
@@ -104,15 +104,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: ScreenUtil().setHeight(100),
                     ),
                     TextField(
-                      style: TextStyle(color: Color(0xFF4D70A6)),
+                      style: TextStyle(color: Color(0xff369FFF)),
                       decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: Color(0xFF4D70A6), width: 2),
+                                BorderSide(color: Color(0xff369FFF), width: 2),
                           ),
                           labelText: "Password",
                           labelStyle: TextStyle(
-                              color: Color(0xFF4D70A6), fontSize: 14)),
+                              color: Color(0xff369FFF), fontSize: 14)),
                     ),
                     SizedBox(
                       height: ScreenUtil().setHeight(70),
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 /*boxShadow: [
                             BoxShadow(
                                 offset: Offset(5, 5),
-                                color: Color(0xFF4D70A6).withOpacity(0.2),
+                                color: Color(0xff369FFF).withOpacity(0.2),
                                 blurRadius: 16),
                             BoxShadow(
                                 offset: Offset(-10, -10),
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(
                           "Forgot Password?",
                           style: TextStyle(
-                            color: Color(0xFF4D70A6),
+                            color: Color(0xff369FFF),
                             fontSize: 14,
                           ),
                         ),
@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CardsScreen()));
+                            builder: (context) => MainScreen()));
                       },
                       child: Container(
                         width: double.infinity,
@@ -168,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             boxShadow: [
                               BoxShadow(
                                   offset: Offset(10, 10),
-                                  color: Color(0xFF4D70A6).withOpacity(0.2),
+                                  color: Color(0xff369FFF).withOpacity(0.2),
                                   blurRadius: 16),
                               BoxShadow(
                                   offset: Offset(-10, -10),
@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           "Login",
                           style:
-                              TextStyle(color: Color(0xFF4D70A6), fontSize: 16),
+                              TextStyle(color: Color(0xff369FFF), fontSize: 16),
                         ),
                       ),
                     ),
@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(color: Colors.grey)),
                           TextSpan(
                               text: " Sign Up",
-                              style: TextStyle(color: Color(0xFF4D70A6))),
+                              style: TextStyle(color: Color(0xff369FFF))),
                         ]),
                       ),
                     )
@@ -210,7 +210,7 @@ class _LoginScreenState extends State<LoginScreen> {
           boxShadow: [
             BoxShadow(
                 offset: Offset(10, 10),
-                color: Color(0xFF4D70A6).withOpacity(0.2),
+                color: Color(0xff369FFF).withOpacity(0.2),
                 blurRadius: 16),
             BoxShadow(
                 offset: Offset(-10, -10),
@@ -219,7 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ]),
       child: Icon(
         icon,
-        color: Color(0xFF4D70A6),
+        color: Color(0xff369FFF),
       ),
     );
   }

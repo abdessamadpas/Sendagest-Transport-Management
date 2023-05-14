@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sendatrack/src/screens/login/login_screen.dart';
+import 'package:sendatrack/screens/login_screen.dart';
 
 void main() => runApp(MyApp());
 
