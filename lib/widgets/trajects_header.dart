@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../constant.dart';
 
-class PlaningHeader extends StatelessWidget {
-  const PlaningHeader({Key? key}) : super(key: key);
+class TrajectsHeader extends StatelessWidget {
+  const TrajectsHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,11 @@ class PlaningHeader extends StatelessWidget {
         Row(
           children: const [
             Text(
-              "Planning ",
+              "Trajects ",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             Text(
-              "View All",
+              "Filters",
               style: TextStyle(color: kDarkBlue, height: 2),
             )
           ],

@@ -1,8 +1,8 @@
 import 'package:sendatrack/data/data.dart';
 import 'package:flutter/material.dart';
 
-class PlaningGrid extends StatelessWidget {
-  const PlaningGrid({Key? key}) : super(key: key);
+class ProjectsGrid extends StatelessWidget {
+  const ProjectsGrid({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +47,19 @@ class PlaningGrid extends StatelessWidget {
                         planing[index].heading,
                         maxLines: 1,
                         style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.035,
+                            fontSize: MediaQuery.of(context).size.width * 0.038,
                             fontWeight: FontWeight.bold,
                             overflow: TextOverflow.ellipsis),
                       ),
                       Text(
-                        planing[index].subHeading,
+                        planing[index].subHeadingTime,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: MediaQuery.of(context).size.width * 0.03,
+                        ),
+                      ),
+                      Text(
+                        planing[index].subHeadingDriver,
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: MediaQuery.of(context).size.width * 0.03,

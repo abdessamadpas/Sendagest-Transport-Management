@@ -182,18 +182,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    Center(
-                      child: RichText(
-                        text: TextSpan(children: <TextSpan>[
-                          TextSpan(
-                              text: "Don't have an account?",
-                              style: TextStyle(color: Colors.grey)),
-                          TextSpan(
-                              text: " Sign Up",
-                              style: TextStyle(color: Color(0xff369FFF))),
-                        ]),
-                      ),
-                    )
                   ],
                 )),
           ),

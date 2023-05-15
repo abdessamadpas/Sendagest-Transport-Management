@@ -1,118 +1,115 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:sendatrack/screens/components/chart_container.dart';
 import 'package:sendatrack/widgets/activity_header.dart';
 import 'package:sendatrack/widgets/bar_chart.dart';
 import 'package:sendatrack/widgets/courses_grid.dart';
-import 'package:sendatrack/widgets/planing_grid.dart';
+import 'package:sendatrack/widgets/projects_grid.dart';
 import 'package:sendatrack/widgets/statistics_grid.dart';
-import 'package:flutter/material.dart';
-
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import '../constant.dart';
-import '../widgets/planing_header.dart';
+import '../widgets/trajects_header.dart';
 import '../screens/components/side_menu.dart';
+import 'trajects_screen.dart';
+import 'package:sendatrack/screens/components/home_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.grey, size: 28),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-              color: Colors.grey,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.notifications,
-              color: Colors.grey,
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 5, right: 16, bottom: 5),
-            child: const CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "https://images.unsplash.com/photo-1500522144261-ea64433bbe27?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTh8fHdvbWVufGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60"),
-            ),
-          )
-        ],
-      ),
-      drawer: const SideMenu(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              RichText(
-                text: const TextSpan(
-                  text: "Hello ",
-                  style: TextStyle(color: kDarkBlue, fontSize: 20),
-                  children: [
-                    TextSpan(
-                      text: "PAS",
-                      style: TextStyle(
-                          color: kDarkBlue, fontWeight: FontWeight.bold),
-                    ),
-                    TextSpan(
-                      text: ", welcome back!",
-                    ),
-                  ],
+    return DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            iconTheme: const IconThemeData(color: Colors.grey, size: 28),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.grey,
                 ),
               ),
-              const SizedBox(
-                height: 15,
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.notifications,
+                  color: Colors.grey,
+                ),
               ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Text(
-                "Statistics",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const StatisticsGrid(),
-              const SizedBox(
-                height: 15,
-              ),
-              const ActivityHeader(),
-              const SizedBox(
-                height: 8,
-              ),
-              const Text(
-                "completed trajects",
-                style: TextStyle(
-                    fontSize: 13,
-                    color: kDarkBlue,
-                    fontWeight: FontWeight.w500),
-              ),
-              const ChartContainer(chart: BarChartContent()),
-              const SizedBox(
-                height: 8,
-              ),
-              const Text(
-                "completed trajects",
-                style: TextStyle(
-                    fontSize: 13,
-                    color: kDarkBlue,
-                    fontWeight: FontWeight.w500),
-              ),
-              const ChartContainer(chart: BarChartContent())
+              Container(
+                margin: const EdgeInsets.only(top: 5, right: 16, bottom: 5),
+                child: const CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://images.unsplash.com/photo-1500522144261-ea64433bbe27?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTh8fHdvbWVufGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60"),
+                ),
+              )
+            ],
+            bottom: TabBar(
+                indicatorColor: Color.fromARGB(255, 52, 64, 171),
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorWeight: 3,
+                tabs: [
+                  Tab(
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFF4D70A6).withOpacity(.2),
+                        boxShadow: const [
+                          BoxShadow(
+                            offset: Offset(-20, -20),
+                            blurRadius: 60,
+                            color: Colors.white,
+                            inset: true,
+                          ),
+                          BoxShadow(
+                            offset: Offset(20, 20),
+                            color: Color(0xFFF1F3F6),
+                            spreadRadius: -12.0,
+                            blurRadius: 12.0,
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        FontAwesomeIcons.home,
+                        color: Color(0xFF4D70A6),
+                      ),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "trajects",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "Planing",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ]),
+          ),
+          backgroundColor: Colors.white,
+          drawer: const SideMenu(),
+          body: TabBarView(
+            children: [
+              Home(),
+              Trajects(),
+              test('context'),
             ],
           ),
-        ),
-      ),
-    );
+        ));
   }
+
+  Widget test(String text) => Center(
+        child: Text(text),
+      );
 }
