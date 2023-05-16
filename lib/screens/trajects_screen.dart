@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:sendatrack/widgets/trajects_header.dart';
 import '../widgets/projects_grid.dart';

@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:sendatrack/data/data.dart';
 import 'package:flutter/material.dart';
+import 'package:sendatrack/screens/details_trajects.dart';
 
 class ProjectsGrid extends StatelessWidget {
   const ProjectsGrid({Key? key}) : super(key: key);
@@ -70,11 +73,22 @@ class ProjectsGrid extends StatelessWidget {
                   const Spacer(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.more_vert,
-                        color: Colors.grey,
-                      )
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Detail_traject()));
+                        },
+                        child: IconButton(
+                          onPressed: null,
+                          icon: Icon(
+                            Icons.more_vert,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
                     ],
                   )
                 ],
