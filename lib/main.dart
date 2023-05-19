@@ -11,8 +11,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Bank App Neomorphism",
+    return const MaterialApp(
+      title: "sendaTrack",
       debugShowCheckedModeBanner: false,
       home: LoginScreen(),
     );

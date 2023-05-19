@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/screens/main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -46,14 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: socialButton(FontAwesomeIcons.facebookF),
+                          child: socialButton(FontAwesomeIcons.barcode),
                         ),
-                        SizedBox(
-                          width: ScreenUtil().setWidth(60),
-                        ),
-                        Expanded(
-                          child: socialButton(FontAwesomeIcons.google),
-                        )
                       ],
                     ),
                     SizedBox(
@@ -62,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Stack(
                       children: <Widget>[
                         TextField(
-                          style: TextStyle(color: Color(0xff369FFF)),
+                          style: TextStyle(color: kDarkBlue),
                           decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
@@ -104,15 +99,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: ScreenUtil().setHeight(100),
                     ),
                     TextField(
-                      style: TextStyle(color: Color(0xff369FFF)),
+                      style: TextStyle(color: kDarkBlue),
                       decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide:
                                 BorderSide(color: Color(0xff369FFF), width: 2),
                           ),
                           labelText: "Password",
-                          labelStyle: TextStyle(
-                              color: Color(0xff369FFF), fontSize: 14)),
+                          labelStyle:
+                              TextStyle(color: kDarkBlue, fontSize: 14)),
                     ),
                     SizedBox(
                       height: ScreenUtil().setHeight(70),
@@ -143,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(
                           "Forgot Password?",
                           style: TextStyle(
-                            color: Color(0xff369FFF),
+                            color: kDarkBlue,
                             fontSize: 14,
                           ),
                         ),
@@ -175,10 +170,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Color.fromARGB(170, 255, 255, 255),
                                   blurRadius: 10),
                             ]),
-                        child: Text(
+                        child: const Text(
                           "Login",
-                          style:
-                              TextStyle(color: Color(0xff369FFF), fontSize: 16),
+                          style: TextStyle(color: kDarkBlue, fontSize: 16),
                         ),
                       ),
                     ),

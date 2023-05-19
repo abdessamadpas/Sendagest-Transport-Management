@@ -113,7 +113,7 @@ final List<Planing> planing = [
 final List<Statistics> statistics = [
   Statistics(
     title: "trajects pending",
-    number: "00",
+    number: "50",
   ),
   Statistics(
     title: "Total trajects Completed",

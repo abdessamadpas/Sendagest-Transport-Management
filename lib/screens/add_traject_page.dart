@@ -8,6 +8,7 @@ import 'package:sendatrack/widgets/textFormField.dart';
 import '../constant.dart';
 import 'package:blurry/blurry.dart';
 import 'package:sendatrack/screens/main_screen.dart';
+import 'package:sendatrack/widgets/test.dart';
 
 class AddTraject extends StatefulWidget {
   const AddTraject({super.key});
@@ -70,10 +71,6 @@ class _nameState extends State<AddTraject> {
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
               child: Column(
                 children: [
-                  InputForm(),
-                  SizedBox(
-                    height: 10,
-                  ),
                   InputForm(),
                   SizedBox(
                     height: 20,

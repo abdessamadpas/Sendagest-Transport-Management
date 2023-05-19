@@ -28,7 +28,7 @@ class _TrajectsState extends State<Trajects> {
               const SizedBox(
                 height: 20,
               ),
-              const ProjectsGrid()
+              const ProjectsGrid(),
             ],
           ),
         ),

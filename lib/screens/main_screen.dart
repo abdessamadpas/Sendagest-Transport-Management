@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 4,
+        length: 3,
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -61,38 +61,82 @@ class MainScreen extends StatelessWidget {
                       height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFF4D70A6).withOpacity(.2),
+                        color: kDarkBlue.withOpacity(.1),
                         boxShadow: const [
                           BoxShadow(
                             offset: Offset(-20, -20),
                             blurRadius: 60,
-                            color: Colors.white,
+                            color: Color.fromRGBO(255, 255, 255, 0.675),
                             inset: true,
                           ),
                           BoxShadow(
-                            offset: Offset(20, 20),
-                            color: Color(0xFFF1F3F6),
-                            spreadRadius: -12.0,
+                            offset: Offset(8, 20),
+                            color: kDarkBlue,
+                            spreadRadius: -13.0,
                             blurRadius: 12.0,
                           ),
                         ],
                       ),
                       child: Icon(
-                        FontAwesomeIcons.home,
-                        color: Color(0xFF4D70A6),
+                        FontAwesomeIcons.house,
+                        color: kDarkBlue,
                       ),
                     ),
                   ),
                   Tab(
-                    child: Text(
-                      "trajects",
-                      style: TextStyle(color: Colors.grey),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kDarkBlue.withOpacity(.1),
+                        boxShadow: const [
+                          BoxShadow(
+                            offset: Offset(-20, -20),
+                            blurRadius: 60,
+                            color: Color.fromRGBO(255, 255, 255, 0.675),
+                            inset: true,
+                          ),
+                          BoxShadow(
+                            offset: Offset(8, 20),
+                            color: kDarkBlue,
+                            spreadRadius: -13.0,
+                            blurRadius: 12.0,
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        FontAwesomeIcons.mapMarkedAlt,
+                        color: kDarkBlue,
+                      ),
                     ),
                   ),
                   Tab(
-                    child: Text(
-                      "Planing",
-                      style: TextStyle(color: Colors.grey),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kDarkBlue.withOpacity(.1),
+                        boxShadow: const [
+                          BoxShadow(
+                            offset: Offset(-20, -20),
+                            blurRadius: 60,
+                            color: Color.fromRGBO(255, 255, 255, 0.675),
+                            inset: true,
+                          ),
+                          BoxShadow(
+                            offset: Offset(8, 20),
+                            color: kDarkBlue,
+                            spreadRadius: -13.0,
+                            blurRadius: 12.0,
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        FontAwesomeIcons.car,
+                        color: kDarkBlue,
+                      ),
                     ),
                   ),
                 ]),
