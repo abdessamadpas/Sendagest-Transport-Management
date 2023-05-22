@@ -1,14 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:sendatrack/screens/main_screen.dart';
 import 'package:sendatrack/widgets/textFormField.dart';
 import '../constant.dart';
 import 'package:blurry/blurry.dart';
-import 'package:sendatrack/screens/main_screen.dart';
-import 'package:sendatrack/widgets/test.dart';
 
 class AddTraject extends StatefulWidget {
   const AddTraject({super.key});
@@ -34,7 +30,7 @@ class _nameState extends State<AddTraject> {
         elevation: 0,
         backgroundColor: Colors.white.withAlpha(200),
         title: const Text('Add Traject',
-            style: TextStyle(color: kDarkBlue, fontWeight: FontWeight.w800)),
+            style: TextStyle(color: DarkBlueTest, fontWeight: FontWeight.w800)),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),

@@ -54,6 +54,7 @@ dependencies:
   circular_countdown_timer: 0.2.1
   intl: 0.17.0
   syncfusion_flutter_calendar: 20.1.61
+  gap: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

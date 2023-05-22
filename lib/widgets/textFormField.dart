@@ -22,9 +22,7 @@ class _InputFormState extends State<InputForm> {
             child: Text(
               'Add Traject',
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: Color.fromARGB(185, 0, 0, 0),
-                  fontWeight: FontWeight.w800),
+              style: TextStyle(color: kDarkBlue, fontWeight: FontWeight.w800),
             ),
           ),
           SizedBox(
@@ -34,11 +32,11 @@ class _InputFormState extends State<InputForm> {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
               width: MediaQuery.of(context).size.width / 1.1,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Color.fromARGB(77, 146, 217, 255),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: TextFormField(
-                cursorColor: Colors.black,
+                cursorColor: Color.fromARGB(197, 83, 182, 221),
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,

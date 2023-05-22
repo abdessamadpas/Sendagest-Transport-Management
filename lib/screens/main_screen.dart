@@ -3,7 +3,6 @@
 import 'package:sendatrack/screens/components/chart_container.dart';
 import 'package:sendatrack/widgets/activity_header.dart';
 import 'package:sendatrack/widgets/bar_chart.dart';
-import 'package:sendatrack/widgets/courses_grid.dart';
 import 'package:sendatrack/widgets/projects_grid.dart';
 import 'package:sendatrack/widgets/statistics_grid.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
@@ -14,6 +13,7 @@ import 'trajects_screen.dart';
 import 'package:sendatrack/screens/components/home_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:sendatrack/screens/cars.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -23,6 +23,7 @@ class MainScreen extends StatelessWidget {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
+          backgroundColor: Color.fromARGB(255, 255, 255, 255),
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -51,9 +52,11 @@ class MainScreen extends StatelessWidget {
               )
             ],
             bottom: TabBar(
-                indicatorColor: Color.fromARGB(255, 52, 64, 171),
+                indicatorColor: kDarkBlue,
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorWeight: 3,
+                // indicator: CircleTabIndicator(color: kDarkBlue, radius: 3),
+                indicator: DotTabIndicator(color: Colors.blue),
                 tabs: [
                   Tab(
                     child: Container(
@@ -70,10 +73,10 @@ class MainScreen extends StatelessWidget {
                             inset: true,
                           ),
                           BoxShadow(
-                            offset: Offset(8, 20),
+                            offset: Offset(8, 2),
                             color: kDarkBlue,
                             spreadRadius: -13.0,
-                            blurRadius: 12.0,
+                            blurRadius: 10.0,
                           ),
                         ],
                       ),
@@ -98,10 +101,10 @@ class MainScreen extends StatelessWidget {
                             inset: true,
                           ),
                           BoxShadow(
-                            offset: Offset(8, 20),
+                            offset: Offset(8, 2),
                             color: kDarkBlue,
                             spreadRadius: -13.0,
-                            blurRadius: 12.0,
+                            blurRadius: 10.0,
                           ),
                         ],
                       ),
@@ -126,10 +129,10 @@ class MainScreen extends StatelessWidget {
                             inset: true,
                           ),
                           BoxShadow(
-                            offset: Offset(8, 20),
+                            offset: Offset(8, 2),
                             color: kDarkBlue,
                             spreadRadius: -13.0,
-                            blurRadius: 12.0,
+                            blurRadius: 10.0,
                           ),
                         ],
                       ),
@@ -141,13 +144,12 @@ class MainScreen extends StatelessWidget {
                   ),
                 ]),
           ),
-          backgroundColor: Colors.white,
           drawer: const SideMenu(),
           body: TabBarView(
             children: [
               Home(),
               Trajects(),
-              test('context'),
+              Cars(),
             ],
           ),
         ));
@@ -156,4 +158,32 @@ class MainScreen extends StatelessWidget {
   Widget test(String text) => Center(
         child: Text(text),
       );
+}
+
+class DotTabIndicator extends Decoration {
+  final Color color;
+
+  DotTabIndicator({required this.color});
+
+  @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+    return _DotTabIndicatorPainter(color: color);
+  }
+}
+
+class _DotTabIndicatorPainter extends BoxPainter {
+  final Paint _paint;
+
+  _DotTabIndicatorPainter({required Color color})
+      : _paint = Paint()
+          ..color = color
+          ..style = PaintingStyle.fill;
+
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+    final rect = offset & configuration.size!;
+    final center = Offset(rect.center.dx, rect.bottom - 6);
+
+    canvas.drawCircle(center, 4, _paint);
+  }
 }

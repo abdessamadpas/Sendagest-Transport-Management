@@ -1,9 +1,5 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:sendatrack/data/data.dart';
 import 'package:flutter/material.dart';
-import 'package:sendatrack/screens/details_trajects.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sendatrack/widgets/line_dash.dart';
 import 'package:sendatrack/constant.dart';
@@ -15,7 +11,7 @@ class ProjectsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return GridView.builder(
-        itemCount: planing.length,
+        itemCount: trajects.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -23,24 +19,33 @@ class ProjectsGrid extends StatelessWidget {
         itemBuilder: (context, index) {
           return Container(
             decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(15.0), // Adjust the radius as needed
-                // border: Border.all(
-                //     width: 1.0, color: Colors.grey), // Optional: Add a border
-                color: Color.fromARGB(57, 155, 222, 255)),
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  kDarkBlue,
+                  Color.fromARGB(255, 255, 255, 255),
+                ],
+              ),
+              borderRadius:
+                  BorderRadius.circular(16.0), // Adjust the radius as needed
+              // border: Border.all(
+              //     width: 1.0, color: Colors.grey), // Optional: Add a border
+              color: Color.fromARGB(57, 155, 222, 255),
+            ),
             padding: EdgeInsets.all(5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                  padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         width: width * 0.66,
                         height: 200.h,
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         //color: Color.fromARGB(255, 247, 122, 76),
                         child: FractionallySizedBox(
                           child: Column(
@@ -82,7 +87,7 @@ class ProjectsGrid extends StatelessWidget {
                             width: 95.w,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: const [
                                 Text(
                                   'D',
                                   style: TextStyle(
@@ -157,7 +162,7 @@ class ProjectsGrid extends StatelessWidget {
                         children: [
                           Container(
                             child: Row(
-                              children: [
+                              children: const [
                                 Icon(
                                   Icons.av_timer_outlined,
                                   color: kDarkBlue,
@@ -172,7 +177,7 @@ class ProjectsGrid extends StatelessWidget {
                           ),
                           Container(
                             child: Row(
-                              children: [
+                              children: const [
                                 Icon(
                                   Icons.date_range_rounded,
                                   color: kDarkBlue,
