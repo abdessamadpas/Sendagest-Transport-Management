@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
           appBar: AppBar(
@@ -46,6 +46,7 @@ class MainScreen extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 5, right: 16, bottom: 5),
                 child: const CircleAvatar(
+                  radius: 20,
                   backgroundImage: NetworkImage(
                       "https://images.unsplash.com/photo-1500522144261-ea64433bbe27?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTh8fHdvbWVufGVufDB8MHwwfHw%3D&auto=format&fit=crop&w=500&q=60"),
                 ),
@@ -142,15 +143,39 @@ class MainScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Tab(
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kDarkBlue.withOpacity(.1),
+                        boxShadow: const [
+                          BoxShadow(
+                            offset: Offset(-20, -20),
+                            blurRadius: 60,
+                            color: Color.fromRGBO(255, 255, 255, 0.675),
+                            inset: true,
+                          ),
+                          BoxShadow(
+                            offset: Offset(8, 2),
+                            color: kDarkBlue,
+                            spreadRadius: -13.0,
+                            blurRadius: 10.0,
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        Icons.assignment,
+                        color: kDarkBlue,
+                      ),
+                    ),
+                  ),
                 ]),
           ),
           drawer: const SideMenu(),
           body: TabBarView(
-            children: [
-              Home(),
-              Trajects(),
-              Cars(),
-            ],
+            children: [Home(), Trajects(), Cars(), test('text')],
           ),
         ));
   }

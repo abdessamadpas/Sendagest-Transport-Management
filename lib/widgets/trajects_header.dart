@@ -1,9 +1,32 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sendatrack/widgets/custom_date_range_picker.dart';
 
 import '../constant.dart';
 
-class TrajectsHeader extends StatelessWidget {
-  const TrajectsHeader({Key? key}) : super(key: key);
+class TrajectsHeader extends StatefulWidget {
+  const TrajectsHeader({super.key});
+
+  @override
+  State<TrajectsHeader> createState() => _TrajectsHeaderState();
+}
+
+class _TrajectsHeaderState extends State<TrajectsHeader> {
+  DateTime? startDate = null;
+  DateTime? endDate = null;
+
+  String castDate(startDate, endDate) {
+    if (startDate == null && endDate == null) {
+      return "${DateTime.now().day}/${DateTime.now().month} ";
+    } else if (startDate == null) {
+      return "Select Start Date";
+    } else if (endDate == null) {
+      return "Select End Date";
+    }
+    List<String> start = startDate.toString().split(" ").first.split("-");
+    List<String> end = endDate.toString().split(" ").first.split("-");
+    return "${start[1]}/${start[2]} - ${end[1]}/${end[2]}";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +46,7 @@ class TrajectsHeader extends StatelessWidget {
           ],
         ),
         Row(
-          children: const [
+          children: [
             Icon(
               Icons.calendar_month_outlined,
               color: Colors.grey,
@@ -31,13 +54,49 @@ class TrajectsHeader extends StatelessWidget {
             SizedBox(
               width: 5,
             ),
-            Text(
-              "18 July 2022",
-              style: TextStyle(
+            TextButton(
+              onPressed: null,
+              child: Text(
+                "Today",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                showCustomDateRangePicker(
+                  context,
+                  dismissible: true,
+                  minimumDate:
+                      DateTime.now().subtract(const Duration(days: 50000)),
+                  maximumDate: DateTime.now().add(const Duration(days: 50000)),
+                  endDate: endDate,
+                  startDate: startDate,
+                  backgroundColor: Colors.white,
+                  primaryColor: kDarkBlue,
+                  onApplyClick: (start, end) {
+                    setState(() {
+                      endDate = end;
+                      startDate = start;
+                    });
+                    debugPrint('debug: $startDate  + $endDate');
+                  },
+                  onCancelClick: () {
+                    setState(() {
+                      endDate = null;
+                      startDate = null;
+                    });
+                  },
+                );
+              },
+              child: Text(
+                castDate(startDate, endDate),
+                style: const TextStyle(
                   fontSize: 16,
                   color: kDarkBlue,
                   height: 2,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             )
           ],
         ),

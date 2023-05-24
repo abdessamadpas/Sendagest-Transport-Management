@@ -49,13 +49,13 @@ class _CarsHeaderState extends State<CarsHeader> {
             Container(
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: kLightBlue,
+                color: Color.fromARGB(255, 241, 241, 241),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(
                 Icons.rotate_left_rounded,
-                color: Colors.grey,
-                size: 20,
+                color: Color.fromARGB(255, 0, 0, 0),
+                size: 25,
               ),
             ),
             const Gap(20),
