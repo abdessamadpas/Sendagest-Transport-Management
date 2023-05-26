@@ -12,7 +12,7 @@ class FactureGrid extends StatefulWidget {
 }
 
 class _FactureGridState extends State<FactureGrid> {
-  bool isLoading = false;
+  bool isLoading = true;
   List<Facture> invoicesList = [];
 
   @override
@@ -25,7 +25,7 @@ class _FactureGridState extends State<FactureGrid> {
   Future<void> fetchInvoices() async {
     try {
       List<Facture> data = await InvoiceService.getInvoices();
-      // print(data);
+      print(data);
       setState(() {
         isLoading = false;
 
@@ -43,8 +43,9 @@ class _FactureGridState extends State<FactureGrid> {
             child: CircularProgressIndicator(),
           )
         : GridView.builder(
+            // ! this is the grid view that needs to be dynamic
             //! length needs to be dynamic
-            itemCount: invoicesList.length > 0 ? invoicesList.length : 2,
+            itemCount: invoicesList.length > 0 ? invoicesList.length : 0,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -82,7 +83,9 @@ class _FactureGridState extends State<FactureGrid> {
                               // etat de la facture (positif ou negatif)
                               child: Image.asset("images/invoiceNegatif.png")),
                         ),
-                        Text("data")
+                        Text(invoicesList[index].NumFacture,
+                            style: const TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold)),
                       ]),
                 ),
               );
