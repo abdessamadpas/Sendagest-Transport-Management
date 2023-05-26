@@ -5,7 +5,8 @@ import 'package:sendatrack/widgets/custom_date_range_picker.dart';
 import '../constant.dart';
 
 class TrajectsHeader extends StatefulWidget {
-  const TrajectsHeader({super.key});
+  final String? headerName;
+  const TrajectsHeader({required this.headerName, super.key});
 
   @override
   State<TrajectsHeader> createState() => _TrajectsHeaderState();
@@ -34,12 +35,15 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
-          children: const [
+          children: [
             Text(
-              "Trajects ",
+              widget.headerName ?? "",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            Text(
+            SizedBox(
+              width: 5,
+            ),
+            const Text(
               "Filters",
               style: TextStyle(color: kDarkBlue, height: 2),
             )

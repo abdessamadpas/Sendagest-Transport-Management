@@ -91,7 +91,7 @@ class _ProjectsGridState extends State<ProjectsGrid> {
             child: CircularProgressIndicator(),
           )
         : GridView.builder(
-            //! lenght needs to be dynamic
+            //! length needs to be dynamic
             itemCount: trajectsList.length,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,

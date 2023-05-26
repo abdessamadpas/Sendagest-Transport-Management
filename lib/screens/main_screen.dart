@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:sendatrack/screens/components/chart_container.dart';
+import 'package:sendatrack/screens/facture_screen.dart';
+
 import 'package:sendatrack/widgets/activity_header.dart';
 import 'package:sendatrack/widgets/bar_chart.dart';
 import 'package:sendatrack/widgets/projects_grid.dart';
@@ -175,14 +177,10 @@ class MainScreen extends StatelessWidget {
           ),
           drawer: const SideMenu(),
           body: TabBarView(
-            children: [Home(), Trajects(), Cars(), test('text')],
+            children: [Home(), Trajects(), Cars(), Facture()],
           ),
         ));
   }
-
-  Widget test(String text) => Center(
-        child: Text(text),
-      );
 }
 
 class DotTabIndicator extends Decoration {

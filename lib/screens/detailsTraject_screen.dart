@@ -33,6 +33,12 @@ class _DetailsTrajectState extends State<DetailsTraject>
   late TabController _tabController;
   String? _mapStyle;
 
+  List getCities(String libelleTrajet) {
+    List<String> cities =
+        libelleTrajet.split(">").map((city) => city.trim()).toList();
+    return cities;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,39 +67,54 @@ class _DetailsTrajectState extends State<DetailsTraject>
             flex: 1,
             child: Container(
               margin: EdgeInsets.only(top: 10.h),
-              padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+              padding: const EdgeInsets.only(left: 5, right: 5),
               child: Column(children: [
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 163, 218, 255)
-                                .withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3),
+                widget.traject.Statut == "DEMARRER"
+                    ? Expanded(
+                        flex: 3,
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(25.0),
+                                  bottomRight: Radius.circular(25.0)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromARGB(255, 163, 218, 255)
+                                      .withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            height: 200,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(25.0),
+                              child: GoogleMap(
+                                //remove google logo
+                                mapToolbarEnabled: false,
+                                //remove zoom button
+
+                                zoomControlsEnabled: false,
+                                //remove location button
+                                myLocationButtonEnabled: false,
+                                onMapCreated: _onMapCreated,
+                                initialCameraPosition: CameraPosition(
+                                  target: _center,
+                                  zoom: 8.0,
+                                ),
+                                markers: Set<Marker>.from([]),
+                              ),
+                            )))
+                    : SafeArea(
+                        child: Container(
+                          child: Text(
+                            widget.traject.Num_Trajet,
+                            style: TextStyle(
+                                fontSize: 50.sp, fontWeight: FontWeight.bold),
                           ),
-                        ],
-                      ),
-                      height: 200,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(25.0),
-                        child: GoogleMap(
-                          zoomControlsEnabled: false,
-                          //remove location button
-                          myLocationButtonEnabled: false,
-                          onMapCreated: _onMapCreated,
-                          initialCameraPosition: CameraPosition(
-                            target: _center,
-                            zoom: 8.0,
-                          ),
-                          markers: Set<Marker>.from([]),
                         ),
-                      )),
-                ),
+                      ),
                 // const SizedBox(
                 //   height: 10,
                 // ),
@@ -101,7 +122,7 @@ class _DetailsTrajectState extends State<DetailsTraject>
                   flex: 7,
                   child: Container(
                     padding:
-                        EdgeInsets.only(left: 35.w, right: 35.w, top: 10.h),
+                        EdgeInsets.only(left: 35.w, right: 35.w, top: 30.h),
                     child: Column(
                       children: [
                         Row(
@@ -111,21 +132,6 @@ class _DetailsTrajectState extends State<DetailsTraject>
                               "trip details",
                               style: TextStyle(
                                   fontSize: 40.sp, fontWeight: FontWeight.bold),
-                            ),
-                            Row(
-                              children: [
-                                Text("See all",
-                                    style: TextStyle(
-                                        fontSize: 40.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black)),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.arrow_forward_sharp),
-                                  color: Colors.black,
-                                  iconSize: 20,
-                                ),
-                              ],
                             ),
                           ],
                         ),
@@ -170,12 +176,12 @@ class _DetailsTrajectState extends State<DetailsTraject>
                                               fontWeight: FontWeight.bold),
                                         )),
                                         Expanded(
-                                            child: Text("time start",
+                                            child: Text(widget.traject.Vehicule,
                                                 style: TextStyle(
                                                   fontSize: 40.sp,
                                                 ))),
                                         Expanded(
-                                            child: Text("truck number",
+                                            child: Text(widget.traject.Remorque,
                                                 style: TextStyle(
                                                   fontSize: 40.sp,
                                                 ))),
@@ -262,11 +268,16 @@ class _DetailsTrajectState extends State<DetailsTraject>
                             //     ],
                             //   ),
                             // ),
+                            //! see all button arg : cities
                             GestureDetector(
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(builder: (context) {
-                                    return PointsTrajectScreen();
+                                    return PointsTrajectScreen(
+                                      cities: getCities(
+                                          widget.traject.libelletrajet),
+                                      numName: widget.traject.Num_Trajet,
+                                    );
                                   }),
                                 );
                               },
@@ -291,15 +302,18 @@ class _DetailsTrajectState extends State<DetailsTraject>
 
                         //? current schedule list
                         Expanded(
-                            child: Container(
-                          child: SingleChildScrollView(
+                          child: Container(
+                            child: SingleChildScrollView(
                               child: Column(
-                            children: const [
-                              TrajectPoint(),
-                              TrajectPoint(),
-                            ],
-                          )),
-                        ))
+                                children:
+                                    getCities(widget.traject.libelletrajet)
+                                        .map((city) {
+                                  return TrajectPoint(city: city);
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -317,63 +331,108 @@ class _DetailsTrajectState extends State<DetailsTraject>
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),
-                child: Container(
-                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        TextButton(
-                          style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  const EdgeInsets.fromLTRB(50, 15, 50, 15)),
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(0, 255, 255, 255)),
-                              backgroundColor:
-                                  MaterialStateProperty.all(TestColor),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(22.0),
+                child: widget.traject.Statut == "DEMARRER"
+                    ? null
+                    : widget.traject.Statut == "ENCOURS"
+                        ? Container(
+                            padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                TextButton(
+                                  style: ButtonStyle(
+                                      padding:
+                                          MaterialStateProperty.all<EdgeInsets>(
+                                              const EdgeInsets.fromLTRB(
+                                                  50, 15, 50, 15)),
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Color.fromARGB(0, 255, 255, 255)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(TestColor),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(22.0),
+                                        ),
+                                      )),
+                                  onPressed: () {},
+                                  child: const Text('Confirm',
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255))),
                                 ),
-                              )),
-                          onPressed: () {},
-                          child: const Text('Confirm',
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 255, 255, 255))),
-                        ),
-                        TextButton(
-                          style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  const EdgeInsets.fromLTRB(50, 15, 50, 15)),
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  Color.fromARGB(0, 255, 255, 255)),
-                              backgroundColor:
-                                  MaterialStateProperty.all(TestColor),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(22.0),
+                                TextButton(
+                                  style: ButtonStyle(
+                                      padding:
+                                          MaterialStateProperty.all<EdgeInsets>(
+                                              const EdgeInsets.fromLTRB(
+                                                  50, 15, 50, 15)),
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Color.fromARGB(0, 255, 255, 255)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(TestColor),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(22.0),
+                                        ),
+                                      )),
+                                  onPressed: () {},
+                                  child: const Text('Cancel',
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255))),
                                 ),
-                              )),
-                          onPressed: () {},
-                          child: const Text('Cancel',
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 255, 255, 255))),
-                        ),
-                      ],
-                    ))),
+                              ],
+                            ))
+                        : widget.traject.Statut == "CONFIRMER"
+                            ? Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                                child: TextButton(
+                                  style: ButtonStyle(
+                                      padding:
+                                          MaterialStateProperty.all<EdgeInsets>(
+                                              const EdgeInsets.fromLTRB(
+                                                  50, 10, 50, 10)),
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Color.fromARGB(0, 255, 255, 255)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(TestColor),
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(22.0),
+                                        ),
+                                      )),
+                                  onPressed: () {},
+                                  child: const Text('Cancel',
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255))),
+                                ),
+                              )
+                            : null),
           ),
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: AppBar(
-              backgroundColor: Colors.transparent,
+              backgroundColor: Color.fromARGB(0, 255, 255, 255),
               elevation: 0,
               leading: IconButton(
                 onPressed: () {
