@@ -3,6 +3,9 @@ import 'package:sendatrack/constant.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sendatrack/services/facture.dart';
 import 'package:sendatrack/model/facture_model.dart';
+import 'package:sendatrack/screens/factureDetail_screen.dart';
+
+import 'package:gap/gap.dart';
 
 class FactureGrid extends StatefulWidget {
   const FactureGrid({super.key});
@@ -25,10 +28,8 @@ class _FactureGridState extends State<FactureGrid> {
   Future<void> fetchInvoices() async {
     try {
       List<Facture> data = await InvoiceService.getInvoices();
-      print(data);
       setState(() {
         isLoading = false;
-
         invoicesList = data;
       });
     } catch (error) {
@@ -43,18 +44,24 @@ class _FactureGridState extends State<FactureGrid> {
             child: CircularProgressIndicator(),
           )
         : GridView.builder(
-            // ! this is the grid view that needs to be dynamic
             //! length needs to be dynamic
             itemCount: invoicesList.length > 0 ? invoicesList.length : 0,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 19 / 4.1,
+                childAspectRatio: 15 / 4.1,
                 crossAxisCount: 1,
                 mainAxisSpacing: 20),
             itemBuilder: (context, index) {
               return InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FactureDetailScreen(
+                                facture: invoicesList[index],
+                              )));
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     // gradient: const LinearGradient(
@@ -69,23 +76,87 @@ class _FactureGridState extends State<FactureGrid> {
                         16.0), // Adjust the radius as needed
                     // border: Border.all(
                     //     width: 1.0, color: Colors.grey), // Optional: Add a border
-                    color: Color.fromARGB(57, 155, 222, 255),
+                    color: Color.fromARGB(194, 231, 249, 255),
                   ),
-                  padding: EdgeInsets.all(5),
+                  padding:
+                      EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                   child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          width: 170.w,
-                          height: 170.h,
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50.0),
-                              // etat de la facture (positif ou negatif)
-                              child: Image.asset("images/invoiceNegatif.png")),
+                        Expanded(
+                          child: Container(
+                              padding: EdgeInsets.only(top: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                      child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          color:
+                                              invoicesList[index].EtatFacture ==
+                                                      "ANNULER"
+                                                  ? kRed
+                                                  : invoicesList[index]
+                                                              .EtatFacture ==
+                                                          "NONREGLE"
+                                                      ? kOrange
+                                                      : kGreen,
+                                        ),
+                                        width: 100.w,
+                                        height: 25.h,
+                                      ),
+                                      const Gap(10),
+                                      Text(invoicesList[index].NumFacture,
+                                          style: const TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w400))
+                                    ],
+                                  )),
+                                  const Gap(5),
+                                  Expanded(
+                                      child: Text(invoicesList[index].Societ,
+                                          style: const TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold))),
+                                  const Gap(10),
+                                  Expanded(
+                                      child: Text(
+                                          invoicesList[index].DateFacure,
+                                          style: const TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 170, 170, 170),
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w400))),
+                                ],
+                              )),
                         ),
-                        Text(invoicesList[index].NumFacture,
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                        const Gap(15),
+                        Container(
+                          // padding: EdgeInsets.only(top: 10),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                    '${invoicesList[index].TotalHT}  ${invoicesList[index].Devises}',
+                                    style: const TextStyle(
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold)),
+                                const Gap(10),
+                                invoicesList[index].EtatFacture == 'NONREGLE'
+                                    ? const Text(' 32 days',
+                                        style: TextStyle(
+                                            color: kRed,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold))
+                                    : Container(),
+                              ]),
+                        ),
                       ]),
                 ),
               );

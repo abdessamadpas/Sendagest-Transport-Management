@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:sendatrack/widgets/custom_date_range_picker.dart';
+import 'package:sendatrack/widgets/dropdown.dart';
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import '../constant.dart';
 
 class TrajectsHeader extends StatefulWidget {
@@ -33,23 +37,120 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               widget.headerName ?? "",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
-            const Text(
-              "Filters",
-              style: TextStyle(color: kDarkBlue, height: 2),
-            )
+            const Gap(10),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+                foregroundColor: Colors.black54,
+                shadowColor: Colors.transparent,
+                elevation: 0.0,
+              ).copyWith(
+                elevation: ButtonStyleButton.allOrNull(0.0),
+              ),
+              child: const Text('Filter',
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold)),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Center(
+                        child: Expanded(
+                            child: Container(
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(255, 118, 165, 247)
+                                .withOpacity(1),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      width: 300,
+                      height: 390,
+                      padding: EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Filter",
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                          const Gap(10),
+                          const DropDownInput(),
+                          const Gap(10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          color:
+                                              Color.fromARGB(137, 53, 131, 247),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      padding: const EdgeInsets.only(
+                                          left: 30,
+                                          right: 30,
+                                          top: 15,
+                                          bottom: 15),
+                                      child: const Text('Cancel',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255))))),
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          color:
+                                              Color.fromARGB(255, 54, 134, 247),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      padding: const EdgeInsets.only(
+                                          left: 30,
+                                          right: 30,
+                                          top: 15,
+                                          bottom: 15),
+                                      child: const Text('Apply',
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255))))),
+                            ],
+                          )
+                        ],
+                      ),
+                    )));
+                  },
+                );
+              },
+            ),
           ],
         ),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(
               Icons.calendar_month_outlined,

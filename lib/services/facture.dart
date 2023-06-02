@@ -10,15 +10,14 @@ class InvoiceService {
   static Future<List<Facture>> getInvoices() async {
     try {
       final response = await http.get(Uri.parse(url));
-      print(response.body);
       if (response.statusCode == 200) {
         final List<dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse.map((item) => Facture.fromJson(item)).toList();
       } else {
-        throw Exception('in server response');
+        throw Exception('Failed to load facture from API');
       }
     } catch (e) {
-      throw Exception('Failed to load data outside of sser $e');
+      throw Exception('error fetching data $e');
       ;
     }
   }
