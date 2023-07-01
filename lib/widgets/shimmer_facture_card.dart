@@ -67,7 +67,7 @@ class Shimmer_facture_card extends StatelessWidget {
                   ),
                   BoxCustom(
                     height: 17,
-                    width: 80,
+                    width: 110,
                   ),
                 ],
               )
