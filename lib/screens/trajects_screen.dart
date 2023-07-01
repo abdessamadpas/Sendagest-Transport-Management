@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+// import 'dart:js_util';
+
 import 'package:flutter/material.dart';
 import 'package:sendatrack/widgets/trajects_header.dart';
 import '../widgets/projects_grid.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/screens/add_traject_page.dart';
+import 'package:sendatrack/model/filter_facture_model.dart';
 
 class Trajects extends StatefulWidget {
   const Trajects({super.key});
@@ -14,6 +17,14 @@ class Trajects extends StatefulWidget {
 }
 
 class _TrajectsState extends State<Trajects> {
+  FiltrageFactureModel? updatedFilter;
+
+  void callBackForFilter(FiltrageFactureModel filter) {
+    setState(() {
+      updatedFilter = filter;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +35,8 @@ class _TrajectsState extends State<Trajects> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const TrajectsHeader(headerName: 'Trajects'),
+              TrajectsHeader(
+                  headerName: 'Trajects', callBackForFilter: callBackForFilter),
               const SizedBox(
                 height: 20,
               ),

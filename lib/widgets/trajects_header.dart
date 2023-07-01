@@ -1,16 +1,19 @@
+import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/widgets/custom_date_range_picker.dart';
-import 'package:sendatrack/widgets/dropdown.dart';
-
+import 'package:sendatrack/model/filter_facture_model.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:sendatrack/widgets/filter-trajects.dart';
 import '../constant.dart';
 
 class TrajectsHeader extends StatefulWidget {
   final String? headerName;
-  const TrajectsHeader({required this.headerName, super.key});
+  final Function callBackForFilter;
+  const TrajectsHeader(
+      {required this.headerName, required this.callBackForFilter, super.key});
 
   @override
   State<TrajectsHeader> createState() => _TrajectsHeaderState();
@@ -19,6 +22,33 @@ class TrajectsHeader extends StatefulWidget {
 class _TrajectsHeaderState extends State<TrajectsHeader> {
   DateTime? startDate = null;
   DateTime? endDate = null;
+
+  //for the form
+  List<String> genderItems = [
+    'Pendding',
+    'Approved',
+    'Rejected',
+  ];
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController _controllerClient = TextEditingController();
+  TextEditingController _controllerFacture = TextEditingController();
+  String? selectedStatus;
+
+  FiltrageFactureModel filterSelected = FiltrageFactureModel(
+      NumFacture: "",
+      Societ: "",
+      DateFacure: "",
+      EtatFacture: "",
+      startDate: null,
+      endDate: null);
+
+  void handlerChange() {
+    filterSelected.EtatFacture = selectedStatus ?? "";
+    filterSelected.NumFacture = _controllerFacture.text;
+    filterSelected.Societ = _controllerClient.text;
+    widget.callBackForFilter(filterSelected);
+  }
 
   String castDate(startDate, endDate) {
     if (startDate == null && endDate == null) {
@@ -90,13 +120,14 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
                       child: Column(
                         children: [
                           const Text(
-                            "Filter",
+                            "Filters",
                             style: TextStyle(
                                 fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           const Gap(10),
-                          const DropDownInput(),
-                          const Gap(10),
+                          Traject_Filters(),
+                          //! get data form this widget
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -134,10 +165,15 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
                                           right: 30,
                                           top: 15,
                                           bottom: 15),
-                                      child: const Text('Apply',
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 255, 255, 255))))),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          handlerChange();
+                                        },
+                                        child: const Text("Apply",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255))),
+                                      ))),
                             ],
                           )
                         ],
@@ -152,14 +188,14 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.calendar_month_outlined,
               color: Colors.grey,
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
-            TextButton(
+            const TextButton(
               onPressed: null,
               child: Text(
                 "Today",

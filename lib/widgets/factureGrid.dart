@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sendatrack/services/facture.dart';
 import 'package:sendatrack/model/facture_model.dart';
 import 'package:sendatrack/screens/factureDetail_screen.dart';
-
+import 'package:sendatrack/model/filter_facture_model.dart';
 import 'package:gap/gap.dart';
+import 'package:sendatrack/widgets/shimmer_facture_card.dart';
 
 class FactureGrid extends StatefulWidget {
   const FactureGrid({super.key});
@@ -38,10 +39,45 @@ class _FactureGridState extends State<FactureGrid> {
     }
   }
 
+  void runFilter(FiltrageFactureModel filteredObject) {
+    List<Facture> results = [];
+    if (filteredObject == null) {
+      results = invoicesList;
+    } else {
+      results = invoicesList
+          .where((invoice) => invoice.NumFacture != null
+              ? invoice.NumFacture.toLowerCase()
+                  .contains(filteredObject.NumFacture)
+              : true && invoice.Societ != null
+                  ? invoice.Societ.toLowerCase().contains(filteredObject.Societ)
+                  : true && invoice.DateFacure != null
+                      ? invoice.DateFacure.toLowerCase()
+                          .contains(filteredObject.DateFacure)
+                      : true && invoice.EtatFacture != null
+                          ? invoice.EtatFacture.toLowerCase()
+                              .contains(filteredObject.EtatFacture)
+                          : true)
+          .toList();
+    }
+    // Refresh the UI
+    setState(() {
+      invoicesList = results;
+    });
+  }
+
   Widget build(BuildContext context) {
     return isLoading
-        ? const Center(
-            child: CircularProgressIndicator(),
+        ? GridView.builder(
+            itemCount: 6,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 15 / 4.1,
+                crossAxisCount: 1,
+                mainAxisSpacing: 20),
+            itemBuilder: (context, index) {
+              return Shimmer_facture_card();
+            },
           )
         : GridView.builder(
             //! length needs to be dynamic
@@ -64,18 +100,7 @@ class _FactureGridState extends State<FactureGrid> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    // gradient: const LinearGradient(
-                    //   begin: Alignment.topLeft,
-                    //   end: Alignment.bottomRight,
-                    //   colors: [
-                    //     kDarkBlue,
-                    //     Color.fromARGB(255, 255, 255, 255),
-                    //   ],
-                    // ),
-                    borderRadius: BorderRadius.circular(
-                        16.0), // Adjust the radius as needed
-                    // border: Border.all(
-                    //     width: 1.0, color: Colors.grey), // Optional: Add a border
+                    borderRadius: BorderRadius.circular(16.0),
                     color: Color.fromARGB(194, 231, 249, 255),
                   ),
                   padding:
@@ -137,7 +162,6 @@ class _FactureGridState extends State<FactureGrid> {
                         ),
                         const Gap(15),
                         Container(
-                          // padding: EdgeInsets.only(top: 10),
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [

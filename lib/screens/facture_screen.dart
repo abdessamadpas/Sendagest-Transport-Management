@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/trajects_header.dart';
 import '../widgets/factureGrid.dart';
+import 'package:sendatrack/model/filter_facture_model.dart';
 
 class Facture extends StatefulWidget {
   const Facture({super.key});
@@ -10,6 +11,13 @@ class Facture extends StatefulWidget {
 }
 
 class _FactureState extends State<Facture> {
+  FiltrageFactureModel? updatedFilter;
+  void callBackForFilter(FiltrageFactureModel filter) {
+    setState(() {
+      updatedFilter = filter;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +27,10 @@ class _FactureState extends State<Facture> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              TrajectsHeader(headerName: 'Facture'),
-              SizedBox(
+            children: [
+              TrajectsHeader(
+                  headerName: 'Facture', callBackForFilter: callBackForFilter),
+              const SizedBox(
                 height: 20,
               ),
               FactureGrid()
