@@ -23,14 +23,6 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
   DateTime? startDate = null;
   DateTime? endDate = null;
 
-  //for the form
-  List<String> genderItems = [
-    'Pendding',
-    'Approved',
-    'Rejected',
-  ];
-  final _formKey = GlobalKey<FormState>();
-
   TextEditingController _controllerClient = TextEditingController();
   TextEditingController _controllerFacture = TextEditingController();
   String? selectedStatus;

@@ -440,15 +440,21 @@ class CustomCalendarState extends State<CustomCalendar> {
   void onDateClick(DateTime date) {
     if (startDate == null) {
       startDate = date;
+    } else if (endDate == null) {
+      endDate = date;
+    } else if (startDate == null && endDate == date) {
+      endDate = null;
     } else if (startDate != date && endDate == null) {
       endDate = date;
-    } else if (startDate!.day == date.day && startDate!.month == date.month) {
+    } else if (endDate != date && startDate == null) {
+      startDate = date;
+    } else if (startDate!.day == date.day &&
+        startDate!.month == date.month &&
+        startDate!.year == date.year) {
       startDate = null;
-    } else if (endDate!.day == date.day && endDate!.month == date.month) {
-      endDate = null;
-    }
-    if (startDate == null && endDate != null) {
-      startDate = endDate;
+    } else if (endDate!.day == date.day &&
+        endDate!.month == date.month &&
+        endDate!.year == date.year) {
       endDate = null;
     }
     if (startDate != null && endDate != null) {
