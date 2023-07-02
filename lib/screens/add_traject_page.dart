@@ -5,19 +5,15 @@ import 'package:sendatrack/screens/main_screen.dart';
 import 'package:sendatrack/widgets/textFormField.dart';
 import '../constant.dart';
 import 'package:blurry/blurry.dart';
+import 'package:get/get.dart';
+import '../controllers/addTraject.dart';
 
-class AddTraject extends StatefulWidget {
-  const AddTraject({super.key});
-
-  @override
-  State<AddTraject> createState() => _nameState();
-}
-
-class _nameState extends State<AddTraject> {
+class AddTraject extends GetView<AddTrajectController> {
+  final AddTrajectController controller = Get.put(AddTrajectController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      // extendBodyBehindAppBar: true,
       appBar: AppBar(
         flexibleSpace: ClipRect(
           child: BackdropFilter(
@@ -60,50 +56,56 @@ class _nameState extends State<AddTraject> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
-              child: Column(
-                children: [
-                  InputForm(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InputForm(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InputForm(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InputForm(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InputForm(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InputForm(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InputForm(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InputForm(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InputForm(),
-                ],
-              )),
-        ),
-      ),
+      body: Obx(() => Stepper(
+            type: StepperType.horizontal,
+            steps: buildStep(),
+            currentStep: controller.currentStep.value,
+            onStepContinue: () {
+              if (controller.currentStep.value == buildStep().length - 1) {
+                print("Send data to server");
+              } else {
+                controller.currentStep.value++;
+              }
+            },
+            onStepCancel: () {
+              controller.currentStep.value == 0
+                  ? null
+                  : controller.currentStep.value--;
+            },
+            onStepTapped: (index) {
+              controller.currentStep.value = index;
+            },
+          )),
     );
+  }
+
+  List<Step> buildStep() {
+    return [
+      Step(
+          title: Text('traject details'),
+          content: Container(
+              height: 100, color: Colors.red, child: Text('traject details')),
+          isActive: controller.currentStep.value >= 0,
+          state: controller.currentStep.value > 0
+              ? StepState.complete
+              : StepState.indexed),
+      Step(
+          title: Text('driver'),
+          content: Container(
+            height: 100,
+            color: Colors.green,
+          ),
+          isActive: controller.currentStep.value >= 1,
+          state: controller.currentStep.value > 1
+              ? StepState.complete
+              : StepState.indexed),
+      Step(
+          title: Text('steps'),
+          content: Container(
+            height: 100,
+            color: Colors.deepPurpleAccent,
+          ),
+          isActive: controller.currentStep.value >= 2)
+    ];
   }
 }
