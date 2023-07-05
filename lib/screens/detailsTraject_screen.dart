@@ -10,6 +10,7 @@ import 'dart:convert';
 import 'package:sendatrack/widgets/verticalDashedLine.dart';
 import 'package:sendatrack/screens/components/trajectPoint.dart';
 import 'package:sendatrack/screens/trajectPoints_screen.dart';
+import 'package:get/get.dart';
 
 class DetailsTraject extends StatefulWidget {
   final Traject traject;
@@ -271,15 +272,21 @@ class _DetailsTrajectState extends State<DetailsTraject>
                             //! see all button arg : cities
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (context) {
-                                    return PointsTrajectScreen(
-                                      cities: getCities(
-                                          widget.traject.libelletrajet),
-                                      numName: widget.traject.Num_Trajet,
-                                    );
-                                  }),
-                                );
+                                Get.to(PointsTrajectScreen(
+                                  cities:
+                                      getCities(widget.traject.libelletrajet),
+                                  numName: widget.traject.Num_Trajet,
+                                ));
+
+                                // Navigator.of(context).push(
+                                //   MaterialPageRoute(builder: (context) {
+                                //     return PointsTrajectScreen(
+                                //       cities: getCities(
+                                //           widget.traject.libelletrajet),
+                                //       numName: widget.traject.Num_Trajet,
+                                //     );
+                                //   }),
+                                // );
                               },
                               child: Container(
                                 padding:

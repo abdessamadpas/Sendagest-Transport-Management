@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/screens/main_screen.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -149,8 +150,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => MainScreen()));
+                        Get.off(MainScreen());
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (context) => MainScreen()));
                       },
                       child: Container(
                         width: double.infinity,
