@@ -35,26 +35,6 @@ class AddTraject extends GetView<AddTrajectController> {
             Navigator.pop(context);
           },
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Blurry.info(
-                title: 'add traject',
-                description:
-                    'are you sure you want to add this traject to your list ?',
-                confirmButtonText: 'Confirm',
-                onConfirmButtonPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MainScreen()));
-                },
-                barrierColor: Colors.white.withOpacity(0.7),
-                dismissable: false,
-              ).show(context);
-            },
-            child: const Text('Save',
-                style: TextStyle(color: Colors.black, fontSize: 16)),
-          ),
-        ],
       ),
       body: Obx(() => Stepper(
             type: StepperType.horizontal,
@@ -75,6 +55,31 @@ class AddTraject extends GetView<AddTrajectController> {
             onStepTapped: (index) {
               controller.currentStep.value = index;
             },
+            controlsBuilder:
+                (BuildContext context, ControlsDetails controlsDetails) {
+              return Row(
+                children: [
+                  if (controlsDetails.onStepContinue != null &&
+                      controller.currentStep.value < buildStep().length - 1)
+                    ElevatedButton(
+                      onPressed: controlsDetails.onStepContinue,
+                      child: Icon(Icons.arrow_forward),
+                    ),
+                  if (controlsDetails.onStepContinue != null &&
+                      controller.currentStep.value == buildStep().length - 1)
+                    ElevatedButton(
+                      onPressed: controlsDetails.onStepContinue,
+                      child: Icon(Icons.check),
+                    ),
+                  if (controlsDetails.onStepCancel != null &&
+                      controller.currentStep.value > 0)
+                    ElevatedButton(
+                      onPressed: controlsDetails.onStepCancel,
+                      child: Icon(Icons.arrow_back),
+                    ),
+                ],
+              );
+            },
           )),
     );
   }
@@ -82,30 +87,53 @@ class AddTraject extends GetView<AddTrajectController> {
   List<Step> buildStep() {
     return [
       Step(
-          title: Text('traject details'),
-          content: Container(
-              height: 100, color: Colors.red, child: Text('traject details')),
-          isActive: controller.currentStep.value >= 0,
-          state: controller.currentStep.value > 0
-              ? StepState.complete
-              : StepState.indexed),
+        title: CustomStepTitle(
+          icon: Icon(Icons.person),
+          text: Text('Step 1'),
+        ),
+        content: Text('Content of Step 1'),
+        isActive: true,
+        state: StepState.indexed,
+      ),
       Step(
-          title: Text('driver'),
-          content: Container(
-            height: 100,
-            color: Colors.green,
-          ),
-          isActive: controller.currentStep.value >= 1,
-          state: controller.currentStep.value > 1
-              ? StepState.complete
-              : StepState.indexed),
+        title: CustomStepTitle(
+          icon: Icon(Icons.business),
+          text: Text('Step 2'),
+        ),
+        content: Text('Content of Step 2'),
+        isActive: true,
+        state: StepState.indexed,
+      ),
       Step(
-          title: Text('steps'),
-          content: Container(
-            height: 100,
-            color: Colors.deepPurpleAccent,
-          ),
-          isActive: controller.currentStep.value >= 2)
+        title: CustomStepTitle(
+          icon: Icon(Icons.check_circle),
+          text: Text('Step 3'),
+        ),
+        content: Text('Content of Step 3'),
+        isActive: true,
+        state: StepState.indexed,
+      ),
     ];
+  }
+}
+
+class CustomStepTitle extends StatelessWidget {
+  final Icon icon;
+  final Text text;
+
+  const CustomStepTitle({
+    required this.icon,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        icon,
+        SizedBox(width: 8),
+        text,
+      ],
+    );
   }
 }

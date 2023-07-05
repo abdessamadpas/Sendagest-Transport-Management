@@ -52,7 +52,10 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
     }
     List<String> start = startDate.toString().split(" ").first.split("-");
     List<String> end = endDate.toString().split(" ").first.split("-");
-    return "${start[1]}/${start[2]} - ${end[1]}/${end[2]}";
+    if (start[0] == end[0] && start[1] == end[1] && start[2] == end[2]) {
+      return "${start[2]}/${start[1]}";
+    }
+    return "${start[2]}/${start[1]} - ${end[2]}/${end[1]}";
   }
 
   @override
@@ -179,6 +182,7 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.calendar_month_outlined,
@@ -187,14 +191,19 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
             const SizedBox(
               width: 5,
             ),
-            const TextButton(
-              onPressed: null,
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  endDate = null;
+                  startDate = null;
+                });
+              },
               child: Text(
                 "Today",
                 style: TextStyle(color: Colors.grey),
               ),
             ),
-            TextButton(
+            TextButton( 
               onPressed: () {
                 showCustomDateRangePicker(
                   context,
