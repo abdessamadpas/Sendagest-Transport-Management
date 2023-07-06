@@ -8,6 +8,8 @@ import '../widgets/projects_grid.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/screens/add_traject_page.dart';
 import 'package:sendatrack/model/filter_facture_model.dart';
+import 'package:get/get.dart';
+import '../controllers/traject_controller.dart';
 
 class Trajects extends StatefulWidget {
   const Trajects({super.key});
@@ -18,6 +20,7 @@ class Trajects extends StatefulWidget {
 
 class _TrajectsState extends State<Trajects> {
   FiltrageFactureModel? updatedFilter;
+  final TrajectsController controller = Get.put(TrajectsController());
 
   void callBackForFilter(FiltrageFactureModel filter) {
     setState(() {

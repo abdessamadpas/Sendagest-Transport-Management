@@ -7,6 +7,8 @@ import 'package:sendatrack/widgets/line_dash.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/services/trajects.dart';
 import 'package:sendatrack/screens/detailsTraject_screen.dart';
+import '../controllers/traject_controller.dart';
+import 'package:get/get.dart';
 
 class ProjectsGrid extends StatefulWidget {
   const ProjectsGrid({super.key});
@@ -15,84 +17,19 @@ class ProjectsGrid extends StatefulWidget {
 }
 
 class _ProjectsGridState extends State<ProjectsGrid> {
-  List<Traject> trajectsList = [];
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    // Fetch trajects data when the widget is initialized
-    fetchTrajects();
-  }
-
-  Future<void> fetchTrajects() async {
-    try {
-      List<Traject> data = await TrajectsService.getTrajects();
-      setState(() {
-        isLoading = false;
-
-        trajectsList = data;
-      });
-    } catch (error) {
-      print('Error fetching trajects: $error');
-      // Handle error state or display error message
-    }
-  }
-
-  String getFirstAndLastCity(String libelleTrajet) {
-    List<String> cities =
-        libelleTrajet.split(">").map((city) => city.trim()).toList();
-    if (cities.isNotEmpty) {
-      String firstCity = cities.first;
-      String lastCity = cities.last;
-      return "$firstCity >$lastCity";
-    }
-    return " error in casting cities";
-  }
-
-  String getFirstLetter(String input) => input.substring(0, 1).toUpperCase();
-
-  String truncateString(String input, int maxLength) {
-    if (input.length <= maxLength) {
-      return input;
-    } else {
-      return input.substring(0, maxLength - 3) + "...";
-    }
-  }
-
-  Color getColor(String letter) {
-    Color selectedColor = Colors.black;
-    if (letter == 'D') {
-      selectedColor = kGreen;
-    } else if (letter == 'E') {
-      selectedColor = kOrange;
-    } else if (letter == 'T') {
-      selectedColor = kDarkBlue;
-    }
-    return selectedColor;
-  }
-
-  String getTime(String date) {
-    List<String> justTime = date.split(".");
-    if (justTime.isNotEmpty) {
-      String time = justTime.first;
-      return time;
-    }
-    return " error in casting time";
-  }
+  final TrajectsController controller = Get.put(TrajectsController());
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     // Declare a list of Item objects
 
-    return isLoading
+    return Obx(() => controller.isLoading.value
         ? const Center(
             child: CircularProgressIndicator(),
           )
         : GridView.builder(
-            //! length needs to be dynamic
-            itemCount: trajectsList.length,
+            itemCount: controller.trajectsList.length,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -105,8 +42,8 @@ class _ProjectsGridState extends State<ProjectsGrid> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              DetailsTraject(traject: trajectsList[index])));
+                          builder: (context) => DetailsTraject(
+                              traject: controller.trajectsList[index])));
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -150,16 +87,16 @@ class _ProjectsGridState extends State<ProjectsGrid> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Text(
-                                          trajectsList[index].Statut,
+                                          controller.trajectsList[index].Statut,
                                           style: TextStyle(
                                               fontSize: 47.sp,
                                               color: TestColor,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                          truncateString(
-                                              getFirstAndLastCity(
-                                                  trajectsList[index]
+                                          controller.truncateString(
+                                              controller.getFirstAndLastCity(
+                                                  controller.trajectsList[index]
                                                       .libelletrajet),
                                               20),
                                           style: TextStyle(
@@ -168,8 +105,10 @@ class _ProjectsGridState extends State<ProjectsGrid> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text(
-                                          truncateString(
-                                              trajectsList[index].Client, 20),
+                                          controller.truncateString(
+                                              controller
+                                                  .trajectsList[index].Client,
+                                              20),
                                           style: TextStyle(
                                               fontSize: 47.sp,
                                               color: TestColor,
@@ -193,11 +132,14 @@ class _ProjectsGridState extends State<ProjectsGrid> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          getFirstLetter(
-                                              trajectsList[index].Statut),
+                                          controller.getFirstLetter(controller
+                                              .trajectsList[index].Statut),
                                           style: TextStyle(
-                                            color: getColor(getFirstLetter(
-                                                trajectsList[index].Statut)),
+                                            color: controller.getColor(
+                                                controller.getFirstLetter(
+                                                    controller
+                                                        .trajectsList[index]
+                                                        .Statut)),
                                             fontSize: 25,
                                             fontWeight: FontWeight.bold,
                                             //fontWeight: FontWeight.bold
@@ -253,15 +195,15 @@ class _ProjectsGridState extends State<ProjectsGrid> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Text(
-                                      trajectsList[index].Remorque,
+                                      controller.trajectsList[index].Remorque,
                                       style: TextStyle(color: TestColor),
                                     ),
                                     Text(
-                                      trajectsList[index].Vehicule,
+                                      controller.trajectsList[index].Vehicule,
                                       style: TextStyle(color: TestColor),
                                     ),
                                     Text(
-                                      trajectsList[index].Chauffeur,
+                                      controller.trajectsList[index].Chauffeur,
                                       style: TextStyle(color: TestColor),
                                     ),
                                   ],
@@ -280,7 +222,8 @@ class _ProjectsGridState extends State<ProjectsGrid> {
                                             size: 20,
                                           ),
                                           Text(
-                                            getTime(trajectsList[index]
+                                            controller.getTime(controller
+                                                .trajectsList[index]
                                                 .heureDepart),
                                             style: TextStyle(color: TestColor),
                                           ),
@@ -296,7 +239,8 @@ class _ProjectsGridState extends State<ProjectsGrid> {
                                             size: 20,
                                           ),
                                           Text(
-                                            trajectsList[index].Datedepart,
+                                            controller
+                                                .trajectsList[index].Datedepart,
                                             style: TextStyle(color: TestColor),
                                           ),
                                         ],
@@ -311,18 +255,6 @@ class _ProjectsGridState extends State<ProjectsGrid> {
                   ),
                 ),
               );
-            });
-  }
-
-  void fetchData() {
-    TrajectsService.getTrajects().then((data) {
-      // Handle the API response
-      print(data);
-      setState(() {
-        trajectsList = data; // Update the list of items with the parsed data
-      });
-    }).catchError((error) {
-      // Handle errors
-    });
+            }));
   }
 }

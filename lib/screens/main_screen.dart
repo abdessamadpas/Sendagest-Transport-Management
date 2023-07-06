@@ -1,24 +1,18 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
-import 'package:sendatrack/screens/components/chart_container.dart';
 import 'package:sendatrack/screens/facture_screen.dart';
-
-import 'package:sendatrack/widgets/activity_header.dart';
-import 'package:sendatrack/widgets/bar_chart.dart';
-import 'package:sendatrack/widgets/projects_grid.dart';
-import 'package:sendatrack/widgets/statistics_grid.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import '../constant.dart';
-import '../widgets/trajects_header.dart';
 import '../screens/components/side_menu.dart';
 import 'trajects_screen.dart';
 import 'package:sendatrack/screens/components/home_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:sendatrack/screens/cars.dart';
+import '../controllers/home_controller.dart';
+import 'package:get/get.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  MainScreen({Key? key}) : super(key: key);
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +77,7 @@ class MainScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Icon(
+                      child: const Icon(
                         FontAwesomeIcons.house,
                         color: kDarkBlue,
                       ),
@@ -111,7 +105,7 @@ class MainScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Icon(
+                      child: const Icon(
                         FontAwesomeIcons.mapMarkedAlt,
                         color: kDarkBlue,
                       ),
@@ -139,7 +133,7 @@ class MainScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Icon(
+                      child: const Icon(
                         FontAwesomeIcons.car,
                         color: kDarkBlue,
                       ),
@@ -167,7 +161,7 @@ class MainScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.assignment,
                         color: kDarkBlue,
                       ),
@@ -176,7 +170,7 @@ class MainScreen extends StatelessWidget {
                 ]),
           ),
           drawer: const SideMenu(),
-          body: TabBarView(
+          body: const TabBarView(
             children: [Home(), Trajects(), Cars(), Facture()],
           ),
         ));
