@@ -7,7 +7,7 @@ import 'package:sendatrack/widgets/line_dash.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/services/trajects.dart';
 import 'package:sendatrack/screens/detailsTraject_screen.dart';
-import '../controllers/traject_controller.dart';
+import '../controllers/TrajectController.dart';
 import 'package:get/get.dart';
 
 class ProjectsGrid extends StatefulWidget {

@@ -203,7 +203,7 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
                 style: TextStyle(color: Colors.grey),
               ),
             ),
-            TextButton( 
+            TextButton(
               onPressed: () {
                 showCustomDateRangePicker(
                   context,
