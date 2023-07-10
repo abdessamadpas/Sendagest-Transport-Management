@@ -5,7 +5,7 @@ import 'package:sendatrack/model/trajects_model.dart';
 
 class TrajectsService {
   static const String url =
-      'http://wsdv.sendatrack.com/Trajet/CT/Liste/othman/numtrajet/sendacar.ddns.net/bdsendacar';
+      'http://192.168.11.113/Trajet/CT/Liste/othman/numtrajet/sendacar.ddns.net/bdsendacar';
 
   static Future<List<Traject>> getTrajects() async {
     try {

@@ -11,12 +11,14 @@ class TrajectsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     fetchTrajects();
   }
 
   Future<void> fetchTrajects() async {
     try {
       List<Traject> data = await TrajectsService.getTrajects();
+      print(data);
       trajectsList.value = data;
       isLoading.value = false;
     } catch (error) {

@@ -8,6 +8,7 @@ import 'package:sendatrack/model/filter_facture_model.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:sendatrack/widgets/filter-trajects.dart';
 import '../constant.dart';
+import 'filterPopup.dart';
 
 class TrajectsHeader extends StatefulWidget {
   final String? headerName;
@@ -90,92 +91,111 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
                       fontSize: 15,
                       fontWeight: FontWeight.bold)),
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Center(
-                        child: Expanded(
-                            child: Container(
+                Get.bottomSheet(Material(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Column(children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 5),
+                      height: 5,
+                      width: Get.width / 3,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 118, 165, 247)
-                                .withOpacity(1),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                      width: 300,
-                      height: 390,
-                      padding: EdgeInsets.all(20),
-                      child: Column(
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            "Filters",
+                          Text(
+                            "Filter",
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          const Gap(10),
-                          Traject_Filters(),
-                          //! get data form this widget
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(137, 53, 131, 247),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      padding: const EdgeInsets.only(
-                                          left: 30,
-                                          right: 30,
-                                          top: 15,
-                                          bottom: 15),
-                                      child: const Text('Cancel',
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 255, 255, 255))))),
-                              GestureDetector(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                          color:
-                                              Color.fromARGB(255, 54, 134, 247),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      padding: const EdgeInsets.only(
-                                          left: 30,
-                                          right: 30,
-                                          top: 15,
-                                          bottom: 15),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          handlerChange();
-                                        },
-                                        child: const Text("Apply",
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 255, 255, 255))),
-                                      ))),
-                            ],
-                          )
+                          IconButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            icon: const Icon(Icons.close),
+                          ),
                         ],
                       ),
-                    )));
-                  },
-                );
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Client",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          Container(
+                            width: Get.width / 2,
+                            child: TextField(
+                              controller: _controllerClient,
+                              onChanged: (value) {
+                                handlerChange();
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Client",
+                                hintStyle: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Facture",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          Container(
+                            width: Get.width / 2,
+                            child: TextField(
+                              controller: _controllerFacture,
+                              onChanged: (value) {
+                                handlerChange();
+                              },
+                              decoration: InputDecoration(
+                                hintText: "Facture",
+                                hintStyle: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ]),
+                ));
               },
             ),
           ],
