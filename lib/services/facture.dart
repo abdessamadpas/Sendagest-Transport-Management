@@ -5,7 +5,7 @@ import 'package:sendatrack/model/facture_model.dart';
 
 class InvoiceService {
   static const String url =
-      'http://wsdv.sendatrack.com/Trajet/SG/LstFact/Top100/sendacar.ddns.net/bdsendacar';
+      'http://192.168.11.113/Trajet/SG/LstFact/Top100/sendacar.ddns.net/bdsendacar';
 
   static Future<List<Facture>> getInvoices() async {
     try {

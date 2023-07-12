@@ -9,6 +9,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:sendatrack/widgets/filter-trajects.dart';
 import '../constant.dart';
 import 'filterPopup.dart';
+import 'package:drop_down_list/drop_down_list.dart';
+import 'package:sendatrack/model/selected_list_item.dart';
+import 'package:sendatrack/widgets/example.dart';
 
 class TrajectsHeader extends StatefulWidget {
   final String? headerName;
@@ -59,6 +62,8 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
     return "${start[2]}/${start[1]} - ${end[2]}/${end[1]}";
   }
 
+  bool showForm = false;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -91,111 +96,11 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
                       fontSize: 15,
                       fontWeight: FontWeight.bold)),
               onPressed: () {
-                Get.bottomSheet(Material(
-                  borderRadius: BorderRadius.circular(15),
-                  child: Column(children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 5),
-                      height: 5,
-                      width: Get.width / 3,
-                      decoration: BoxDecoration(
-                        color: Colors.black26,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Filter",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Get.back();
-                            },
-                            icon: const Icon(Icons.close),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Client",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                          Container(
-                            width: Get.width / 2,
-                            child: TextField(
-                              controller: _controllerClient,
-                              onChanged: (value) {
-                                handlerChange();
-                              },
-                              decoration: InputDecoration(
-                                hintText: "Client",
-                                hintStyle: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Facture",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                          Container(
-                            width: Get.width / 2,
-                            child: TextField(
-                              controller: _controllerFacture,
-                              onChanged: (value) {
-                                handlerChange();
-                              },
-                              decoration: InputDecoration(
-                                hintText: "Facture",
-                                hintStyle: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.bold),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-                ));
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const DropDownListExample();
+                    });
               },
             ),
           ],
@@ -218,7 +123,7 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
                   startDate = null;
                 });
               },
-              child: Text(
+              child: const Text(
                 "Today",
                 style: TextStyle(color: Colors.grey),
               ),

@@ -15,7 +15,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       // needs to be fixed for different screen sizes
-
       designSize: const Size(1100, 1500),
       minTextAdapt: true,
       splitScreenMode: true,

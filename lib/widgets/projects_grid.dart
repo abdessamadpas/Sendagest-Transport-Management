@@ -87,7 +87,8 @@ class _ProjectsGridState extends State<ProjectsGrid> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Text(
-                                          controller.trajectsList[index].Statut,
+                                          controller
+                                              .trajectsList[index].Num_Trajet,
                                           style: TextStyle(
                                               fontSize: 47.sp,
                                               color: TestColor,
