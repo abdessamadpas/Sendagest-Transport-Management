@@ -72,7 +72,7 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                       name: 'Terminer',
                     ),
                     SelectedOne(
-                      name: 'Annuler',
+                      name: 'Confirmer',
                     ),
                   ],
                 ),
@@ -139,7 +139,7 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        controller.applyFilter();
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),

@@ -1,7 +1,7 @@
 import 'package:sendatrack/screens/components/chart_container.dart';
 import 'package:sendatrack/widgets/activity_header.dart';
 import 'package:sendatrack/widgets/bar_chart.dart';
-import 'package:sendatrack/widgets/projects_grid.dart';
+import 'package:sendatrack/widgets/trajects_grid.dart';
 import 'package:sendatrack/widgets/statistics_grid.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import '../../constant.dart';

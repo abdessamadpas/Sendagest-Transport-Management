@@ -3,26 +3,96 @@ import 'package:flutter/material.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/model/trajects_model.dart';
 import 'package:sendatrack/services/trajects.dart';
+import 'package:sendatrack/controllers/filterTrajects.dart';
+import 'package:drop_down_list/model/selected_list_item.dart';
+import 'package:flutter/material.dart';
 
 class TrajectsController extends GetxController {
   RxList<Traject> trajectsList = <Traject>[].obs;
+  RxList<SelectedListItem> clients = <SelectedListItem>[].obs;
   RxBool isLoading = true.obs;
+  FilterTrajectsController filterController =
+      Get.put(FilterTrajectsController());
 
   @override
   void onInit() {
     super.onInit();
+    print("on init for trajects controller");
 
-    fetchTrajects();
+    ever(filterController.isSaved, (_) {
+      print("isSaved changed");
+      fetchTrajects();
+    });
+
+    fetchTrajects().then((_) {
+      fetchClients().then((clients) {
+        filterController.initializeClients(clients);
+      });
+    });
   }
 
   Future<void> fetchTrajects() async {
     try {
       List<Traject> data = await TrajectsService.getTrajects();
-      print(data);
-      trajectsList.value = data;
+
+      if (filterController.clientTextEditingController.text.isNotEmpty) {
+        data = data
+            .where((item) =>
+                item.Client ==
+                filterController.clientTextEditingController.text)
+            .toList();
+      }
+      if (filterController.trajectTextEditingController.text.isNotEmpty) {
+        data = data
+            .where((item) =>
+                item.Num_Trajet ==
+                filterController.trajectTextEditingController.text)
+            .toList();
+      }
+
+      List<Traject> filteredData = [];
+      if (filterController.selectedStatus.isNotEmpty) {
+        for (var status in filterController.selectedStatus) {
+          if (status == "En cours") {
+            filteredData.addAll(
+                data.where((item) => item.Statut == 'ENCOURS').toList());
+          }
+          if (status == "Demarer") {
+            filteredData.addAll(
+                data.where((item) => item.Statut == 'DEMARRER').toList());
+          }
+          if (status == "Confirmer") {
+            filteredData.addAll(
+                data.where((item) => item.Statut == 'CONFIRMER').toList());
+          }
+          if (status == "Annuler") {
+            filteredData.addAll(
+                data.where((item) => item.Statut == 'ANNULER').toList());
+          }
+        }
+      } else {
+        filteredData.addAll(data);
+      }
+
+      trajectsList.value = filteredData;
       isLoading.value = false;
     } catch (error) {
       print('Error fetching trajects: $error');
+    }
+  }
+
+  // fetch just Clients name from trajects
+  Future<List<SelectedListItem>> fetchClients() async {
+    try {
+      List<SelectedListItem> clients = [];
+      trajectsList.value.forEach((traject) {
+        clients.add(SelectedListItem(name: traject.Client));
+      });
+      print("clients: $clients");
+      return clients;
+    } catch (error) {
+      print('Error fetching clients: $error');
+      return [];
     }
   }
 
@@ -43,7 +113,7 @@ class TrajectsController extends GetxController {
     if (input.length <= maxLength) {
       return input;
     } else {
-      return input.substring(0, maxLength - 3) + "...";
+      return "${input.substring(0, maxLength - 3)}...";
     }
   }
 
