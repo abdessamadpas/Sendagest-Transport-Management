@@ -12,7 +12,7 @@ class FilterHeaderController extends GetxController {
 
   String castDate(startDate, endDate) {
     if (startDate == null && endDate == null) {
-      return "no date ";
+      return "All";
     } else if (startDate == null) {
       return "Select Start Date";
     } else if (endDate == null) {
