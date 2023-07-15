@@ -6,6 +6,7 @@ import 'package:sendatrack/services/trajects.dart';
 import 'package:sendatrack/controllers/filterTrajects.dart';
 import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:sendatrack/controllers/headerTraject.dart';
 
 class TrajectsController extends GetxController {
   RxList<Traject> trajectsList = <Traject>[].obs;
@@ -14,15 +15,23 @@ class TrajectsController extends GetxController {
   FilterTrajectsController filterController =
       Get.put(FilterTrajectsController());
 
+  FilterHeaderController controllerHeader = Get.put(FilterHeaderController());
+
   @override
   void onInit() {
     super.onInit();
-    print("on init for trajects controller");
-
-    ever(filterController.isSaved, (_) {
+    print("on init for trajects controller ");
+    print("on init for trajects controller ");
+    ever(controllerHeader.isSavedTime, (_) {
       print("isSaved changed");
+      print("time is cached ${controllerHeader.startDate}");
       fetchTrajects();
     });
+
+    // ever((filterController.isSaved), (_) {
+    //   print("isSaved changed");
+    //   fetchTrajects();
+    // });
 
     fetchTrajects().then((_) {
       fetchClients().then((clients) {
@@ -74,6 +83,46 @@ class TrajectsController extends GetxController {
         filteredData.addAll(data);
       }
 
+//! for time filtration
+
+      if (controllerHeader.startDate != null &&
+          controllerHeader.endDate != null) {
+        filteredData = filteredData.where((item) {
+          DateTime itemDate = DateTime.parse(item.Datedepart);
+          DateTime startDateTime = DateTime(
+            controllerHeader.startDate!.year,
+            controllerHeader.startDate!.month,
+            controllerHeader.startDate!.day,
+          );
+          DateTime endDateTime = DateTime(
+            controllerHeader.endDate!.year,
+            controllerHeader.endDate!.month,
+            controllerHeader.endDate!.day,
+          );
+
+          return itemDate.isAtSameMomentAs(startDateTime) ||
+              itemDate.isAtSameMomentAs(endDateTime) ||
+              (itemDate.isAfter(startDateTime) &&
+                  itemDate.isBefore(endDateTime));
+        }).toList();
+      }
+
+      if (controllerHeader.startDate == controllerHeader.endDate &&
+          controllerHeader.endDate != null &&
+          controllerHeader.startDate != null) {
+        print('picking a single day ');
+
+        if (filteredData.isEmpty) {
+          filteredData = data;
+        }
+        print('wewe : ${filteredData}');
+
+        filteredData = filteredData
+            .where((item) => DateTime.parse(item.Datedepart)
+                .isAtSameMomentAs(controllerHeader.startDate!))
+            .toList();
+      }
+      print('datawewe${filteredData}');
       trajectsList.value = filteredData;
       isLoading.value = false;
     } catch (error) {
@@ -88,7 +137,6 @@ class TrajectsController extends GetxController {
       trajectsList.value.forEach((traject) {
         clients.add(SelectedListItem(name: traject.Client));
       });
-      print("clients: $clients");
       return clients;
     } catch (error) {
       print('Error fetching clients: $error');

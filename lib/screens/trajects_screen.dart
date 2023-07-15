@@ -20,12 +20,6 @@ class _TrajectsState extends State<Trajects> {
   FiltrageFactureModel? updatedFilter;
   final TrajectsController controller = Get.put(TrajectsController());
 
-  void callBackForFilter(FiltrageFactureModel filter) {
-    setState(() {
-      updatedFilter = filter;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +29,12 @@ class _TrajectsState extends State<Trajects> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TrajectsHeader(
-                  headerName: 'Trajects', callBackForFilter: callBackForFilter),
-              const SizedBox(
+            children: const [
+              TrajectsHeader(headerName: 'Trajects'),
+              SizedBox(
                 height: 20,
               ),
-              const ProjectsGrid(),
+              ProjectsGrid(),
             ],
           ),
         ),

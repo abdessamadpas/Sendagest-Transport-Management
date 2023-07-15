@@ -1,68 +1,21 @@
 import 'dart:ffi';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/widgets/custom_date_range_picker.dart';
-import 'package:sendatrack/model/filter_facture_model.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:sendatrack/widgets/filter-trajects.dart';
 import '../constant.dart';
-import 'filterPopup.dart';
-import 'package:drop_down_list/drop_down_list.dart';
-import 'package:sendatrack/model/selected_list_item.dart';
 import 'package:sendatrack/widgets/example.dart';
+import 'package:sendatrack/controllers/headerTraject.dart';
 
 class TrajectsHeader extends StatefulWidget {
   final String? headerName;
-  final Function callBackForFilter;
-  const TrajectsHeader(
-      {required this.headerName, required this.callBackForFilter, super.key});
-
+  const TrajectsHeader({required this.headerName, super.key});
   @override
   State<TrajectsHeader> createState() => _TrajectsHeaderState();
 }
 
 class _TrajectsHeaderState extends State<TrajectsHeader> {
-  DateTime? startDate = null;
-  DateTime? endDate = null;
-
-  TextEditingController _controllerClient = TextEditingController();
-  TextEditingController _controllerFacture = TextEditingController();
-  String? selectedStatus;
-
-  FiltrageFactureModel filterSelected = FiltrageFactureModel(
-      NumFacture: "",
-      Societ: "",
-      DateFacure: "",
-      EtatFacture: "",
-      startDate: null,
-      endDate: null);
-
-  void handlerChange() {
-    filterSelected.EtatFacture = selectedStatus ?? "";
-    filterSelected.NumFacture = _controllerFacture.text;
-    filterSelected.Societ = _controllerClient.text;
-    widget.callBackForFilter(filterSelected);
-  }
-
-  String castDate(startDate, endDate) {
-    if (startDate == null && endDate == null) {
-      return "${DateTime.now().day}/${DateTime.now().month} ";
-    } else if (startDate == null) {
-      return "Select Start Date";
-    } else if (endDate == null) {
-      return "Select End Date";
-    }
-    List<String> start = startDate.toString().split(" ").first.split("-");
-    List<String> end = endDate.toString().split(" ").first.split("-");
-    if (start[0] == end[0] && start[1] == end[1] && start[2] == end[2]) {
-      return "${start[2]}/${start[1]}";
-    }
-    return "${start[2]}/${start[1]} - ${end[2]}/${end[1]}";
-  }
-
-  bool showForm = false;
+  late FilterHeaderController controller = Get.put(FilterHeaderController());
 
   @override
   Widget build(BuildContext context) {
@@ -109,26 +62,9 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.calendar_month_outlined,
+            IconButton(
+              icon: const Icon(Icons.calendar_month_outlined),
               color: Colors.grey,
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  endDate = null;
-                  startDate = null;
-                });
-              },
-              child: const Text(
-                "Today",
-                style: TextStyle(color: Colors.grey),
-              ),
-            ),
-            TextButton(
               onPressed: () {
                 showCustomDateRangePicker(
                   context,
@@ -136,27 +72,34 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
                   minimumDate:
                       DateTime.now().subtract(const Duration(days: 50000)),
                   maximumDate: DateTime.now().add(const Duration(days: 50000)),
-                  endDate: endDate,
-                  startDate: startDate,
+                  endDate: controller.endDate,
+                  startDate: controller.startDate,
                   backgroundColor: Colors.white,
                   primaryColor: kDarkBlue,
                   onApplyClick: (start, end) {
-                    setState(() {
-                      endDate = end;
-                      startDate = start;
-                    });
-                    debugPrint('debug: $startDate  + $endDate');
+                    controller.endDate = end;
+                    controller.startDate = start;
+                    controller.isSavedTime.value =
+                        !controller.isSavedTime.value;
+                    debugPrint(
+                        'debug: $controller.startDate  + $controller.endDate');
                   },
                   onCancelClick: () {
-                    setState(() {
-                      endDate = null;
-                      startDate = null;
-                    });
+                    controller.endDate = null;
+                    controller.startDate = null;
+                    controller.isSavedTime.value =
+                        !controller.isSavedTime.value;
                   },
                 );
               },
+            ),
+            // const SizedBox(
+            //   width: 5,
+            // ),
+            TextButton(
+              onPressed: () {},
               child: Text(
-                castDate(startDate, endDate),
+                controller.castDate(controller.startDate, controller.endDate),
                 style: const TextStyle(
                   fontSize: 16,
                   color: kDarkBlue,
