@@ -29,12 +29,12 @@ class _TrajectsState extends State<Trajects> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              TrajectsHeader(headerName: 'Trajects'),
-              SizedBox(
+            children: [
+              TrajectsHeader(headerName: 'Trajects', type: "trajects"),
+              const SizedBox(
                 height: 20,
               ),
-              ProjectsGrid(),
+              const ProjectsGrid(),
             ],
           ),
         ),

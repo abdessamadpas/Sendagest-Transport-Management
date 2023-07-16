@@ -5,17 +5,30 @@ import 'package:get/get.dart';
 import 'package:sendatrack/widgets/custom_date_range_picker.dart';
 import '../constant.dart';
 import 'package:sendatrack/widgets/example.dart';
-import 'package:sendatrack/controllers/headerTraject.dart';
+import 'package:sendatrack/controllers/TrajectController.dart';
+import 'package:sendatrack/controllers/FilterFactureController.dart';
+import 'package:sendatrack/widgets/popoupFactureFilter.dart';
 
 class TrajectsHeader extends StatefulWidget {
   final String? headerName;
-  const TrajectsHeader({required this.headerName, super.key});
+  final String? type;
+
+  TrajectsHeader({required this.headerName, required this.type, super.key});
   @override
   State<TrajectsHeader> createState() => _TrajectsHeaderState();
 }
 
 class _TrajectsHeaderState extends State<TrajectsHeader> {
-  late FilterHeaderController controller = Get.put(FilterHeaderController());
+  late dynamic controller;
+  @override
+  void initState() {
+    if (widget.type == "facture") {
+      controller = Get.put(FilterFactureController());
+    } else if (widget.type == "trajects") {
+      controller = Get.put(TrajectsController());
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +65,9 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
+                      if (widget.type == "facture") {
+                        return const PopupFactureFilter();
+                      }
                       return const DropDownListExample();
                     });
               },
@@ -96,18 +112,15 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
             // const SizedBox(
             //   width: 5,
             // ),
-            TextButton(
-              onPressed: () {},
-              child: Text(
-                controller.castDate(controller.startDate, controller.endDate),
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: kDarkBlue,
-                  height: 2,
-                  fontWeight: FontWeight.bold,
-                ),
+            Text(
+              controller.castDate(controller.startDate, controller.endDate),
+              style: const TextStyle(
+                fontSize: 16,
+                color: kDarkBlue,
+                height: 2,
+                fontWeight: FontWeight.bold,
               ),
-            )
+            ),
           ],
         ),
       ],

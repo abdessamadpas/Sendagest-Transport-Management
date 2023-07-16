@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../constant.dart';
 import 'package:get/get.dart';
-import 'package:sendatrack/controllers/filterTrajects.dart';
+import 'package:sendatrack/controllers/PopupTrajectController.dart';
 
 class SelectedOne extends StatefulWidget {
   String name;

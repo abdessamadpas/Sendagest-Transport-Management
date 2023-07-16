@@ -10,14 +10,3 @@ const kYellow = Color(0xffFFD143);
 const TestColor = Color.fromARGB(255, 98, 125, 150);
 const DarkBlueTest = Color(0xff006ED3);
 const kRed = Color(0xffE53935);
-
-// Constant Messages
-
-// App Title
-const kTitle = 'DropDownList';
-
-const kChooseYourCity = 'Choose your client';
-
-// Drop Down
-const kDone = 'Done';
-const kSearch = 'Search...';

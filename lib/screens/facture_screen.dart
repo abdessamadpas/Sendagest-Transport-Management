@@ -27,12 +27,12 @@ class _FactureState extends State<Facture> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: const [
-              TrajectsHeader(headerName: 'Facture'),
-              SizedBox(
+            children: [
+              TrajectsHeader(headerName: 'Facture', type: "facture"),
+              const SizedBox(
                 height: 20,
               ),
-              FactureGrid()
+              const FactureGrid()
             ],
           ),
         ),

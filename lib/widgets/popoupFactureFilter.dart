@@ -1,5 +1,5 @@
-import 'package:drop_down_list/drop_down_list.dart';
 import 'package:flutter/material.dart';
+import 'package:drop_down_list/drop_down_list.dart';
 import 'package:gap/gap.dart';
 import 'package:sendatrack/widgets/multiSelectInput.dart';
 import '../constant.dart';
@@ -7,16 +7,14 @@ import 'package:sendatrack/widgets/ship.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/controllers/PopupTrajectController.dart';
 
-class DropDownListExample extends StatefulWidget {
-  const DropDownListExample({
-    Key? key,
-  }) : super(key: key);
+class PopupFactureFilter extends StatefulWidget {
+  const PopupFactureFilter({super.key});
 
   @override
-  _DropDownListExampleState createState() => _DropDownListExampleState();
+  State<PopupFactureFilter> createState() => _PopupFactureFilterState();
 }
 
-class _DropDownListExampleState extends State<DropDownListExample> {
+class _PopupFactureFilterState extends State<PopupFactureFilter> {
   final FilterTrajectsController controller =
       Get.put(FilterTrajectsController());
 
@@ -62,6 +60,7 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                   runSpacing: 5,
                   children: [
                     //TODO:  ships list
+                    Text("status"),
                     SelectedOne(
                       name: 'Demarer',
                     ),

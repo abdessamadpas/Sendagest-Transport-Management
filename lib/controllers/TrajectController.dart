@@ -3,35 +3,45 @@ import 'package:flutter/material.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/model/trajects_model.dart';
 import 'package:sendatrack/services/trajects.dart';
-import 'package:sendatrack/controllers/filterTrajects.dart';
+import 'package:sendatrack/controllers/PopupTrajectController.dart';
 import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
-import 'package:sendatrack/controllers/headerTraject.dart';
 
 class TrajectsController extends GetxController {
   RxList<Traject> trajectsList = <Traject>[].obs;
   RxList<SelectedListItem> clients = <SelectedListItem>[].obs;
   RxBool isLoading = true.obs;
+  RxBool isSavedTime = false.obs;
+  DateTime? startDate = null;
+  DateTime? endDate = null;
+
+  String? selectedStatus;
   FilterTrajectsController filterController =
       Get.put(FilterTrajectsController());
 
-  FilterHeaderController controllerHeader = Get.put(FilterHeaderController());
-
   @override
   void onInit() {
+    isSavedTime.value = false;
     super.onInit();
-    print("on init for trajects controller ");
-    print("on init for trajects controller ");
-    ever(controllerHeader.isSavedTime, (_) {
-      print("isSaved changed");
-      print("time is cached ${controllerHeader.startDate}");
+    ever(isSavedTime, (_) {
       fetchTrajects();
     });
 
-    // ever((filterController.isSaved), (_) {
-    //   print("isSaved changed");
-    //   fetchTrajects();
-    // });
+    String castDate(startDate, endDate) {
+      if (startDate == null && endDate == null) {
+        return "All";
+      } else if (startDate == null) {
+        return "Select Start Date";
+      } else if (endDate == null) {
+        return "Select End Date";
+      }
+      List<String> start = startDate.toString().split(" ").first.split("-");
+      List<String> end = endDate.toString().split(" ").first.split("-");
+      if (start[0] == end[0] && start[1] == end[1] && start[2] == end[2]) {
+        return "${start[2]}/${start[1]}";
+      }
+      return "${start[2]}/${start[1]} - ${end[2]}/${end[1]}";
+    }
 
     fetchTrajects().then((_) {
       fetchClients().then((clients) {
@@ -85,19 +95,18 @@ class TrajectsController extends GetxController {
 
 //! for time filtration
 
-      if (controllerHeader.startDate != null &&
-          controllerHeader.endDate != null) {
+      if (startDate != null && endDate != null) {
         filteredData = filteredData.where((item) {
           DateTime itemDate = DateTime.parse(item.Datedepart);
           DateTime startDateTime = DateTime(
-            controllerHeader.startDate!.year,
-            controllerHeader.startDate!.month,
-            controllerHeader.startDate!.day,
+            startDate!.year,
+            startDate!.month,
+            startDate!.day,
           );
           DateTime endDateTime = DateTime(
-            controllerHeader.endDate!.year,
-            controllerHeader.endDate!.month,
-            controllerHeader.endDate!.day,
+            endDate!.year,
+            endDate!.month,
+            endDate!.day,
           );
 
           return itemDate.isAtSameMomentAs(startDateTime) ||
@@ -107,22 +116,16 @@ class TrajectsController extends GetxController {
         }).toList();
       }
 
-      if (controllerHeader.startDate == controllerHeader.endDate &&
-          controllerHeader.endDate != null &&
-          controllerHeader.startDate != null) {
-        print('picking a single day ');
-
+      if (startDate == endDate && endDate != null && startDate != null) {
         if (filteredData.isEmpty) {
           filteredData = data;
         }
-        print('wewe : ${filteredData}');
 
         filteredData = filteredData
-            .where((item) => DateTime.parse(item.Datedepart)
-                .isAtSameMomentAs(controllerHeader.startDate!))
+            .where((item) =>
+                DateTime.parse(item.Datedepart).isAtSameMomentAs(startDate!))
             .toList();
       }
-      print('datawewe${filteredData}');
       trajectsList.value = filteredData;
       isLoading.value = false;
     } catch (error) {
