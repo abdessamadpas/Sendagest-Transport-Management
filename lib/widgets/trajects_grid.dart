@@ -7,7 +7,7 @@ import 'package:sendatrack/widgets/line_dash.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/services/trajects.dart';
 import 'package:sendatrack/screens/detailsTraject_screen.dart';
-import '../controllers/TrajectController.dart';
+import '../controllers/trajects/TrajectController.dart';
 import 'package:get/get.dart';
 
 class ProjectsGrid extends StatefulWidget {
@@ -29,7 +29,7 @@ class _ProjectsGridState extends State<ProjectsGrid> {
             child: CircularProgressIndicator(),
           )
         : (controller.trajectsList.length == 0
-            ? Text(
+            ? const Text(
                 'There is no trajects',
                 style: TextStyle(
                     color: kDarkBlue,

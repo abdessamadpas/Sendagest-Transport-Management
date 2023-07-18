@@ -4,9 +4,9 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/widgets/custom_date_range_picker.dart';
 import '../constant.dart';
-import 'package:sendatrack/widgets/example.dart';
-import 'package:sendatrack/controllers/TrajectController.dart';
-import 'package:sendatrack/controllers/FilterFactureController.dart';
+import 'package:sendatrack/widgets/popoupTrajectFilter.dart';
+import 'package:sendatrack/controllers/trajects/TrajectController.dart';
+import 'package:sendatrack/controllers/invoices/factureController.dart';
 import 'package:sendatrack/widgets/popoupFactureFilter.dart';
 
 class TrajectsHeader extends StatefulWidget {
@@ -23,8 +23,8 @@ class _TrajectsHeaderState extends State<TrajectsHeader> {
   @override
   void initState() {
     if (widget.type == "facture") {
-      controller = Get.put(FilterFactureController());
-    } else if (widget.type == "trajects") {
+      controller = Get.put(InvoiceController());
+    } else if (widget.type == "traject") {
       controller = Get.put(TrajectsController());
     }
     super.initState();

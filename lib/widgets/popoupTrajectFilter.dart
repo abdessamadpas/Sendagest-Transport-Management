@@ -5,7 +5,7 @@ import 'package:sendatrack/widgets/multiSelectInput.dart';
 import '../constant.dart';
 import 'package:sendatrack/widgets/ship.dart';
 import 'package:get/get.dart';
-import 'package:sendatrack/controllers/PopupTrajectController.dart';
+import 'package:sendatrack/controllers/trajects/PopupTrajectController.dart';
 
 class DropDownListExample extends StatefulWidget {
   const DropDownListExample({
@@ -32,7 +32,7 @@ class _DropDownListExampleState extends State<DropDownListExample> {
       content: Builder(
         builder: (context) {
           return Container(
-            width: width - 150,
+            width: width,
             child: Column(
               children: [
                 // header
@@ -64,15 +64,19 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                     //TODO:  ships list
                     SelectedOne(
                       name: 'Demarer',
+                      useInvoice: false,
                     ),
                     SelectedOne(
                       name: 'En cours',
+                      useInvoice: false,
                     ),
                     SelectedOne(
                       name: 'Terminer',
+                      useInvoice: false,
                     ),
                     SelectedOne(
                       name: 'Confirmer',
+                      useInvoice: false,
                     ),
                   ],
                 ),
@@ -110,7 +114,7 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                   isCitySelected: false,
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 // buttons clear and apply
                 Row(
@@ -121,7 +125,7 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                         controller.clearData();
                       },
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                        padding: const EdgeInsets.fromLTRB(45, 12, 45, 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -142,7 +146,7 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                         controller.applyFilter();
                       },
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                        padding: const EdgeInsets.fromLTRB(45, 12, 45, 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),

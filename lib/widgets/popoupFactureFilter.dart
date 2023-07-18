@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:drop_down_list/drop_down_list.dart';
 import 'package:gap/gap.dart';
 import 'package:sendatrack/widgets/multiSelectInput.dart';
 import '../constant.dart';
 import 'package:sendatrack/widgets/ship.dart';
 import 'package:get/get.dart';
-import 'package:sendatrack/controllers/PopupTrajectController.dart';
+import 'package:sendatrack/controllers/invoices/popupFactureController.dart';
 
 class PopupFactureFilter extends StatefulWidget {
   const PopupFactureFilter({super.key});
@@ -15,12 +14,11 @@ class PopupFactureFilter extends StatefulWidget {
 }
 
 class _PopupFactureFilterState extends State<PopupFactureFilter> {
-  final FilterTrajectsController controller =
-      Get.put(FilterTrajectsController());
+  final FilterInvoiceController controller = Get.put(FilterInvoiceController());
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
+    // var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
         child: AlertDialog(
@@ -30,7 +28,7 @@ class _PopupFactureFilterState extends State<PopupFactureFilter> {
       content: Builder(
         builder: (context) {
           return Container(
-            width: width - 150,
+            width: width,
             child: Column(
               children: [
                 // header
@@ -60,18 +58,21 @@ class _PopupFactureFilterState extends State<PopupFactureFilter> {
                   runSpacing: 5,
                   children: [
                     //TODO:  ships list
-                    Text("status"),
                     SelectedOne(
-                      name: 'Demarer',
+                      name: 'Non Regle',
+                      useInvoice: true,
                     ),
                     SelectedOne(
-                      name: 'En cours',
+                      name: 'Annuler',
+                      useInvoice: true,
                     ),
                     SelectedOne(
-                      name: 'Terminer',
+                      name: 'Regle Tot',
+                      useInvoice: true,
                     ),
                     SelectedOne(
-                      name: 'Confirmer',
+                      name: 'more',
+                      useInvoice: true,
                     ),
                   ],
                 ),
@@ -83,33 +84,33 @@ class _PopupFactureFilterState extends State<PopupFactureFilter> {
                 AppTextField(
                   textEditingController: controller.clientTextEditingController,
                   // title: 'client',
-                  hint: 'client',
+                  hint: 'Client',
                   isCitySelected: true,
-                  cities: controller.listOfCities,
+                  cities: controller.listOfClients,
                 ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // AppTextField(
+                //   textEditingController:
+                //       controller.vehiculeTextEditingController,
+                //   // title: 'vehicle ',
+                //   hint: 'vehicle',
+                //   isCitySelected: true,
+                //   cities: controller.listOfVehicles,
+                // ),
                 const SizedBox(
                   height: 10,
                 ),
                 AppTextField(
                   textEditingController:
-                      controller.vehiculeTextEditingController,
-                  // title: 'vehicle ',
-                  hint: 'vehicle',
-                  isCitySelected: true,
-                  cities: controller.listOfVehicles,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                AppTextField(
-                  textEditingController:
-                      controller.trajectTextEditingController,
+                      controller.invoiceTextEditingController,
                   // title: 'traject number ',
-                  hint: ' traject number',
+                  hint: ' Facture number',
                   isCitySelected: false,
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 // buttons clear and apply
                 Row(

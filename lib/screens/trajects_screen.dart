@@ -7,7 +7,7 @@ import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/screens/add_traject_page.dart';
 import 'package:sendatrack/model/filter_facture_model.dart';
 import 'package:get/get.dart';
-import '../controllers/TrajectController.dart';
+import 'package:sendatrack/controllers/trajects/TrajectController.dart';
 
 class Trajects extends StatefulWidget {
   const Trajects({super.key});
@@ -30,7 +30,7 @@ class _TrajectsState extends State<Trajects> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              TrajectsHeader(headerName: 'Trajects', type: "trajects"),
+              TrajectsHeader(headerName: 'Trajects', type: "traject"),
               const SizedBox(
                 height: 20,
               ),

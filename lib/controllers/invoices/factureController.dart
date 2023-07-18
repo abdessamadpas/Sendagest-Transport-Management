@@ -1,14 +1,16 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:sendatrack/constant.dart';
-import 'package:sendatrack/model/trajects_model.dart';
-import 'package:sendatrack/services/trajects.dart';
-import 'package:sendatrack/controllers/PopupTrajectController.dart';
+import 'package:sendatrack/controllers/invoices/popupFactureController.dart';
 import 'package:drop_down_list/model/selected_list_item.dart';
-import 'package:flutter/material.dart';
+import 'package:sendatrack/model/facture_model.dart';
+import 'package:sendatrack/services/facture.dart';
+import 'package:sendatrack/model/client.dart';
+import 'package:sendatrack/services/clients.dart';
 
-class TrajectsController extends GetxController {
-  RxList<Traject> trajectsList = <Traject>[].obs;
+//! this controller is used to filter factures
+class InvoiceController extends GetxController {
+  RxList<Facture> invoicesList = <Facture>[].obs;
   RxList<SelectedListItem> clients = <SelectedListItem>[].obs;
   RxBool isLoading = true.obs;
   RxBool isSavedTime = false.obs;
@@ -16,63 +18,66 @@ class TrajectsController extends GetxController {
   DateTime? endDate = null;
   String? selectedStatus;
 
-  FilterTrajectsController filterController =
-      Get.put(FilterTrajectsController());
+  FilterInvoiceController filterController = Get.put(FilterInvoiceController());
 
   @override
   void onInit() {
-    isSavedTime.value = false;
     super.onInit();
+    isSavedTime.value = false;
     ever(isSavedTime, (_) {
-      fetchTrajects();
+      fetchInvoices();
     });
 
-    fetchTrajects().then((_) {
+    fetchInvoices().then((_) {
       fetchClients().then((clients) {
         filterController.initializeClients(clients);
       });
     });
   }
 
-// fetch trajects with filters and save them in trajectsList
-  Future<void> fetchTrajects() async {
+// fetch trajects with filters and save them in invoicesList
+  Future<void> fetchInvoices() async {
     try {
-      List<Traject> data = await TrajectsService.getTrajects();
+      List<Facture> data = await InvoiceService.getInvoices();
 
       if (filterController.clientTextEditingController.text.isNotEmpty) {
         data = data
             .where((item) =>
-                item.Client ==
+                item.Societ ==
                 filterController.clientTextEditingController.text)
             .toList();
       }
-      if (filterController.trajectTextEditingController.text.isNotEmpty) {
+      if (filterController.invoiceTextEditingController.text.isNotEmpty) {
         data = data
             .where((item) =>
-                item.Num_Trajet ==
-                filterController.trajectTextEditingController.text)
+                item.NumFacture ==
+                filterController.invoiceTextEditingController.text)
             .toList();
       }
 
-      List<Traject> filteredData = [];
+//! for status filtration needs to be changed
+//todo: change status filtration
+
+      List<Facture> filteredData = [];
+      print(" lissst of selected ${filterController.selectedStatus} ");
       if (filterController.selectedStatus.isNotEmpty) {
         for (var status in filterController.selectedStatus) {
-          if (status == "En cours") {
-            filteredData.addAll(
-                data.where((item) => item.Statut == 'ENCOURS').toList());
-          }
-          if (status == "Demarer") {
-            filteredData.addAll(
-                data.where((item) => item.Statut == 'DEMARRER').toList());
-          }
-          if (status == "Confirmer") {
-            filteredData.addAll(
-                data.where((item) => item.Statut == 'CONFIRMER').toList());
-          }
           if (status == "Annuler") {
             filteredData.addAll(
-                data.where((item) => item.Statut == 'ANNULER').toList());
+                data.where((item) => item.EtatFacture == 'ANNULER').toList());
           }
+          if (status == "Non Regle") {
+            filteredData.addAll(
+                data.where((item) => item.EtatFacture == 'NONREGLE').toList());
+          }
+          if (status == "Regle Tot") {
+            filteredData.addAll(
+                data.where((item) => item.EtatFacture == 'REGLETOT').toList());
+          }
+          // if (status == "Annuler") {
+          //   filteredData.addAll(
+          //       data.where((item) => item.Statut == 'ANNULER').toList());
+          // }
         }
       } else {
         filteredData.addAll(data);
@@ -81,8 +86,9 @@ class TrajectsController extends GetxController {
 //! for time filtration
 
       if (startDate != null && endDate != null) {
+        print("startDate $startDate");
         filteredData = filteredData.where((item) {
-          DateTime itemDate = DateTime.parse(item.Datedepart);
+          DateTime itemDate = DateTime.parse(item.DateFacure);
           DateTime startDateTime = DateTime(
             startDate!.year,
             startDate!.month,
@@ -108,22 +114,23 @@ class TrajectsController extends GetxController {
 
         filteredData = filteredData
             .where((item) =>
-                DateTime.parse(item.Datedepart).isAtSameMomentAs(startDate!))
+                DateTime.parse(item.DateFacure).isAtSameMomentAs(startDate!))
             .toList();
       }
-      trajectsList.value = filteredData;
+      invoicesList.value = filteredData;
       isLoading.value = false;
     } catch (error) {
       print('Error fetching trajects: $error');
     }
   }
 
-  // fetch just Clients name from trajects
+  // fetch just Clients name from API
   Future<List<SelectedListItem>> fetchClients() async {
     try {
       List<SelectedListItem> clients = [];
-      trajectsList.value.forEach((traject) {
-        clients.add(SelectedListItem(name: traject.Client));
+      List<Clients> data = await ClientService.getClients();
+      data.forEach((client) {
+        clients.add(SelectedListItem(name: client.Client));
       });
       return clients;
     } catch (error) {
@@ -132,6 +139,7 @@ class TrajectsController extends GetxController {
     }
   }
 
+// static methods for UI
   String getFirstAndLastCity(String libelleTrajet) {
     List<String> cities =
         libelleTrajet.split(">").map((city) => city.trim()).toList();
@@ -173,20 +181,20 @@ class TrajectsController extends GetxController {
     }
     return " error in casting time";
   }
-}
 
-String castDate(startDate, endDate) {
-  if (startDate == null && endDate == null) {
-    return "All";
-  } else if (startDate == null) {
-    return "Select Start Date";
-  } else if (endDate == null) {
-    return "Select End Date";
+  String castDate(startDate, endDate) {
+    if (startDate == null && endDate == null) {
+      return "All";
+    } else if (startDate == null) {
+      return "Select Start Date";
+    } else if (endDate == null) {
+      return "Select End Date";
+    }
+    List<String> start = startDate.toString().split(" ").first.split("-");
+    List<String> end = endDate.toString().split(" ").first.split("-");
+    if (start[0] == end[0] && start[1] == end[1] && start[2] == end[2]) {
+      return "${start[2]}/${start[1]}";
+    }
+    return "${start[2]}/${start[1]} - ${end[2]}/${end[1]}";
   }
-  List<String> start = startDate.toString().split(" ").first.split("-");
-  List<String> end = endDate.toString().split(" ").first.split("-");
-  if (start[0] == end[0] && start[1] == end[1] && start[2] == end[2]) {
-    return "${start[2]}/${start[1]}";
-  }
-  return "${start[2]}/${start[1]} - ${end[2]}/${end[1]}";
 }

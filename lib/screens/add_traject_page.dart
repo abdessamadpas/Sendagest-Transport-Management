@@ -6,7 +6,7 @@ import 'package:sendatrack/widgets/textFormField.dart';
 import '../constant.dart';
 import 'package:blurry/blurry.dart';
 import 'package:get/get.dart';
-import '../controllers/addTraject.dart';
+import '../controllers/trajects/addTraject.dart';
 
 class AddTraject extends GetView<AddTrajectController> {
   final AddTrajectController controller = Get.put(AddTrajectController());

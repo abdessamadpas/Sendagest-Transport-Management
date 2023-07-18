@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../controllers/addTraject.dart';
+import 'package:sendatrack/controllers/trajects/addTraject.dart';
 
 class HomeBinding extends Bindings {
   @override
