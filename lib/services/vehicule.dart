@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:sendatrack/model/vehicle.dart';
+import 'package:sendatrack/utils/api_endpoints.dart';
 
 class vehicleService {
   static const String url =
-      'http://192.168.11.113//Trajet/CT/Donnee/Remorque/sendacar.ddns.net/bdsendacar';
+      '${ApiEndPoints.BASE_URL_HOST}/Trajet/CT/Donnee/Remorque/sendacar.ddns.net/bdsendacar';
 
   static Future<List<Vehicle>> getVehicule() async {
     try {

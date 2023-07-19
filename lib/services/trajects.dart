@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:sendatrack/model/trajects_model.dart';
+import 'package:sendatrack/utils/api_endpoints.dart';
 
 class TrajectsService {
   static const String url =
-      'http://192.168.11.113/Trajet/CT/Liste/othman/numtrajet/sendacar.ddns.net/bdsendacar';
+      '${ApiEndPoints.BASE_URL_HOST}/Trajet/CT/Liste/othman/numtrajet/sendacar.ddns.net/bdsendacar';
 
   static Future<List<Traject>> getTrajects() async {
     try {

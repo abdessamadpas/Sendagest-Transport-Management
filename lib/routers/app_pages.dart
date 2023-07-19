@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:sendatrack/screens/login_screen.dart';
 import '../bindings/home_binding.dart';
 import '../screens/main_screen.dart';
 import '../bindings/trajects_binding.dart';
@@ -16,7 +17,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.home,
-      page: () => MainScreen(),
+      page: () => LoginScreen(),
       binding: HomeBinding(),
     ),
     // GetPage(

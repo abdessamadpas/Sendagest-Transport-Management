@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:sendatrack/model/facture_model.dart';
+import 'package:sendatrack/utils/api_endpoints.dart';
 
 class InvoiceService {
   static const String url =
-      'http://192.168.11.113/Trajet/SG/LstFact/Top100/sendacar.ddns.net/bdsendacar';
+      '${ApiEndPoints.BASE_URL_HOST}/Trajet/SG/LstFact/Top100/sendacar.ddns.net/bdsendacar';
 
   static Future<List<Facture>> getInvoices() async {
     try {

@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: ScreenUtil().setHeight(100),
                     ),
-                    Text(
+                    const Text(
                       "Login",
                       style: TextStyle(
                           color: Color(0xff369FFF),
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: socialButton(FontAwesomeIcons.barcode),
+                          child: Container(child: Text('xxe')),
                         ),
                       ],
                     ),
@@ -57,14 +57,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Stack(
                       children: <Widget>[
-                        TextField(
+                        const TextField(
                           style: TextStyle(color: kDarkBlue),
                           decoration: InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Color(0xff369FFF), width: 2),
                               ),
-                              labelText: "Username",
+                              labelText: "Account ",
                               labelStyle: TextStyle(
                                   color: Color(0xff369FFF), fontSize: 14)),
                         ),
@@ -83,12 +83,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                       offset: Offset(5, 5),
                                       color: Color(0xff369FFF).withOpacity(0.2),
                                       blurRadius: 16),
-                                  BoxShadow(
+                                  const BoxShadow(
                                       offset: Offset(-10, -10),
                                       color: Color.fromARGB(170, 255, 255, 255),
                                       blurRadius: 10),
                                 ]),
-                            child: Icon(
+                            child: const Icon(
                               Icons.check,
                               color: Color(0xff369FFF),
                             ),
@@ -99,7 +99,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: ScreenUtil().setHeight(100),
                     ),
-                    TextField(
+                    const TextField(
+                      style: TextStyle(color: kDarkBlue),
+                      decoration: InputDecoration(
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Color(0xff369FFF), width: 2),
+                          ),
+                          labelText: "Username",
+                          labelStyle:
+                              TextStyle(color: kDarkBlue, fontSize: 14)),
+                    ),
+                    SizedBox(
+                      height: ScreenUtil().setHeight(100),
+                    ),
+                    const TextField(
                       style: TextStyle(color: kDarkBlue),
                       decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
@@ -116,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       children: <Widget>[
                         Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 /*boxShadow: [
                             BoxShadow(
                                 offset: Offset(5, 5),
@@ -128,15 +142,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 blurRadius: 10),
                           ]*/
                                 )),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        Text(
+                        const Text(
                           "Remember me",
                           style: TextStyle(color: Colors.grey, fontSize: 14),
                         ),
-                        Spacer(),
-                        Text(
+                        const Spacer(),
+                        const Text(
                           "Forgot Password?",
                           style: TextStyle(
                             color: kDarkBlue,
@@ -167,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   offset: Offset(10, 10),
                                   color: Color(0xff369FFF).withOpacity(0.2),
                                   blurRadius: 16),
-                              BoxShadow(
+                              const BoxShadow(
                                   offset: Offset(-10, -10),
                                   color: Color.fromARGB(170, 255, 255, 255),
                                   blurRadius: 10),
@@ -184,27 +198,23 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  Widget socialButton(IconData icon) {
+  Widget socialButton(element) {
     return Container(
-      height: ScreenUtil().setHeight(120),
-      margin: EdgeInsets.symmetric(vertical: 30),
-      decoration: BoxDecoration(
-          color: Color(0xFFF1F3F6),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(10, 10),
-                color: Color(0xff369FFF).withOpacity(0.2),
-                blurRadius: 16),
-            BoxShadow(
-                offset: Offset(-10, -10),
-                color: Color.fromARGB(170, 255, 255, 255),
-                blurRadius: 10),
-          ]),
-      child: Icon(
-        icon,
-        color: Color(0xff369FFF),
-      ),
-    );
+        height: ScreenUtil().setHeight(120),
+        margin: const EdgeInsets.symmetric(vertical: 30),
+        decoration: BoxDecoration(
+            color: Color(0xFFF1F3F6),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(10, 10),
+                  color: Color(0xff369FFF).withOpacity(0.2),
+                  blurRadius: 16),
+              const BoxShadow(
+                  offset: Offset(-10, -10),
+                  color: Color.fromARGB(170, 255, 255, 255),
+                  blurRadius: 10),
+            ]),
+        child: element);
   }
 }
