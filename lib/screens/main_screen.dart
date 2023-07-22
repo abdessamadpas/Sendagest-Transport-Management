@@ -169,7 +169,7 @@ class MainScreen extends StatelessWidget {
                   ),
                 ]),
           ),
-          drawer: const SideMenu(),
+          drawer: SideMenu(),
           body: const TabBarView(
             children: [Home(), Trajects(), Cars(), Facture()],
           ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:sendatrack/constant.dart';
-import 'package:sendatrack/screens/main_screen.dart';
+import 'package:sendatrack/controllers/login/loginContoller.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,7 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool status = true;
-
+  LoginController loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
@@ -48,7 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: Container(child: Text('xxe')),
+                          child: Container(
+                            child: Image.asset(
+                              'images/senda-logo.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -57,9 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Stack(
                       children: <Widget>[
-                        const TextField(
-                          style: TextStyle(color: kDarkBlue),
-                          decoration: InputDecoration(
+                        TextField(
+                          controller:
+                              loginController.accountTextEditingController,
+                          style: const TextStyle(color: kDarkBlue),
+                          decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Color(0xff369FFF), width: 2),
@@ -75,13 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
-                                color: Color(0xFFF1F3F6),
+                                color: const Color(0xFFF1F3F6),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
+                                    const BorderRadius.all(Radius.circular(50)),
                                 boxShadow: [
                                   BoxShadow(
                                       offset: Offset(5, 5),
-                                      color: Color(0xff369FFF).withOpacity(0.2),
+                                      color: const Color(0xff369FFF)
+                                          .withOpacity(0.2),
                                       blurRadius: 16),
                                   const BoxShadow(
                                       offset: Offset(-10, -10),
@@ -99,9 +105,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: ScreenUtil().setHeight(100),
                     ),
-                    const TextField(
-                      style: TextStyle(color: kDarkBlue),
-                      decoration: InputDecoration(
+                    TextField(
+                      controller: loginController.usernameTextEditingController,
+                      style: const TextStyle(color: kDarkBlue),
+                      decoration: const InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide:
                                 BorderSide(color: Color(0xff369FFF), width: 2),
@@ -113,9 +120,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: ScreenUtil().setHeight(100),
                     ),
-                    const TextField(
-                      style: TextStyle(color: kDarkBlue),
-                      decoration: InputDecoration(
+                    TextField(
+                      controller: loginController.passwordTextEditingController,
+                      style: const TextStyle(color: kDarkBlue),
+                      decoration: const InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                             borderSide:
                                 BorderSide(color: Color(0xff369FFF), width: 2),
@@ -145,15 +153,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text(
-                          "Remember me",
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
+                        Obx(
+                          () => TextButton(
+                            child: Text(
+                              "Remember me",
+                              style: TextStyle(
+                                color: loginController.isRemembered.isTrue
+                                    ? kDarkBlue
+                                    : Colors.grey,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onPressed: () {
+                              loginController.rememberMe();
+                            },
+                          ),
                         ),
                         const Spacer(),
                         const Text(
                           "Forgot Password?",
                           style: TextStyle(
-                            color: kDarkBlue,
+                            color: Colors.grey,
                             fontSize: 14,
                           ),
                         ),
@@ -164,7 +184,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.off(MainScreen());
+                        loginController.login();
+                        // Get.off(MainScreen());
                         // Navigator.of(context).push(MaterialPageRoute(
                         //     builder: (context) => MainScreen()));
                       },
@@ -186,10 +207,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Color.fromARGB(170, 255, 255, 255),
                                   blurRadius: 10),
                             ]),
-                        child: const Text(
-                          "Login",
-                          style: TextStyle(color: kDarkBlue, fontSize: 16),
-                        ),
+                        child: const Text("Login",
+                            style: TextStyle(color: kDarkBlue, fontSize: 16)),
                       ),
                     ),
                   ],

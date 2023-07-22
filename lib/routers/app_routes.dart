@@ -3,18 +3,21 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
-
+  static const SPLASH = _Paths.splash;
   static const HOME = _Paths.home;
   static const LOGIN = _Paths.login;
   static const DETAILSTRAJECT = _Paths.detailsTraject;
   static const FACTURES = _Paths.factures;
   static const TRAJECTS = _Paths.trajects;
+  static const STOCK = _Paths.stock;
 }
 
 abstract class _Paths {
-  static const String home = '/';
+  static const String splash = '/splash';
+  static const String home = '/home';
   static const String login = '/login';
   static const String detailsTraject = '/detailsTraject';
   static const String factures = '/factures';
   static const String trajects = '/trajects';
+  static const String stock = '/stock';
 }

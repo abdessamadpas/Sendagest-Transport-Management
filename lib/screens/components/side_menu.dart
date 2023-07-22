@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sendatrack/controllers/login/loginContoller.dart';
 import 'package:ternav_icons/ternav_icons.dart';
-
+import 'package:get/get.dart';
 import '../../constant.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({
+  LoginController controller = Get.put(LoginController());
+  SideMenu({
     Key? key,
   }) : super(key: key);
 
@@ -45,7 +47,9 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             icon: TernavIcons.lightOutline.menu,
             title: "Stock",
-            onTap: () {},
+            onTap: () {
+              Get.toNamed("/stock");
+            },
           ),
           DrawerListTile(
             icon: TernavIcons.lightOutline.settings,
@@ -98,6 +102,16 @@ class SideMenu extends StatelessWidget {
                 )
               ],
             ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          DrawerListTile(
+            icon: TernavIcons.lightOutline.login,
+            title: "Logout",
+            onTap: () {
+              controller.logout();
+            },
           ),
         ],
       ),
