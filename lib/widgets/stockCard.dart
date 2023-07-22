@@ -15,27 +15,23 @@ class _StockCardState extends State<StockCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(vertical: 20),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: const BoxDecoration(
           border: Border(
               bottom: BorderSide(
-                  width: 1.0, color: Color.fromARGB(255, 138, 134, 134))),
+                  width: 1.0, color: Color.fromARGB(255, 224, 224, 224))),
           color: Color.fromARGB(255, 255, 255, 255),
         ),
         child: Column(children: [
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-              // decoration: BoxDecoration(
-              //   borderRadius: BorderRadius.circular(5),
-              //   color: Colors.white,
-              // ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(
                           Icons.store,
                           color: kGrayIcon,
@@ -49,7 +45,7 @@ class _StockCardState extends State<StockCard> {
                       ],
                     ),
                   ),
-                  Text("Depot casablanca",
+                  const Text("Depot casablanca",
                       style: TextStyle(color: kGrayIcon, fontSize: 15))
                 ],
               ),
@@ -67,7 +63,7 @@ class _StockCardState extends State<StockCard> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       Text('Designation',
                           style: TextStyle(
                               color: Color.fromARGB(255, 122, 122, 122),
@@ -89,7 +85,7 @@ class _StockCardState extends State<StockCard> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       Text('Reference',
                           style: TextStyle(
                               color: Color.fromARGB(255, 122, 122, 122),
@@ -104,13 +100,14 @@ class _StockCardState extends State<StockCard> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  decoration: BoxDecoration(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  decoration: const BoxDecoration(
                     color: Color.fromARGB(255, 255, 255, 255),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       Text('Quantity',
                           style: TextStyle(
                               color: Color.fromARGB(255, 122, 122, 122),

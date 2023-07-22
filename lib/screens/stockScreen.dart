@@ -56,7 +56,7 @@ class _StockScreenState extends State<StockScreen> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
             StockHeader(),
             StockBody(),
