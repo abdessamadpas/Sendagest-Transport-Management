@@ -13,7 +13,7 @@ class _StockHeaderState extends State<StockHeader> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           // crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,8 +60,8 @@ class _StockHeaderState extends State<StockHeader> {
                     height: 40,
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 44, 42, 42),
-                      border: Border.all(color: Colors.grey, width: 1),
+                      color: kDarkBlue,
+                      border: Border.all(color: kDarkBlue, width: 1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Text(
@@ -80,14 +80,13 @@ class _StockHeaderState extends State<StockHeader> {
                     padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      border: Border.all(
-                          color: Color.fromARGB(255, 201, 199, 199), width: 1),
+                      border: Border.all(color: kDarkBlue, width: 1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       'Product',
                       style: TextStyle(
-                          color: Colors.black,
+                          color: kDarkBlue,
                           fontWeight: FontWeight.w900,
                           fontSize: 15),
                     ),

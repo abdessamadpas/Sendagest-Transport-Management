@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:sendatrack/constant.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sendatrack/widgets/stockCard.dart';
 
 final List<String> entries = <String>['A', 'B', 'C'];
@@ -29,7 +28,7 @@ class _StockBodyState extends State<StockBody> {
               crossAxisCount: 1,
               mainAxisSpacing: 20),
           itemBuilder: (context, index) {
-            return StockCard();
+            return const StockCard();
           },
         ));
   }

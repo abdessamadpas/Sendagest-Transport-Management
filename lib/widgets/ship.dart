@@ -42,7 +42,7 @@ class _SelectedOneState extends State<SelectedOne> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: controller.selectedStatus.contains(widget.name)!
-                    ? kLightBlue
+                    ? KBlueChip
                     : Colors.white),
             padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
             child: Text(
@@ -50,7 +50,7 @@ class _SelectedOneState extends State<SelectedOne> {
               style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 0, 0, 0)),
+                  color: KBlueChipText),
             ),
           ),
         )));

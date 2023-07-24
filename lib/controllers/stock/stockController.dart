@@ -7,11 +7,12 @@ class stockController extends GetxController {
   void onInit() {
     super.onInit();
   }
-@override
 
+  @override
   void onReady() {
     super.onReady();
   }
+
   void ChangeStateShip(String value) {
     if (selectedOptions.contains(value)) {
       selectedOptions.remove(value);

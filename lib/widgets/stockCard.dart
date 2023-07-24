@@ -34,19 +34,20 @@ class _StockCardState extends State<StockCard> {
                       children: const [
                         Icon(
                           Icons.store,
-                          color: kGrayIcon,
+                          color: kDarkBlue,
                         ),
                         Gap(5),
                         Text('Store',
                             style: TextStyle(
-                                color: kGrayIcon,
+                                color: kDarkBlue,
                                 fontWeight: FontWeight.w800,
                                 fontSize: 16))
                       ],
                     ),
                   ),
                   const Text("Depot casablanca",
-                      style: TextStyle(color: kGrayIcon, fontSize: 15))
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0), fontSize: 15))
                 ],
               ),
             ),
@@ -71,7 +72,7 @@ class _StockCardState extends State<StockCard> {
                               fontSize: 14)),
                       Text("RX002",
                           style: TextStyle(
-                              color: kGrayIcon,
+                              color: Color.fromARGB(255, 0, 0, 0),
                               fontWeight: FontWeight.w500,
                               fontSize: 15))
                     ],
@@ -93,7 +94,7 @@ class _StockCardState extends State<StockCard> {
                               fontSize: 14)),
                       Text("R2",
                           style: TextStyle(
-                              color: kGrayIcon,
+                              color: Color.fromARGB(255, 0, 0, 0),
                               fontWeight: FontWeight.w500,
                               fontSize: 15))
                     ],
@@ -115,7 +116,7 @@ class _StockCardState extends State<StockCard> {
                               fontSize: 14)),
                       Text("-20 units",
                           style: TextStyle(
-                              color: kGrayIcon,
+                              color: Color.fromARGB(255, 0, 0, 0),
                               fontWeight: FontWeight.w500,
                               fontSize: 15))
                     ],
