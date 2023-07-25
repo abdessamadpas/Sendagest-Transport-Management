@@ -14,3 +14,4 @@ const kRed = Color(0xffE53935);
 const kGrey = Color(0xffF8F8F9);
 const KBlueChip = Color.fromARGB(255, 198, 224, 252);
 const KBlueChipText = Color.fromARGB(255, 54, 150, 252);
+const KDark = Color.fromARGB(255, 45, 64, 71);
