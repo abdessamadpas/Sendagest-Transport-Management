@@ -27,7 +27,7 @@ class StockService {
 
     try {
       final response = await http.get(Uri.parse(url), headers: headers);
-      // print("eeeeeeeeeee" + response.body);
+      print(status + "  " + response.statusCode.toString());
       if (response.statusCode == 200) {
         final List<dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse.map((item) => Stock.fromJson(item)).toList();

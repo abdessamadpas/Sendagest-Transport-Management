@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sendatrack/screens/main_screen.dart';
 // import 'package:sendatrack/widgets/stockHeader.dart';
 import 'package:sendatrack/widgets/stockBody.dart';
 import '../../constant.dart';
@@ -49,7 +50,10 @@ class _StockScreenState extends State<StockScreen> {
           icon: const Icon(Icons.arrow_back_ios),
           color: kGrayIcon,
           onPressed: () {
-            Navigator.pop(context);
+            // Navigator.pop(context);
+            Get.off(() => MainScreen()
+                //  , transition: Transition.rightToLeft
+                );
           },
         ),
       ),

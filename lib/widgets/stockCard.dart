@@ -45,7 +45,7 @@ class _StockCardState extends State<StockCard> {
                                   : Icons.all_inbox_rounded),
                           color: TestColor,
                         ),
-                        Gap(5),
+                        const Gap(5),
                         Text(
                             stockController.product.value
                                 ? ' Product'
@@ -82,14 +82,14 @@ class _StockCardState extends State<StockCard> {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text('Designation',
+                          children: [
+                            const Text('Designation',
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 122, 122, 122),
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14)),
-                            Text("RX002",
-                                style: TextStyle(
+                            Text(widget.card.Designation ?? '',
+                                style: const TextStyle(
                                     color: Color.fromARGB(255, 0, 0, 0),
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15))
@@ -106,14 +106,14 @@ class _StockCardState extends State<StockCard> {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Text('Reference',
+                          children: [
+                            const Text('Reference',
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 122, 122, 122),
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14)),
-                            Text("R2",
-                                style: TextStyle(
+                            Text(widget.card.Reference ?? '',
+                                style: const TextStyle(
                                     color: Color.fromARGB(255, 0, 0, 0),
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15))

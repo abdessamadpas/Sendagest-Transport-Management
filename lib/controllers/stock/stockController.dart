@@ -1,3 +1,5 @@
+import 'dart:math';
+import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/model/stock.dart';
 import 'package:sendatrack/services/stock.dart';
@@ -7,35 +9,51 @@ class StockController extends GetxController {
   RxBool product = false.obs;
   RxList<Stock> stockList = <Stock>[].obs;
   RxList<Stock> stockListFiltered = <Stock>[].obs;
+  bool _isFetching = false;
 
   RxBool isLoading = true.obs;
   @override
   void onInit() {
-    super.onInit();
     fetchStock();
-    ever(store, (_) {
-      fetchStock();
-    });
-    ever(product, (_) {
-      fetchStock();
-    });
-  }
+    // ever(product, (_) async {
+    //   stockList.clear();
+    //   stockListFiltered.clear();
 
-  @override
-  void onReady() {
-    super.onReady();
+    //   await fetchStock();
+    // });
+    // ever(store, (_) async {
+    //   stockList.clear();
+    //   stockListFiltered.clear();
+    //   await fetchStock();
+    // });
+    super.onInit();
   }
 
   void changeStateShip(String value) {
-    if (value == 'store') {
+    if (_isFetching) return; // Ignore state changes when fetching data
+
+    if (value == "store") {
       store.value = !store.value;
       product.value = false;
-    } else if (value == 'product') {
+      isLoading.value = true;
+    } else if (value == "product") {
       product.value = !product.value;
       store.value = false;
+
+      isLoading.value = true;
+    } else {
+      store.value = false;
+      product.value = false;
     }
-    fetchStock();
-    filterSearchResults("");
+
+    _isFetching = true; // Mark that we are fetching data
+
+    //!  Wait for 800 milliseconds before fetching data
+    Future.delayed(Duration(milliseconds: 2), () {
+      fetchStock().then((_) {
+        _isFetching = false; // Mark that data fetching is done
+      });
+    });
   }
 
   Future<void> fetchStock() async {
@@ -50,10 +68,14 @@ class StockController extends GetxController {
       status = "all";
     }
     List<Stock> data = await StockService.getStock(status);
+
+    // Clear the lists before adding new data
     stockList.clear();
     stockListFiltered.clear();
+
     stockList.addAll(data);
     stockListFiltered.addAll(data);
+
     isLoading.value = false;
   }
 
