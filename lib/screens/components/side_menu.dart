@@ -48,7 +48,7 @@ class SideMenu extends StatelessWidget {
             icon: TernavIcons.lightOutline.menu,
             title: "Stock",
             onTap: () {
-              Get.toNamed("/stock");
+              Get.toNamed("/dashboardStock");
             },
           ),
           DrawerListTile(

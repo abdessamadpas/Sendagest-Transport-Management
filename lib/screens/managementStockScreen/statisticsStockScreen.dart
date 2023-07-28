@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:sendatrack/screens/main_screen.dart';
+import 'package:sendatrack/screens/managementStockScreen/dashboardStockScreen.dart';
 // import 'package:sendatrack/widgets/stockHeader.dart';
 import 'package:sendatrack/widgets/stockBody.dart';
-import '../../constant.dart';
+import '../../../constant.dart';
 import 'package:sendatrack/widgets/stockHeader.dart';
 import 'dart:ui';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class StockScreen extends StatefulWidget {
-  const StockScreen({super.key});
+class StatisticsScreen extends StatefulWidget {
+  const StatisticsScreen({super.key});
 
   @override
-  State<StockScreen> createState() => _StockScreenState();
+  State<StatisticsScreen> createState() => _StatisticsScreenState();
 }
 
-class _StockScreenState extends State<StockScreen> {
+class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +50,7 @@ class _StockScreenState extends State<StockScreen> {
           color: kGrayIcon,
           onPressed: () {
             // Navigator.pop(context);
-            Get.off(() => MainScreen()
+            Get.off(() => StockDashboardScreen()
                 //  , transition: Transition.rightToLeft
                 );
           },

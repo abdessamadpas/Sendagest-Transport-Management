@@ -10,6 +10,8 @@ abstract class Routes {
   static const FACTURES = _Paths.factures;
   static const TRAJECTS = _Paths.trajects;
   static const STOCK = _Paths.stock;
+  static const MOVEMENT = _Paths.movement;
+  static const DASHBOARDSTOCK = _Paths.dashboardStock;
 }
 
 abstract class _Paths {
@@ -20,4 +22,6 @@ abstract class _Paths {
   static const String factures = '/factures';
   static const String trajects = '/trajects';
   static const String stock = '/stock';
+  static const String movement = '/movement';
+  static const String dashboardStock = '/dashboardStock';
 }

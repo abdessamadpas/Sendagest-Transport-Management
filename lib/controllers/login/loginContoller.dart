@@ -13,7 +13,7 @@ class LoginController extends GetxController {
   final TextEditingController passwordTextEditingController =
       TextEditingController();
 
-  RxBool isRemembered = false.obs;
+  RxBool isRemembered = true.obs;
 
   @override
   void onInit() {

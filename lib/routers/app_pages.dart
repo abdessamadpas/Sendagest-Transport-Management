@@ -1,14 +1,15 @@
 import 'package:get/get.dart';
-import 'package:sendatrack/screens/components/home_screen.dart';
 import 'package:sendatrack/screens/login_screen.dart';
 import '../bindings/home_binding.dart';
 import '../screens/main_screen.dart';
 import '../bindings/trajects_binding.dart';
 import '../screens/trajects_screen.dart';
 import '../screens/detailsTraject_screen.dart';
+import '../screens/managementStockScreen/dashboardStockScreen.dart';
 import '../bindings/trajectDetails_binding.dart';
 import '../screens/splashScreen.dart';
-import '../screens/stockScreen.dart';
+import '../screens/managementStockScreen/statisticsStockScreen.dart';
+import '../screens/managementStockScreen/movementScreen.dart';
 part 'app_routes.dart';
 
 class AppPages {
@@ -28,8 +29,12 @@ class AppPages {
       page: () => MainScreen(),
       binding: HomeBinding(),
     ),
-    GetPage(name: _Paths.stock, page: () => StockScreen()),
-
+    GetPage(
+      name: _Paths.dashboardStock,
+      page: () => const StockDashboardScreen(),
+    ),
+    GetPage(name: _Paths.stock, page: () => const StatisticsScreen()),
+    GetPage(name: _Paths.movement, page: () => const MovementScreen()),
     // GetPage(
     //   name: _Paths.detailsTraject,
     //   page: () => DetailsTraject(),
