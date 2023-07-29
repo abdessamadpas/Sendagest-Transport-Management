@@ -62,6 +62,13 @@ dependencies:
   shared_preferences: ^2.2.0
   draggable_bottom_sheet: ^1.0.2
   debounce_throttle: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  image_path: "images/senda-icon-luancher.png"
+  android: true 
+  ios: true 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
