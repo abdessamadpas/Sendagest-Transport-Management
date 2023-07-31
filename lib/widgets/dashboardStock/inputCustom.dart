@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sendatrack/constant.dart';
+import 'package:get/get.dart';
 
 class InputCustom extends StatefulWidget {
-  TextEditingController controller;
+  TextEditingController controllerInput;
 
   final String hint;
   bool numeric;
@@ -11,13 +12,18 @@ class InputCustom extends StatefulWidget {
       {super.key,
       required this.hint,
       required this.numeric,
-      required this.controller});
+      required this.controllerInput});
 
   @override
   State<InputCustom> createState() => _InputCustomState();
 }
 
 class _InputCustomState extends State<InputCustom> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -28,8 +34,9 @@ class _InputCustomState extends State<InputCustom> {
           color: const Color.fromARGB(255, 245, 245, 245),
           borderRadius: BorderRadius.circular(5),
         ),
-        child: TextField(
-          controller: widget.controller,
+        child: TextFormField(
+          controller: widget.controllerInput,
+          // initialValue: widget.controller.text,
           keyboardType:
               widget.numeric ? TextInputType.number : TextInputType.text,
           // expands: true,

@@ -15,7 +15,7 @@ class TrajectsService {
         final List<dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse.map((item) => Traject.fromJson(item)).toList();
       } else {
-        throw Exception('Failed to load facture from API');
+        throw Exception('Failed to load trajects from API');
       }
     } catch (e) {
       throw Exception('error fetching data $e');

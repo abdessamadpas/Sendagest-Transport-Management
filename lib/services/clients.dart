@@ -14,7 +14,7 @@ class ClientService {
         final List<dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse.map((item) => Clients.fromJson(item)).toList();
       } else {
-        throw Exception('Failed to load facture from API');
+        throw Exception('Failed to load clients from API');
       }
     } catch (e) {
       throw Exception('error fetching data $e');

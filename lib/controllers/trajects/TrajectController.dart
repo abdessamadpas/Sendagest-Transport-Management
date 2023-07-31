@@ -2,12 +2,12 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:sendatrack/model/trajects_model.dart';
-import 'package:sendatrack/model/vehicle.dart';
+import 'package:sendatrack/model/remorque.dart';
 import 'package:sendatrack/services/trajects.dart';
 import 'package:sendatrack/controllers/trajects/PopupTrajectController.dart';
 import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
-import 'package:sendatrack/services/vehicule.dart';
+import 'package:sendatrack/services/remorque.dart';
 import 'package:sendatrack/model/client.dart';
 import 'package:sendatrack/services/clients.dart';
 
@@ -152,7 +152,7 @@ class TrajectsController extends GetxController {
   Future<List<SelectedListItem>> fetchVehicles() async {
     try {
       List<SelectedListItem> vehicles = [];
-      List<Vehicle> data = await vehicleService.getVehicule();
+      List<Vehicle> data = await RemorqueService.getRemorque();
 
       data.forEach((vehicle) {
         vehicles.add(SelectedListItem(name: vehicle.Remorque));
