@@ -20,11 +20,12 @@ class _SelectInputState extends State<SelectInput> {
   @override
   void initState() {
     super.initState();
+
     if (widget.list.isNotEmpty) {
-      controller.changeStateSelectedValue(widget.type, widget.list.first);
+      controller.changeStateSelectedValue(widget.type, "Select a value");
     } else {
       print(widget.list.length);
-      var dropdownValue = "";
+      dropdownValue = "Select a value";
     }
   }
 
@@ -41,7 +42,8 @@ class _SelectInputState extends State<SelectInput> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: DropdownButton<String>(
-                    value: controller.getSelectedVariable(widget.type)!,
+                    value: controller.getSelectedVariable(widget.type) ??
+                        dropdownValue,
                     isExpanded: true,
                     icon:
                         const Icon(Icons.keyboard_arrow_down_rounded, size: 27),
@@ -55,13 +57,19 @@ class _SelectInputState extends State<SelectInput> {
                     onChanged: (String? value) {
                       controller.changeStateSelectedValue(widget.type, value);
                     },
-                    items: widget.list
-                        .map<DropdownMenuItem<String>>((String? value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value ?? ""),
-                      );
-                    }).toList(),
+                    items: [
+                      DropdownMenuItem<String>(
+                        value: "Select a value",
+                        child: Text("Select a value"),
+                      ),
+                      ...widget.list
+                          .map<DropdownMenuItem<String>>((String? value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value ?? ""),
+                        );
+                      }).toList(),
+                    ],
                   ),
                 )
               : CircularProgressIndicator(), // Show a loading indicator when the list is empty

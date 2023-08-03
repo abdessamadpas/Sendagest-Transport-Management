@@ -10,7 +10,9 @@ import 'package:get/get.dart';
 import 'package:sendatrack/controllers/stock/movementController.dart';
 
 class FormMovement extends StatefulWidget {
-  const FormMovement({super.key});
+  final TabController tabController;
+
+  const FormMovement({required this.tabController});
 
   @override
   State<FormMovement> createState() => _FormMovementState();
@@ -239,6 +241,7 @@ class _FormMovementState extends State<FormMovement> {
                                     colorText: Colors.white,
                                     snackPosition: SnackPosition.TOP,
                                   );
+                                  controller.saveMovement();
                                 },
                                 child: const Text("Save",
                                     style: TextStyle(
@@ -259,14 +262,15 @@ class _FormMovementState extends State<FormMovement> {
                               child: TextButton(
                                 onPressed: () {
                                   Get.snackbar(
-                                    "cancel",
-                                    "Movement canceled ",
+                                    "Clear",
+                                    "Movement cleared ",
                                     backgroundColor: kYellow,
                                     colorText: Colors.white,
                                     snackPosition: SnackPosition.TOP,
                                   );
+                                  widget.tabController.animateTo(1);
                                 },
-                                child: const Text("Cancel",
+                                child: const Text("Clear",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,

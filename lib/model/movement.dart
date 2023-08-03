@@ -1,11 +1,13 @@
 import 'dart:convert';
 
-List<Movement> ClientFronJson(String str) =>
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
+List<Movement> clientFromJson(String str) =>
     List<Movement>.from(json.decode(str).map((x) => Movement.fromJson(x)));
 
 class Movement {
   String id;
-  String idStore;
+  int idStore;
   int dateMvt;
   String dateMvtString;
   String typeMvt;
@@ -54,26 +56,50 @@ class Movement {
 
   factory Movement.fromJson(Map<String, dynamic> json) => Movement(
         id: json["id"],
-        idStore: json["idStore"],
-        dateMvt: json["dateMvt"],
-        dateMvtString: json["dateMvtString"],
-        typeMvt: json["typeMvt"],
-        numBon: json["numBon"],
-        extra: json["extra"],
+        idStore: json["id_Store"],
+        dateMvt: json["DateMvt"],
+        dateMvtString: json["DateMvtString"],
+        typeMvt: json["TypeMvt"],
+        numBon: json["NumBon"],
+        extra: json["Extra"],
         login: json["login"],
-        qte: json["qte"],
-        price: json["price"],
-        tva: json["tva"],
-        prixTotal: json["prixTotal"],
-        reference: json["reference"],
-        idTypePanne: json["idTypePanne"],
-        idVehicule: json["idVehicule"],
-        kilometrage: json["kilometrage"],
+        qte: json["Qte"],
+        price: json["Price"],
+        tva: json["Tva"],
+        prixTotal: json["PrixTotal"],
+        reference: json["Reference"],
+        idTypePanne: json["id_TypePanne"],
+        idVehicule: json["id_Vehicule"],
+        kilometrage: json["Kilometrage"],
         observation: json["observation"],
-        designation: json["designation"],
+        designation: json["Designation"],
         idCiterne: json["idCiterne"],
-        idDelivery: json["idDelivery"],
-        qteTotal: json["qteTotal"],
-        tVA: json["tVA"],
+        idDelivery: json["id_delivery"],
+        qteTotal: json["QteTotal"],
+        tVA: json["TVA"],
       );
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "id_Store": idStore,
+        "DateMvt": dateMvt,
+        "DateMvtString": dateMvtString,
+        "TypeMvt": typeMvt,
+        "NumBon": numBon,
+        "Extra": extra,
+        "login": login,
+        "Qte": qte,
+        "Price": price,
+        "Tva": tva,
+        "PrixTotal": prixTotal,
+        "Reference": reference,
+        "id_TypePanne": idTypePanne,
+        "id_Vehicule": idVehicule,
+        "Kilometrage": kilometrage,
+        "observation": observation,
+        "Designation": designation,
+        "idCiterne": idCiterne,
+        "id_delivery": idDelivery,
+        "QteTotal": qteTotal,
+        "TVA": tVA,
+      };
 }

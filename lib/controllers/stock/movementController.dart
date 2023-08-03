@@ -5,9 +5,11 @@ import 'package:sendatrack/model/stock.dart';
 import 'package:sendatrack/services/stock.dart';
 import 'package:sendatrack/model/depotInfo.dart';
 import 'package:sendatrack/model/product.dart';
+import 'package:sendatrack/model/movement.dart';
 import 'package:sendatrack/services/vehicle.dart';
 import 'package:sendatrack/services/movement.dart';
 import 'package:sendatrack/model/vehicle.dart';
+import 'dart:convert';
 
 class MovementController extends GetxController {
   RxBool isLoading = false.obs;
@@ -29,9 +31,14 @@ class MovementController extends GetxController {
   RxList<String?> listVehicle = <String>[].obs;
   RxList<String?> listTypePanne = <String>[].obs;
   RxList<String?> listCiterne = <String>[].obs;
+
+// ! movements added to the list
+  RxList<Movement> listMovement = <Movement>[].obs;
+
   RxString? designation = "".obs;
   RxString? quantity = "".obs;
   RxString? price = "".obs;
+
 //todo need to define the following variables
 //! depot
 //! date
@@ -69,11 +76,11 @@ class MovementController extends GetxController {
 
 // save the movement
   Future saveMovement() async {
+    print("allo");
     isLoading.value = true;
-
     Map<String, dynamic> movementData = {
       "id": "",
-      "id_Store": "2",
+      "id_Store": 0,
       "DateMvt": 1690761600,
       "DateMvtString": "2023-07-31",
       "TypeMvt": "E",
@@ -95,7 +102,18 @@ class MovementController extends GetxController {
       "QteTotal": "",
       "TVA": 0
     };
-    await MovementService.addMovement(movementData);
+    listMovement.add(Movement.fromJson(movementData));
+    print(listMovement.length);
+//? clear data after adding
+    selectedReference?.value = "Select a value";
+    DesignationTextEditingController.text = "";
+
+    //? to hundle data
+    String jsonString =
+        json.encode(listMovement.map((movement) => movement.toJson()).toList());
+    print(jsonString);
+
+    // await MovementService.addMovement(movementData);
 
     // selectedDepot!.value,
     // date,
@@ -111,6 +129,16 @@ class MovementController extends GetxController {
     // TVATextEditingController.text,
 
     isLoading.value = false;
+  }
+
+  getIds(description, type) async {
+    List<DepotInfo> data = await StockService.getDepotInfo(type);
+
+    return data.map((element) {
+      if (element.description == description) {
+        return element.id;
+      }
+    });
   }
 
   void changeState(String text) {

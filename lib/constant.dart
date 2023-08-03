@@ -18,6 +18,8 @@ const KDark = Color.fromARGB(255, 45, 64, 71);
 const greenLight = Color.fromARGB(255, 208, 239, 114);
 const blueLight = Color.fromARGB(255, 158, 236, 255);
 const pinkLight = Color.fromARGB(255, 255, 204, 209);
+const bluedark = Color.fromARGB(211, 0, 119, 255);
+const lightBlue = Color.fromARGB(255, 140, 192, 255);
 
 // 'dodger-blue': {
 //     '50': '#eef8ff',
