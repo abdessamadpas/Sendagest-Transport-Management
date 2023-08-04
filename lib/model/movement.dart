@@ -7,8 +7,8 @@ List<Movement> clientFromJson(String str) =>
 
 class Movement {
   String id;
-  int idStore;
-  int dateMvt;
+  String idStore;
+  String dateMvt;
   String dateMvtString;
   String typeMvt;
   String numBon;
@@ -20,7 +20,7 @@ class Movement {
   String prixTotal;
   String reference;
   int idTypePanne;
-  int idVehicule;
+  String idVehicule;
   int kilometrage;
   String observation;
   String designation;

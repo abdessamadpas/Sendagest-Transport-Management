@@ -19,7 +19,11 @@ const greenLight = Color.fromARGB(255, 208, 239, 114);
 const blueLight = Color.fromARGB(255, 158, 236, 255);
 const pinkLight = Color.fromARGB(255, 255, 204, 209);
 const bluedark = Color.fromARGB(211, 0, 119, 255);
-const lightBlue = Color.fromARGB(255, 140, 192, 255);
+const lightBlue = Color.fromARGB(255, 130, 196, 242);
+const lightBlue1 = Color.fromARGB(255, 130, 196, 242);
+
+const lightBlue2 = Color.fromARGB(255, 124, 161, 244);
+const BANAFSAJI = Color.fromARGB(255, 148, 129, 244);
 
 // 'dodger-blue': {
 //     '50': '#eef8ff',

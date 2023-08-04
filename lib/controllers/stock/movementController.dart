@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/model/stock.dart';
@@ -10,6 +11,9 @@ import 'package:sendatrack/services/vehicle.dart';
 import 'package:sendatrack/services/movement.dart';
 import 'package:sendatrack/model/vehicle.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import '../../../constant.dart';
 
 class MovementController extends GetxController {
   RxBool isLoading = false.obs;
@@ -21,11 +25,13 @@ class MovementController extends GetxController {
   RxString? selectedVehicle = "".obs;
   RxString? selectedTypePanne = "".obs;
   RxString? selectedCiterne = "".obs;
+  RxString? errorMsg = "".obs;
 
-  DateTime date = DateTime.now();
+  DateTime? selectedDate = DateTime.now();
 // * define lists
 
   RxList<Product> listProducts = <Product>[].obs;
+
   RxList<String?> listReference = <String>[].obs;
   RxList<String?> listDepot = <String>[].obs;
   RxList<String?> listVehicle = <String>[].obs;
@@ -34,6 +40,7 @@ class MovementController extends GetxController {
 
 // ! movements added to the list
   RxList<Movement> listMovement = <Movement>[].obs;
+  RxList lisToDisplay = [].obs;
 
   RxString? designation = "".obs;
   RxString? quantity = "".obs;
@@ -67,78 +74,124 @@ class MovementController extends GetxController {
     ever(selectedReference!, (_) => getDataOfRef(selectedReference!.value));
     await fetchDepots();
     await getlistProducts().then((value) => getlistReference());
-
     await getlistVehivule();
     await getlistTypePanne();
     await getlistCiterne();
     isLoading.value = false;
   }
 
-// save the movement
+  // @override
+  // void onClose() {
+  //   print('MyController is closed');
+  //   super.onClose();
+  // }
+
+//! save the movement to backend
   Future saveMovement() async {
-    print("allo");
-    isLoading.value = true;
-    Map<String, dynamic> movementData = {
-      "id": "",
-      "id_Store": 0,
-      "DateMvt": 1690761600,
-      "DateMvtString": "2023-07-31",
-      "TypeMvt": "E",
-      "NumBon": "",
-      "Extra": "",
-      "login": "",
-      "Qte": 1,
-      "Price": 350,
-      "Tva": 0,
-      "PrixTotal": "",
-      "Reference": "ref01",
-      "id_TypePanne": 0,
-      "id_Vehicule": 0,
-      "Kilometrage": 0,
-      "observation": "",
-      "Designation": "test01",
-      "idCiterne": "",
-      "id_delivery": 0,
-      "QteTotal": "",
-      "TVA": 0
-    };
-    listMovement.add(Movement.fromJson(movementData));
-    print(listMovement.length);
-//? clear data after adding
-    selectedReference?.value = "Select a value";
-    DesignationTextEditingController.text = "";
+    errorMsg!.value = "";
+    if (selectedDepot!.value == "Select a value") {
+      errorMsg!.value = "Please select a depot";
+      return;
+    }
+    if (selectedReference!.value == "Select a value") {
+      errorMsg!.value = "Please select a reference";
+      return;
+    } else {
+      isLoading.value = true;
+      // Map<String, dynamic> DataToSend = {
+      //   "id": "",
+      //   "id_Store": await getId(selectedDepot!.value, "Store").toString(),
+      //   "DateMvt": selectedDate?.millisecondsSinceEpoch.toString(),
+      //   "DateMvtString": selectedDate.toString().split(' ')[0].toString(),
+      //   "TypeMvt": input.value == true ? "E" : "S",
+      //   "NumBon": "",
+      //   "Extra": "",
+      //   "login": "",
+      //   "Qte": int.parse(QuantityTextEditingController.text),
+      //   "Price": int.parse(PriceTextEditingController.text),
+      //   "Tva": int.parse(TVATextEditingController.text),
+      //   "PrixTotal": "",
+      //   "Reference": selectedReference!.value.toString(),
+      //   "id_TypePanne": await getId(selectedTypePanne!.value, "TypePanne"),
+      //   "id_Vehicule": selectedVehicle!.value.toString(),
+      //   "Kilometrage": int.parse(KilometrageTextEditingController.text),
+      //   "observation": ObservationTextEditingController.toString(),
+      //   "Designation": DesignationTextEditingController.text.toString(),
+      //   "idCiterne": await getId(selectedCiterne!.value, "Citerne").toString(),
+      //   "id_delivery": 0,
+      //   "QteTotal": "",
+      //   "TVA": int.parse(TVATextEditingController.text)
+      // };
 
-    //? to hundle data
-    String jsonString =
-        json.encode(listMovement.map((movement) => movement.toJson()).toList());
-    print(jsonString);
+      Map<String, dynamic> addedMovements = {
+        "id_Store": selectedDepot!.value,
+        "DateMvtString": selectedDate.toString().split(' ')[0].toString(),
+        "Qte": QuantityTextEditingController.text,
+        "Price": PriceTextEditingController.text,
+        "Reference": selectedReference!.value,
+        "id_TypePanne": selectedTypePanne!.value,
+        "id_Vehicule": selectedVehicle!.value,
+        // "Kilometrage": KilometrageTextEditingController.text.toString(),
+        "observation": ObservationTextEditingController.text,
+        "Designation": DesignationTextEditingController.text,
+        "idCiterne": selectedCiterne!.value,
+        "TVA": TVATextEditingController.text,
+      };
 
-    // await MovementService.addMovement(movementData);
+      // listMovement.add(Movement.fromJson(DataToSend));
+      //  lisToDisplay.add(Movement.fromJson(lisToDisplay));
+      lisToDisplay.add(addedMovements);
+      print('list length  ${lisToDisplay.toList()} ');
+      //? clear data after adding
+      //!clear data
+      selectedReference?.value = "Select a value";
+      DesignationTextEditingController.text = "";
+      QuantityTextEditingController.text = "";
+      PriceTextEditingController.text = "";
+      TVATextEditingController.text = "";
+      ObservationTextEditingController.text = "";
+      KilometrageTextEditingController.text = "s";
+      selectedTypePanne?.value = "Select a value";
+      selectedVehicle?.value = "Select a value";
+      selectedCiterne?.value = "Select a value";
+      //? to hundle data
+      // String jsonString =
+      //     json.encode(listMovement.map((movement) => movement.toJson()).toList());
+      // print(jsonString);
 
-    // selectedDepot!.value,
-    // date,
-    // selectedReference!.value,
-    // selectedVehicle!.value,
-    // selectedTypePanne!.value,
-    // selectedCiterne!.value,
-    // DesignationTextEditingController.text,
-    // QuantityTextEditingController.text,
-    // PriceTextEditingController.text,
-    // ObservationTextEditingController.text,
-    // KilometrageTextEditingController.text,
-    // TVATextEditingController.text,
+      // await MovementService.addMovement(movementData);
 
-    isLoading.value = false;
+      isLoading.value = false;
+    }
   }
 
-  getIds(description, type) async {
+//! get IDs
+
+  Future<int?> getId(String description, String type) async {
     List<DepotInfo> data = await StockService.getDepotInfo(type);
 
-    return data.map((element) {
-      if (element.description == description) {
-        return element.id;
-      }
-    });
+    DepotInfo matchingElement =
+        data.firstWhere((element) => element.description == description);
+
+    if (matchingElement != null) {
+      return matchingElement.id;
+    } else {
+      // Return a default value (e.g., -1) or throw an exception if desired.
+      return -1;
+    }
+  }
+
+  void clearDataFromForm() {
+    selectedReference?.value = "Select a value";
+    DesignationTextEditingController.text = "";
+    QuantityTextEditingController.text = "";
+    PriceTextEditingController.text = "";
+    TVATextEditingController.text = "";
+    ObservationTextEditingController.text = "";
+    KilometrageTextEditingController.text = "";
+    selectedTypePanne?.value = "Select a value";
+    selectedVehicle?.value = "Select a value";
+    selectedCiterne?.value = "Select a value";
   }
 
   void changeState(String text) {
@@ -231,11 +284,7 @@ class MovementController extends GetxController {
         DesignationTextEditingController.text = element.Designation!;
       }
     });
-    listProducts.forEach((element) {
-      if (element.Reference == ref) {
-        QuantityTextEditingController.text = element.QteStock.toString();
-      }
-    });
+
     listProducts.forEach((element) {
       if (element.Reference == ref) {
         PriceTextEditingController.text = element.Prix_achat.toString();
@@ -249,5 +298,12 @@ class MovementController extends GetxController {
     citernes.forEach((element) {
       listCiterne.add(element.description);
     });
+  }
+
+  void removeMovement(int index) {
+    if (lisToDisplay.length > 0) {
+      lisToDisplay.removeAt(index);
+      print('list length  ${lisToDisplay.toList()} ');
+    }
   }
 }

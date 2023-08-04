@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:time_picker_spinner_pop_up/time_picker_spinner_pop_up.dart';
+import 'package:get/get.dart';
+import 'package:sendatrack/controllers/stock/movementController.dart';
 
 class Pickerdate extends StatefulWidget {
   const Pickerdate({super.key});
@@ -10,7 +12,8 @@ class Pickerdate extends StatefulWidget {
 }
 
 class _PickerdateState extends State<Pickerdate> {
-  DateTime? selectedDate;
+  DateTime? selectedDate = DateTime.now();
+  MovementController controller = Get.put(MovementController());
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +61,12 @@ class _PickerdateState extends State<Pickerdate> {
           );
         },
         onChange: (dateTime) {
-          setState(() {
-            selectedDate = dateTime;
-          });
+          setState(
+            () {
+              selectedDate = dateTime;
+            },
+          );
+          controller.selectedDate = selectedDate;
         },
       ),
     ));

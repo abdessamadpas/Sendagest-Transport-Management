@@ -16,7 +16,6 @@ class VehicleService {
 
     try {
       final response = await http.get(Uri.parse(url), headers: headers);
-      print(response.body.toString());
       if (response.statusCode == 200) {
         final List<dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse.map((item) => Vehicle.fromJson(item)).toList();

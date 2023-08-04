@@ -20,17 +20,17 @@ class _ListMovemntState extends State<ListMovemnt> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Obx(() => Container(
-                child: SingleChildScrollView(
-              // color: kGrey,
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: SingleChildScrollView(
               child: Column(children: [
                 Container(
-                  margin: const EdgeInsets.only(top: 5),
-                  width: 350,
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  // margin: const EdgeInsets.only(top: 5),
+                  // width: 350,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16.0),
-                    color: bluedark,
+                    color: lightBlue1,
                   ),
                   child: Column(
                     children: [
@@ -50,7 +50,7 @@ class _ListMovemntState extends State<ListMovemnt> {
                                     borderRadius: BorderRadius.circular(15),
                                     color: Color.fromARGB(255, 230, 227, 227)
                                         .withOpacity(0.3)),
-                                child: Center(
+                                child: const Center(
                                   child: Icon(Icons.store,
                                       color: const Color.fromARGB(
                                           255, 255, 255, 255),
@@ -59,16 +59,31 @@ class _ListMovemntState extends State<ListMovemnt> {
                               ),
                             ),
                           ),
-                          Gap(10),
-                          Text('3 Inputs',
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 18,
-                              ))
+                          const Gap(10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(controller.lisToDisplay.length.toString(),
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 100, 99, 99),
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              Gap(10),
+                              Text(controller.input.isTrue ? 'Input' : 'Output',
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 223, 223, 223),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ))
+                            ],
+                          )
                         ],
                       ),
                       const Divider(
-                        color: KDark,
+                        color: Colors.white,
+                        thickness: 1,
                       ),
                       IntrinsicHeight(
                           child: Row(
@@ -77,11 +92,17 @@ class _ListMovemntState extends State<ListMovemnt> {
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('Date',
+                            children: [
+                              const Text('Date',
                                   style: TextStyle(
-                                      fontSize: 15, color: lightBlue)),
-                              Text('12/12/2021',
+                                    fontSize: 15,
+                                    color: Color.fromARGB(255, 100, 99, 99),
+                                  )),
+                              const Gap(5),
+                              Text(
+                                  controller.selectedDate
+                                      .toString()
+                                      .split(" ")[0],
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.white)),
                             ],
@@ -92,11 +113,19 @@ class _ListMovemntState extends State<ListMovemnt> {
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              Text('Werehouse',
+                            children: [
+                              const Text('Warehouse',
                                   style: TextStyle(
-                                      fontSize: 15, color: lightBlue)),
-                              Text('Tanger',
+                                    fontSize: 15,
+                                    color: Color.fromARGB(255, 100, 99, 99),
+                                  )),
+                              const Gap(5),
+                              Text(
+                                  (controller.selectedDepot!.value ==
+                                              "Select a value" ||
+                                          controller.lisToDisplay.isEmpty)
+                                      ? "Not selected"
+                                      : controller.selectedDepot!.value,
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.white)),
                             ],
@@ -106,22 +135,27 @@ class _ListMovemntState extends State<ListMovemnt> {
                     ],
                   ),
                 ),
-                controller.listMovement.length == 0
-                    ? Text(controller.listMovement.length.toString())
-                    : GridView.builder(
-                        itemCount: controller.listMovement.length,
-                        // physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 3 / 3.1,
-                                crossAxisCount: 1,
-                                mainAxisSpacing: 20),
-                        itemBuilder: (context, index) {
-                          return CardMovement(
-                              mouvement: controller.listMovement[index]);
-                        },
-                      )
+                Container(
+                  margin: const EdgeInsets.only(top: 5),
+                  child: controller.lisToDisplay.length.toString() == '0'
+                      ? Text(controller.lisToDisplay.length.toString())
+                      : GridView.builder(
+                          itemCount: controller.lisToDisplay.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  childAspectRatio: 6 / 3.1,
+                                  crossAxisCount: 1,
+                                  mainAxisSpacing: 20),
+                          itemBuilder: (context, index) {
+                            return CardMovement(
+                              mouvement: controller.lisToDisplay[index],
+                              index: index,
+                            );
+                          },
+                        ),
+                ),
               ]),
               // height: MediaQuery.of(context).size.height,
             ))));

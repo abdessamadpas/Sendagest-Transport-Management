@@ -31,7 +31,6 @@ class StockService {
 
     try {
       final response = await http.get(Uri.parse(url), headers: headers);
-      print(status + "  " + response.statusCode.toString());
       if (response.statusCode == 200) {
         final List<dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse.map((item) => Stock.fromJson(item)).toList();
@@ -51,7 +50,6 @@ class StockService {
 
     try {
       final response = await http.get(Uri.parse(url), headers: headers);
-      print(type + "  " + response.statusCode.toString());
       if (response.statusCode == 200) {
         final List<dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse.map((item) => DepotInfo.fromJson(item)).toList();

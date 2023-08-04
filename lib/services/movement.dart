@@ -20,7 +20,6 @@ class MovementService {
       final response = await http.get(Uri.parse(requestUrl));
 
       if (response.statusCode == 200) {
-        print('Response: ${response.body}');
       } else {
         print('Request failed with status: ${response.statusCode}');
       }
