@@ -109,7 +109,7 @@ class _StockDashboardScreenState extends State<StockDashboardScreen> {
                         CardQuickAccess(
                           icon: Icons.local_activity_outlined,
                           title: "Logs Stock",
-                          route: "stock",
+                          route: "/logsMovements",
                           color: DarkBlueTest,
                         ),
                         const Gap(10),

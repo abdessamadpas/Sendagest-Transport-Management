@@ -16,7 +16,6 @@ class CardQuickAccess extends StatefulWidget {
       required this.title,
       required this.route,
       required this.color});
-
   @override
   State<CardQuickAccess> createState() => _CardQuickAccessState();
 }

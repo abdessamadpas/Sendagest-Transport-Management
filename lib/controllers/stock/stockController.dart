@@ -49,7 +49,7 @@ class StockController extends GetxController {
     _isFetching = true; // Mark that we are fetching data
 
     //!  Wait for 800 milliseconds before fetching data
-    Future.delayed(Duration(milliseconds: 2), () {
+    Future.delayed(Duration(milliseconds: 1), () {
       fetchStock().then((_) {
         _isFetching = false; // Mark that data fetching is done
       });

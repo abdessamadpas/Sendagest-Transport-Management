@@ -64,6 +64,7 @@ dependencies:
   debounce_throttle: ^2.0.0
   flutter_launcher_icons: ^0.13.1
   time_picker_spinner_pop_up: ^1.2.1
+  expandable_datatable: ^0.0.7
 
 flutter_launcher_icons:
   image_path: "images/senda-icon-luancher.png"

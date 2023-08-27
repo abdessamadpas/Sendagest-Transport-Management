@@ -12,6 +12,7 @@ abstract class Routes {
   static const STOCK = _Paths.stock;
   static const MOVEMENT = _Paths.movement;
   static const DASHBOARDSTOCK = _Paths.dashboardStock;
+  static const LOGSMOVEMENT = _Paths.logsMovements;
 }
 
 abstract class _Paths {
@@ -24,4 +25,5 @@ abstract class _Paths {
   static const String stock = '/stock';
   static const String movement = '/movement';
   static const String dashboardStock = '/dashboardStock';
+  static const String logsMovements = '/logsMovements';
 }
