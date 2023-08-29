@@ -10,7 +10,8 @@ import '../bindings/trajectDetails_binding.dart';
 import '../screens/splashScreen.dart';
 import '../screens/managementStockScreen/statisticsStockScreen.dart';
 import '../screens/managementStockScreen/movementScreen.dart';
-import '../bindings/movementForm.dart';
+import '../screens/managementStockScreen/movementLogsScreen.dart';
+
 part 'app_routes.dart';
 
 class AppPages {
@@ -37,10 +38,10 @@ class AppPages {
     ),
     GetPage(name: _Paths.stock, page: () => const StatisticsScreen()),
     GetPage(name: _Paths.movement, page: () => MovementScreen()),
-    // GetPage(
-    //   name: _Paths.logsMovements,
-    //   page: () => const MovementLogsScreen(),
-    // ),
+    GetPage(
+      name: _Paths.logsMovements,
+      page: () => const MovementLogsScreen(),
+    ),
     // GetPage(
     //   name: _Paths.detailsTraject,
     //   page: () => DetailsTraject(),

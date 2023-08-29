@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/constant.dart';
 import 'dart:ui';
-import 'package:flutter/material.dart';
 
 class CardQuickAccess extends StatefulWidget {
   IconData icon;
