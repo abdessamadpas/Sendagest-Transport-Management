@@ -6,6 +6,7 @@ import '../../../constant.dart';
 import 'package:sendatrack/screens/managementStockScreen/dashboardStockScreen.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/widgets/dashboardStock/movementCard.dart';
+import 'package:sendatrack/widgets/dashboardStock/headerMovementList.dart';
 
 class MovementLogsScreen extends StatefulWidget {
   const MovementLogsScreen({super.key});
@@ -50,6 +51,7 @@ class _MovementLogsScreenState extends State<MovementLogsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            HeaderMovementList(),
             Expanded(
               child: ListView.builder(
                 itemCount: 5,
@@ -131,7 +133,7 @@ class _MovementLogsScreenState extends State<MovementLogsScreen> {
                                 color: lightGray),
                           ),
                           Gap(7),
-                          Text("12-Nov-2023",
+                          Text("12Nov-2023",
                               style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
