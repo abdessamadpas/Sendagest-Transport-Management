@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constant.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/controllers/stock/movementController.dart';
-import 'package:sendatrack/widgets/dashboardStock/cardMovementList.dart';
+import 'package:sendatrack/widgets/dashboardStock/CardMovementList.dart';
 import 'package:gap/gap.dart';
 import 'dart:ui';
 

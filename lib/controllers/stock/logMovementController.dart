@@ -73,7 +73,6 @@ class LogMovementController extends GetxController {
       status = "all";
     }
     List<MovementGet> data = await MovementService.GetMovements();
-    print(data);
 
     // Clear the lists before adding new data
     stockList.clear();
@@ -85,29 +84,29 @@ class LogMovementController extends GetxController {
     isLoading.value = false;
   }
 
-  // void filterSearchResults(String query) {
-  //   List<MovementGet> result = [];
+  void filterSearchResults(String query) {
+    List<MovementGet> result = [];
 
-  //   if (query.isNotEmpty) {
-  //     result = stockList.where((element) {
-  //       bool matchReference = element.Reference != null &&
-  //           element.Reference!.toLowerCase().contains(query.toLowerCase());
+    if (query.isNotEmpty) {
+      result = stockList.where((element) {
+        bool matchReference = element.Reference != null &&
+            element.Reference!.toLowerCase().contains(query.toLowerCase());
 
-  //       bool matchDesignation = element.Designation != null &&
-  //           element.Designation!
-  //               .toString()
-  //               .toLowerCase()
-  //               .contains(query.toLowerCase());
-  //       bool matchStore = element.id_Store != null &&
-  //           element.id_Store!.toLowerCase().contains(query.toLowerCase());
-  //       bool matchQte = element.Qte != null &&
-  //           element.Qte!.toString().toLowerCase().contains(query.toLowerCase());
-  //       return matchReference || matchDesignation || matchStore || matchQte;
-  //     }).toList();
-  //   } else {
-  //     result = List.from(stockList);
-  //   }
+        bool matchDesignation = element.Designation != null &&
+            element.Designation!
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase());
+        bool matchStore = element.id_Store != null &&
+            element.id_Store!.toLowerCase().contains(query.toLowerCase());
+        bool matchQte = element.Qte != null &&
+            element.Qte!.toString().toLowerCase().contains(query.toLowerCase());
+        return matchReference || matchDesignation || matchStore || matchQte;
+      }).toList();
+    } else {
+      result = List.from(stockList);
+    }
 
-  //   stockListFiltered.value = result;
-  // }
+    stockListFiltered.value = result;
+  }
 }
