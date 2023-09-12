@@ -32,12 +32,12 @@ class _HeaderMovementListState extends State<HeaderMovementList> {
                 border: Border.all(color: Colors.grey, width: 1),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: TextField(
+              child: const TextField(
                 // onChanged: (value) => controller.filterSearchResults(value),
                 autofocus: false,
                 cursorColor: Color.fromARGB(255, 73, 73, 73),
-                style: const TextStyle(color: Colors.grey),
-                decoration: const InputDecoration(
+                style: TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
                   hintText: 'Search',
                   hintStyle: TextStyle(color: Colors.grey),
                   prefixIcon: Icon(Icons.search, color: TestColor, size: 20),

@@ -22,200 +22,184 @@ class _SubCardMovementState extends State<SubCardMovement> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 20,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.topRight,
-              colors: <Color>[lightBlue1, lightBlue2]),
-          borderRadius: BorderRadius.all(Radius.circular(16)),
-          color: lightBlue1,
+          border: Border(
+              bottom: BorderSide(
+                  width: 1.0, color: Color.fromARGB(255, 224, 224, 224))),
+          color: Color.fromARGB(255, 255, 255, 255),
         ),
-        child: Column(children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            Text(widget.mouvement["Reference"],
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold)),
-                            ClipRect(
-                              child: Container(
-                                width: 60.0,
-                                height: 50.0,
-                                child: const Center(
-                                  child: Icon(
-                                    Icons.sports_motorsports,
-                                    color: kGrey,
-                                    size: 50,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              widget.mouvement["id_TypePanne"],
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Column(
+              children: [
+                widget.mouvement.Designation != null
+                    ? Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.white,
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                const Text("designation : ",
-                                    style: TextStyle(
-                                      color: TestColor,
-                                    )),
-                                Text(widget.mouvement["Designation"],
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 15)),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("quantity : ",
-                                    style: TextStyle(
-                                      color: TestColor,
-                                    )),
-                                Text(widget.mouvement["Qte"],
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 15)),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                const Text("Price : ",
-                                    style: TextStyle(
-                                      color: TestColor,
-                                    )),
-                                Text(widget.mouvement["Price"],
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                    )),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ClipRect(
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
-                            child: Container(
-                              // padding: const EdgeInsets.all(15),
-                              width: 40.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: Color.fromARGB(255, 230, 227, 227)
-                                      .withOpacity(0.3)),
-                              child: Center(
-                                child: IconButton(
-                                  icon: const Icon(
-                                    Icons.remove_circle_outline,
-                                    color: kRed,
-                                    size: 25,
-                                  ),
-                                  onPressed: () {
-                                    controller.removeMovement(widget.index);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            const Text("TVA : ",
+                            const Text('Designation',
                                 style: TextStyle(
-                                  color: TestColor,
-                                )),
-                            Text(widget.mouvement["TVA"].toString() + "%",
+                                    color: Color.fromARGB(255, 122, 122, 122),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14)),
+                            Text(widget.mouvement.Designation ?? '',
                                 style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                )),
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15))
+                          ],
+                        ))
+                    : Container(),
+                widget.mouvement.TypeMvt != null
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                          color: kGrey,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('TypeMvt',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 122, 122, 122),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14)),
+                            Text(widget.mouvement.TypeMvt ?? '',
+                                style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15))
                           ],
                         ),
-                      ],
-                    )
-                  ]),
+                      )
+                    : Container(),
+                widget.mouvement.Price != null
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 8),
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('Price',
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 122, 122, 122),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14)),
+                            Text('${widget.mouvement.Price} £',
+                                style: const TextStyle(
+                                    color: kGreen,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15))
+                          ],
+                        ),
+                      )
+                    : Container(),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    color: kGrey,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('kilometrage',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 122, 122, 122),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14)),
+                      Text(widget.mouvement.kilometrage.toString() ?? '',
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15))
+                    ],
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('VÉHICULE',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 122, 122, 122),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14)),
+                      Text('${widget.mouvement.id_Vehicule}',
+                          style: const TextStyle(
+                              color: kGreen,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15))
+                    ],
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    color: kGrey,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('TYPE DE PANNE',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 122, 122, 122),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14)),
+                      Text(widget.mouvement.id_Vehicule.toString() ?? '',
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 0, 0, 0),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15))
+                    ],
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('OBSERVATION',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 122, 122, 122),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14)),
+                      Text('${widget.mouvement.observation.toString()} ',
+                          style: const TextStyle(
+                              color: kGreen,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15))
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-          Gap(20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  const Text("Citerne",
-                      style: TextStyle(
-                        color: TestColor,
-                      )),
-                  const Gap(5),
-                  Text(widget.mouvement["idCiterne"],
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const Gap(20),
-              Column(
-                children: [
-                  const Text("observation",
-                      style: TextStyle(
-                        color: TestColor,
-                      )),
-                  const Gap(5),
-                  Text(widget.mouvement["observation"],
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const Gap(20),
-              Column(
-                children: const [
-                  Text("Kilometrage",
-                      style: TextStyle(
-                        color: TestColor,
-                      )),
-                  Gap(5),
-                  Text("520",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold)),
-                ],
-              ),
-            ],
           )
         ]));
-    ;
   }
 }

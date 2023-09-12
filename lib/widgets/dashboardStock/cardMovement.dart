@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../constant.dart';
 import 'package:gap/gap.dart';
 import 'package:sendatrack/widgets/dashboardStock/subcardMovementList.dart';
+import 'package:sendatrack/controllers/stock/logMovementController.dart';
+import 'package:get/get.dart';
 
 class CardMovemet extends StatefulWidget {
   final index;
@@ -15,6 +17,8 @@ class CardMovemet extends StatefulWidget {
 }
 
 class _CardMovemetState extends State<CardMovemet> {
+  LogMovementController controller = Get.put(LogMovementController());
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -42,8 +46,11 @@ class _CardMovemetState extends State<CardMovemet> {
                             borderRadius: BorderRadius.circular(15),
                             color: Color.fromARGB(255, 210, 241, 255)
                                 .withOpacity(0.3)),
-                        child: const Center(
-                          child: Text('O',
+                        child: Center(
+                          child: Text(
+                              widget.mouvement.TypeMvt.toString() == "E"
+                                  ? "E"
+                                  : "S",
                               style: TextStyle(
                                   color: kDarkBlue,
                                   fontSize: 20,
@@ -56,15 +63,15 @@ class _CardMovemetState extends State<CardMovemet> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text("Reference",
+                    children: [
+                      Text(widget.mouvement.Reference,
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                           )),
                       Gap(7),
                       Text(
-                        "20 unit",
+                        widget.mouvement.Qte.toString() + "units",
                         style: TextStyle(
                           fontSize: 14,
                           color: lightGray,
@@ -81,14 +88,14 @@ class _CardMovemetState extends State<CardMovemet> {
         trailing: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Text(
-              "Tanger",
+              widget.mouvement.id_Store,
               style: TextStyle(
                   fontSize: 14, fontWeight: FontWeight.w400, color: lightGray),
             ),
             Gap(7),
-            Text("12Nov-2023",
+            Text(controller.changeDate(widget.mouvement.DateMvt),
                 style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w500,

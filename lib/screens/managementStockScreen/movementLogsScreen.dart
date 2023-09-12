@@ -52,20 +52,24 @@ class _MovementLogsScreenState extends State<MovementLogsScreen> {
         ),
         body: Container(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderMovementList(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: controller.stockListFiltered.length,
-                itemBuilder: (context, index) {
-                  return CardMovemet(
-                      index: index,
-                      mouvement: controller.stockListFiltered[index]);
-                },
-              ),
-            ),
+            Obx(
+              () => controller.isLoading.isFalse
+                  ? Expanded(
+                      child: ListView.builder(
+                        itemCount: controller.stockListFiltered.length,
+                        itemBuilder: (context, index) {
+                          return CardMovemet(
+                              index: index,
+                              mouvement: controller.stockListFiltered[index]);
+                        },
+                      ),
+                    )
+                  : const Center(child: CircularProgressIndicator()),
+            )
           ],
         )));
   }

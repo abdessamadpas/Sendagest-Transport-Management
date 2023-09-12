@@ -1,48 +1,51 @@
 import 'dart:convert';
+import 'dart:ffi';
 
+import 'package:flutter/foundation.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 List<MovementGet> clientFromJson(String str) => List<MovementGet>.from(
     json.decode(str).map((x) => MovementGet.fromJson(x)));
 
 class MovementGet {
-  int? id;
-  String? id_Store;
-  String? id_delivery;
-  String? TypeMvt;
-  String? id_Vehicule;
-  String? id_TypePanne;
-  int? DateMvt;
-  String? Reference;
-  String? NumBon;
-  int? Qte;
-  int? Tva;
-  int? Price;
-  String? observation;
-  int? kilometrage;
-  int? Extra;
-  String? idCiterne;
-  String? Designation;
-  String? login;
+  final int? id;
+  final String? id_Store;
+  final String? id_delivery;
+  final String? TypeMvt;
+  final String? id_Vehicule;
+  final String? id_TypePanne;
+  final int? DateMvt;
+  final String? Reference;
+  final String? NumBon;
+  final int? Qte;
+  final int? Tva;
+  final int? Price;
+  final String? observation;
+  final int? kilometrage;
+  final int? Extra;
+  final String? idCiterne;
+  final String? Designation;
+  final String? login;
+
   MovementGet({
-    this.id,
-    this.id_Store,
-    this.id_delivery,
-    this.TypeMvt,
-    this.id_Vehicule,
-    this.id_TypePanne,
-    this.DateMvt,
-    this.Reference,
-    this.NumBon,
-    this.Qte,
-    this.Tva,
-    this.Price,
-    this.observation,
-    this.kilometrage,
-    this.Extra,
-    this.idCiterne,
-    this.Designation,
-    this.login,
+    required this.id,
+    required this.id_Store,
+    required this.id_delivery,
+    required this.TypeMvt,
+    required this.id_Vehicule,
+    required this.id_TypePanne,
+    required this.DateMvt,
+    required this.Reference,
+    required this.NumBon,
+    required this.Qte,
+    required this.Tva,
+    required this.Price,
+    required this.observation,
+    required this.kilometrage,
+    required this.Extra,
+    required this.idCiterne,
+    required this.Designation,
+    required this.login,
   });
 
   factory MovementGet.fromJson(Map<String, dynamic> json) => MovementGet(
