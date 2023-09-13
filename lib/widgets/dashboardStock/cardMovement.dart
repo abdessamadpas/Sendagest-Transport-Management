@@ -23,18 +23,35 @@ class _CardMovemetState extends State<CardMovemet> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
+      margin: const EdgeInsets.only(
+        left: 0.0,
+        right: 0.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(7.0),
+      ),
       child: ExpansionTile(
-        collapsedBackgroundColor: Color.fromARGB(255, 255, 255, 255),
+        collapsedBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
         title: Container(
           height: 70,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Container(
+                    width: 4.0,
+                    height: 25.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: widget.mouvement.TypeMvt.toString() == "E"
+                          ? kGreen
+                          : kRed,
+                    ),
+                  ),
                   ClipRect(
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
@@ -51,7 +68,7 @@ class _CardMovemetState extends State<CardMovemet> {
                               widget.mouvement.TypeMvt.toString() == "E"
                                   ? "E"
                                   : "S",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: kDarkBlue,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold)),
@@ -59,20 +76,21 @@ class _CardMovemetState extends State<CardMovemet> {
                       ),
                     ),
                   ),
-                  Gap(15),
+                  const Gap(15),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(widget.mouvement.Reference,
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
+                          style: const TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.black,
                           )),
                       Gap(7),
                       Text(
-                        widget.mouvement.Qte.toString() + "units",
-                        style: TextStyle(
+                        widget.mouvement.Qte.toString() + " Units",
+                        style: const TextStyle(
                           fontSize: 14,
                           color: lightGray,
                           fontWeight: FontWeight.w400,
