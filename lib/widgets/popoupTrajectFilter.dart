@@ -91,6 +91,7 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                   hint: 'client',
                   isCitySelected: true,
                   cities: controller.listOfCities,
+                  type: 'client',
                 ),
                 const SizedBox(
                   height: 10,
@@ -100,6 +101,8 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                       controller.vehiculeTextEditingController,
                   // title: 'vehicle ',
                   hint: 'vehicle',
+                  type: 'vehicle',
+
                   isCitySelected: true,
                   cities: controller.listOfVehicles,
                 ),
@@ -112,6 +115,7 @@ class _DropDownListExampleState extends State<DropDownListExample> {
                   // title: 'traject number ',
                   hint: ' traject number',
                   isCitySelected: false,
+                  type: 'traject number',
                 ),
                 const SizedBox(
                   height: 20,

@@ -52,6 +52,13 @@ class SideMenu extends StatelessWidget {
             },
           ),
           DrawerListTile(
+            icon: TernavIcons.lightOutline.menu,
+            title: "Consommation Carburant",
+            onTap: () {
+              Get.toNamed("/consommation");
+            },
+          ),
+          DrawerListTile(
             icon: TernavIcons.lightOutline.settings,
             title: "Maintenance",
             onTap: () {},

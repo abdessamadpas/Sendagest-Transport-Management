@@ -85,6 +85,8 @@ class _PopupFactureFilterState extends State<PopupFactureFilter> {
                   textEditingController: controller.clientTextEditingController,
                   // title: 'client',
                   hint: 'Client',
+                  type: 'client',
+
                   isCitySelected: true,
                   cities: controller.listOfClients,
                 ),
@@ -107,6 +109,8 @@ class _PopupFactureFilterState extends State<PopupFactureFilter> {
                       controller.invoiceTextEditingController,
                   // title: 'traject number ',
                   hint: ' Facture number',
+                  type: 'facture number',
+
                   isCitySelected: false,
                 ),
                 const SizedBox(

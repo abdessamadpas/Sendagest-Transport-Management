@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:sendatrack/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:sendatrack/constant.dart';
 import 'package:get/get.dart';
 import 'package:sendatrack/controllers/stock/logMovementController.dart';
 import 'package:sendatrack/widgets/custom_date_range_picker.dart';
@@ -11,18 +9,16 @@ import 'package:sendatrack/widgets/multiSelectInput.dart';
 
 class HeaderMovementList extends StatefulWidget {
   const HeaderMovementList({super.key});
-
   @override
   State<HeaderMovementList> createState() => _HeaderMovementListState();
 }
 
 class _HeaderMovementListState extends State<HeaderMovementList> {
   LogMovementController controller = Get.put(LogMovementController());
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,8 +27,8 @@ class _HeaderMovementListState extends State<HeaderMovementList> {
               children: [
                 Expanded(
                     child: Container(
-                  height: 40,
-                  width: 200,
+                  height: 45,
+                  // width: 200,
                   margin: EdgeInsets.only(top: 8),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -46,9 +42,10 @@ class _HeaderMovementListState extends State<HeaderMovementList> {
                     style: const TextStyle(color: Colors.grey),
                     decoration: const InputDecoration(
                       hintText: 'Search',
-                      hintStyle: TextStyle(color: Colors.grey),
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(255, 156, 156, 156)),
                       prefixIcon:
-                          Icon(Icons.search, color: TestColor, size: 20),
+                          Icon(Icons.search, color: lightBlue, size: 20),
                       fillColor: Colors.white,
                       focusedBorder: UnderlineInputBorder(
                         // borderRadius: BorderRadius.circular(10),
@@ -72,24 +69,49 @@ class _HeaderMovementListState extends State<HeaderMovementList> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  AppTextField(
-                    textEditingController:
-                        controller.storeTextEditingController,
-                    // title: 'client',
-                    hint: 'Client',
-                    isCitySelected: true,
-                    cities: controller.listOfStores,
+                  Expanded(
+                    child: AppTextField(
+                      textEditingController:
+                          controller.storeTextEditingController,
+                      title: 'Stores',
+                      type: 'Store',
+                      hint: 'choose store',
+                      isCitySelected: true,
+                      cities: controller.listOfStores,
+                    ),
                   ),
-                  const Gap(15),
+                  const Gap(20),
                   Row(
                     children: [
-                      Text(controller.startDate != null
-                          ? controller.startDate.toString().substring(0, 10)
-                          : 'Start Date'),
-                      Gap(10),
+                      controller.startDate != null && controller.endDate != null
+                          ? Column(
+                              children: [
+                                Text(
+                                    controller.startDate != null
+                                        ? controller.startDate
+                                            .toString()
+                                            .substring(0, 10)
+                                        : 'select a Date',
+                                    style: const TextStyle(
+                                        color: lightBlue,
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 15)),
+                                Text(
+                                    controller.endDate != null
+                                        ? controller.endDate
+                                            .toString()
+                                            .substring(0, 10)
+                                        : 'end',
+                                    style: const TextStyle(
+                                        color: lightBlue,
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 15))
+                              ],
+                            )
+                          : Container(),
                       IconButton(
                         icon: const Icon(Icons.calendar_month_outlined),
-                        color: Colors.grey,
+                        color: lightBlue,
                         onPressed: () {
                           showCustomDateRangePicker(
                             context,

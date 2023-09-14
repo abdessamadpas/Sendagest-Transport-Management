@@ -14,10 +14,8 @@ import 'package:sendatrack/model/depotInfo.dart';
 class LogMovementController extends GetxController {
   final TextEditingController storeTextEditingController =
       TextEditingController();
-  late List<SelectedListItem> listOfStores = <SelectedListItem>[];
-
-  RxBool tangerStore = false.obs;
-  RxBool casaStore = false.obs;
+  RxList<SelectedListItem> listOfStores = <SelectedListItem>[].obs;
+  RxList selectedList = [].obs;
   RxString status = "".obs;
   RxList<MovementGet> stockList = <MovementGet>[].obs;
   RxList<MovementGet> stockListFiltered = <MovementGet>[].obs;
@@ -29,98 +27,54 @@ class LogMovementController extends GetxController {
 
   RxBool isLoading = true.obs;
   @override
-  void onInit() async {
-    listOfStores = await fetchStores();
+  void onInit() {
+    super.onInit();
+    fetchStores();
     fetchStock();
     isSavedTime.value = false;
     ever(isSavedTime, (_) {
       fetchStock();
     });
-    ever(tangerStore, (_) async {
+
+    ever(selectedList, (_) async {
       stockList.clear();
       stockListFiltered.clear();
       await fetchStock();
     });
-    ever(casaStore, (_) async {
-      stockList.clear();
-      stockListFiltered.clear();
-      await fetchStock();
-    });
-    ever(status, (_) async {
-      stockList.clear();
-      stockListFiltered.clear();
-      await fetchStock();
-    });
-    super.onInit();
   }
+
 //!fetch stores
 
-  Future<List<SelectedListItem>> fetchStores() async {
+  Future<void> fetchStores() async {
     List<SelectedListItem> stores = [];
+    listOfStores.clear();
 
     try {
       List<DepotInfo> data = await StockService.getDepotInfo("Store");
       data.forEach((store) {
-        stores.add(SelectedListItem(
+        listOfStores.add(SelectedListItem(
           name: store.description!,
         ));
       });
-      return stores;
     } catch (error) {
       print('Error fetching clients: $error');
-      return [];
     }
-  }
-
-  void changeStateShip(String value) {
-    if (_isFetching) return; // Ignore state changes when fetching data
-
-    if (value == 'tanger') {
-      tangerStore.value = !tangerStore.value;
-      casaStore.value = false;
-      isLoading.value = true;
-    } else if (value == 'casa') {
-      casaStore.value = !casaStore.value;
-      tangerStore.value = false;
-      isLoading.value = true;
-    } else {
-      tangerStore.value = false;
-      casaStore.value = false;
-      isLoading.value = true;
-    }
-
-    _isFetching = true;
-    //!  Wait for 800 milliseconds before fetching data
-    Future.delayed(Duration(milliseconds: 1), () {
-      fetchStock().then((_) {
-        _isFetching = false;
-      });
-    });
   }
 
   Future<void> fetchStock() async {
-    if (tangerStore.value == true) {
-      status.value = "siege";
-    } else if (casaStore.value == true) {
-      status.value = "Dépôt Casa";
-    } else if (tangerStore.value == false && casaStore.value == false) {
-      status.value = "all";
-    }
-
     isLoading.value = true;
+    print("selectedListttttttt $selectedList ${selectedList.length}");
+
     List<MovementGet> data = await MovementService.GetMovements();
-    if (status.value == "all") {
+    if (selectedList.isEmpty) {
       data = await data.toList();
-    } else if (status.value == "siege") {
-      data =
-          await data.where((element) => element.id_Store == "siege").toList();
-    } else if (status.value == "Dépôt Casa") {
-      data = await data
-          .where((element) => element.id_Store == "Dépôt Casa")
+    } else {
+      data = data
+          .where((element) => selectedList.contains(element.id_Store))
           .toList();
     }
 
-//! for feltring with date
+    //! for feltring with date
     if (startDate != null && endDate != null) {
       print("filtering by date");
       print("startDate $startDate");

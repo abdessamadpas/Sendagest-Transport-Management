@@ -10,6 +10,7 @@ import '../bindings/trajectDetails_binding.dart';
 import '../screens/splashScreen.dart';
 import '../screens/managementStockScreen/statisticsStockScreen.dart';
 import '../screens/managementStockScreen/movementScreen.dart';
+import '../screens/consommationScreen.dart';
 import '../screens/managementStockScreen/movementLogsScreen.dart';
 
 part 'app_routes.dart';
@@ -56,6 +57,11 @@ class AppPages {
       name: _Paths.trajects,
       page: () => Trajects(),
       binding: TrajectsBinding(),
+    ),
+    GetPage(
+      name: _Paths.consommation,
+      page: () => ConsommationScreen(),
+      // binding: TrajectsBinding(),
     ),
   ];
 }

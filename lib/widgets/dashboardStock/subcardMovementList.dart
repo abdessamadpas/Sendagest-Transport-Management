@@ -74,7 +74,10 @@ class _SubCardMovementState extends State<SubCardMovement> {
                                     color: Color.fromARGB(255, 122, 122, 122),
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14)),
-                            Text(widget.mouvement.TypeMvt ?? '',
+                            Text(
+                                widget.mouvement.TypeMvt == "E"
+                                    ? "Entrée"
+                                    : "Sortie",
                                 style: const TextStyle(
                                     color: Color.fromARGB(255, 0, 0, 0),
                                     fontWeight: FontWeight.w500,
@@ -98,7 +101,7 @@ class _SubCardMovementState extends State<SubCardMovement> {
                                     color: Color.fromARGB(255, 122, 122, 122),
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14)),
-                            Text('${widget.mouvement.Price} £',
+                            Text('${widget.mouvement.Price} DHs ',
                                 style: const TextStyle(
                                     color: kGreen,
                                     fontWeight: FontWeight.w500,

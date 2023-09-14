@@ -64,14 +64,15 @@ class _CardMovemetState extends State<CardMovemet> {
                             color: Color.fromARGB(255, 210, 241, 255)
                                 .withOpacity(0.3)),
                         child: Center(
-                          child: Text(
-                              widget.mouvement.TypeMvt.toString() == "E"
-                                  ? "E"
-                                  : "S",
-                              style: const TextStyle(
-                                  color: kDarkBlue,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold)),
+                          child: Icon(
+                            widget.mouvement.TypeMvt.toString() == "E"
+                                ? Icons.login_rounded
+                                : Icons.logout_rounded,
+                            color: widget.mouvement.TypeMvt.toString() == "E"
+                                ? kGreen
+                                : kRed,
+                            size: 25,
+                          ),
                         ),
                       ),
                     ),
@@ -91,9 +92,9 @@ class _CardMovemetState extends State<CardMovemet> {
                       Text(
                         widget.mouvement.Qte.toString() + " Units",
                         style: const TextStyle(
-                          fontSize: 14,
+                          fontSize: 15,
                           color: lightGray,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -110,13 +111,13 @@ class _CardMovemetState extends State<CardMovemet> {
             Text(
               widget.mouvement.id_Store,
               style: TextStyle(
-                  fontSize: 14, fontWeight: FontWeight.w400, color: lightGray),
+                  fontSize: 15, fontWeight: FontWeight.w600, color: lightGray),
             ),
             Gap(7),
             Text(controller.changeDate(widget.mouvement.DateMvt),
                 style: TextStyle(
                     fontSize: 15,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w700,
                     color: Colors.black)),
           ],
         ),

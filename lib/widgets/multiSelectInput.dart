@@ -1,6 +1,10 @@
 import 'package:drop_down_list/drop_down_list.dart';
 import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:sendatrack/constant.dart';
+import 'package:sendatrack/widgets/dashboardStock/subcardMovementList.dart';
+import 'package:sendatrack/controllers/stock/logMovementController.dart';
+import 'package:get/get.dart';
 
 class AppTextField extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -8,6 +12,8 @@ class AppTextField extends StatefulWidget {
   final String hint;
   final bool isCitySelected;
   final List<SelectedListItem>? cities;
+  final String type;
+  // final dynamic controllerUsed;
 
   const AppTextField({
     required this.textEditingController,
@@ -15,6 +21,8 @@ class AppTextField extends StatefulWidget {
     required this.hint,
     required this.isCitySelected,
     this.cities,
+    required this.type,
+    // this.controllerUsed,
     Key? key,
   }) : super(key: key);
 
@@ -23,14 +31,16 @@ class AppTextField extends StatefulWidget {
 }
 
 class _AppTextFieldState extends State<AppTextField> {
+  LogMovementController controller = Get.put(LogMovementController());
+
   /// This is on text changed method which will display on city text field on changed.
   void onTextFieldTap() {
     DropDownState(
       DropDown(
         isDismissible: true,
-        bottomSheetTitle: const Text(
-          "Clients",
-          style: TextStyle(
+        bottomSheetTitle: Text(
+          widget.type,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.0,
           ),
@@ -44,22 +54,29 @@ class _AppTextFieldState extends State<AppTextField> {
         ),
         data: widget.cities ?? [],
         selectedItems: (List<dynamic> selectedList) {
+          controller.selectedList.clear();
           List<String> list = [];
           for (var item in selectedList) {
             if (item is SelectedListItem) {
               list.add(item.name);
+
+              for (var item in list) {
+                controller.selectedList.add(item);
+              }
             }
           }
-          showSnackBar(list.toString());
+          controller.fetchStock();
+
+          // widget.controllerUsed.selectedList = list.toString();
+          // showSnackBar(list.toString());
           setState(() {
-            String arrayAsString = list.join('- ');
+            String arrayAsString = list.join('🖇️ ');
             widget.textEditingController.text = arrayAsString.toString();
           });
         },
 
-        //! to  enable multiple selection
-
-        enableMultipleSelection: false,
+        //! to  enable multiple
+        enableMultipleSelection: true,
       ),
     ).showModal(context);
   }
@@ -90,23 +107,24 @@ class _AppTextFieldState extends State<AppTextField> {
               : null,
           decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.black12,
+            fillColor: Color.fromARGB(255, 255, 255, 255),
             contentPadding:
                 const EdgeInsets.only(left: 8, bottom: 0, top: 0, right: 15),
             hintText: widget.hint,
             border: const OutlineInputBorder(
               borderSide: BorderSide(
-                width: 0,
-                style: BorderStyle.none,
+                width: 1,
+                color: Color.fromARGB(255, 201, 23, 23),
               ),
               borderRadius: BorderRadius.all(
                 Radius.circular(8.0),
               ),
             ),
+            suffixIcon: const Icon(
+              Icons.arrow_downward_outlined,
+              color: lightBlue,
+            ), // You can use any icon you like here
           ),
-        ),
-        const SizedBox(
-          height: 15.0,
         ),
       ],
     );
