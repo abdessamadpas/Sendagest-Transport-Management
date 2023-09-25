@@ -16,25 +16,24 @@ flutter run
 ## User interfaces
 
 landing and dashboard screens
-![image](https://github.com/abdessamadpas/sendatrack/assets/53188247/c8e22084-fc25-4e47-a534-774d2265090e)
+![1](https://github.com/abdessamadpas/sendatrack/assets/53188247/80772b3e-95ea-4f1f-b66e-0986d22e8a64)
 
 trajects 
-![image](https://github.com/abdessamadpas/sendatrack/assets/53188247/24dc96b3-0099-459a-abcf-fc649002bb8a)
+![traject](https://github.com/abdessamadpas/sendatrack/assets/53188247/014ab9bf-1e9b-428a-96a1-37bbb86d2d07)
 
 filter trajects
-![image](https://github.com/abdessamadpas/sendatrack/assets/53188247/d891e18a-6894-4edf-aa63-a0bba28bace5)
+![image](https://github.com/abdessamadpas/sendatrack/assets/53188247/6a9e988f-4c3d-4da0-a626-38ed46da6e54)
 
 invoices 
-![image](https://github.com/abdessamadpas/sendatrack/assets/53188247/efbc6fc8-9ee4-4a07-8a16-655966a9715b)
+![invoices](https://github.com/abdessamadpas/sendatrack/assets/53188247/5294eae4-1421-4240-8329-50f042b7355e)
 
 filter invoices
-![image](https://github.com/abdessamadpas/sendatrack/assets/53188247/9a6d30b0-65a5-4454-ac93-4d8bf24503b3)
+![image](https://github.com/abdessamadpas/sendatrack/assets/53188247/59b8c9a4-21e4-406d-a82c-2c692193daf4)
 
 stock
-![image](https://github.com/abdessamadpas/sendatrack/assets/53188247/69561549-2486-462b-ab85-5d0ea4f9abbf)
+![stock details](https://github.com/abdessamadpas/sendatrack/assets/53188247/c1bc12e8-0e9b-42b2-8880-fd0d1238278a)
 
 stock elements
-![image](https://github.com/abdessamadpas/sendatrack/assets/53188247/7d8df0b4-38e3-41cd-9de3-2a153df5e111)
 
 <!-- CONTRIBUTING -->
 ## Contributing
